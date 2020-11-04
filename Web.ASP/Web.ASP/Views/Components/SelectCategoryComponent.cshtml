@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Web.ASP.models.CATEGORY>
+
+@{
+    
+    <div class="left_dorp">
+        <select class="sorting">
+            <option value="">Danh mục sách</option>
+            @foreach (var element in Model)
+            {
+                <option value="@element.C_id">@element.nameCategory</option>
+            }
+        </select>
+    </div>
+  }

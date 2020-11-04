@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Web.ASP.models.PUBLISHING_HOUSE>
+
+@{
+    <div class="left_dorp">
+        <select class="sorting">
+            <option value="">Nhà xuất bản</option>
+            @foreach (var element in Model)
+            {
+                <option value="@element.C_id">@element.namePublishingHouse</option>
+            }
+        </select>
+    </div>
+}

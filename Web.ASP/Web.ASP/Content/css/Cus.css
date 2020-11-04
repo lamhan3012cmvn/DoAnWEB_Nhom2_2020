@@ -1,0 +1,16 @@
+﻿.f_p_item.book_items {
+    height: 400px !important;
+    width: auto !important;
+
+}
+.f_p_item.book_items .f_p_img {
+    height : 80%;
+    width : 100% ;
+
+}
+
+.f_p_item.book_items .f_p_img img {
+    height : 100%;
+    width : auto;
+}
+

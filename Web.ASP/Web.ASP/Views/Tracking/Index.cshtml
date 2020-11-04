@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Tracking";
+}
+<!--================Header Menu Area =================-->
+@Html.Partial("_HeaderComponent")
+<!--================Header Menu Area =================-->
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Theo dõi đơn hàng</h2>
+                <div class="page_link">
+                    <a href="/Home/Index">Trang chủ</a>
+                    <a href="/Tracking/Index">Theo dõi đơn hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Tracking Box Area =================-->
+<section class="tracking_box_area p_120">
+    <div class="container">
+        <div class="tracking_box_inner">
+            <p>
+                Để theo dõi đơn hàng của bạn vui lòng nhập mã đơn hàng của bạn và nhấn vào "Theo dõi đơn hàng". Hóa đơn 
+                của bạn sẽ được gửi về email của bạn.
+            </p>
+            <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" id="order" name="order" placeholder="Mã đơn hàng">
+                </div>
+                <div class="col-md-12 form-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Địa chỉ Email">
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="btn submit_btn">Theo dõi đơn hàng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!--================End Tracking Box Area =================-->
+<!--================ start footer Area  =================-->
+@Html.Partial("_FooterComponent")
+<!--================ End footer Area  =================-->

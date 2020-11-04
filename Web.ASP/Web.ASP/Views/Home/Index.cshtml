@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Web.ASP.models.BOOK>
+
+
+@{
+    ViewBag.Title = "Home";
+}
+
+@Html.Partial("_HeaderComponent")
+<section class="home_banner_area">
+    <div class="overlay"></div>
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content row">
+                <div class="offset-lg-2 col-lg-8">
+                    <h3>
+                        Một cuốn sách hay cho ta một điều tốt
+                        <br />Một người bạn tốt cho ta một điều hay
+                    </h3>
+                    <p>
+                        - Guslave La Bon -
+                    </p>
+                    <a class="white_bg_btn" href="/Category/Index">Xem sản phẩm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Feature Product Area =================-->
+<section class="feature_product_area section_gap">
+    <div class="main_box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="main_title">
+                    <h2>Sách bán chạy</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                @if (!(Model is null))
+                {
+                    foreach (var book in Model.ToList())
+                    {
+                        @Html.Partial("../Components/BookItemComponent", book)
+                    }
+                }
+
+            </div>
+
+            <div class="row">
+                <nav class="cat_page mx-auto" aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#">
+                                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        @if(!(Model is null))
+                        {
+                            for (int i = 0; i <= Model.ToList().Count / 10; i++)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="#">@i</a>
+                                </li>
+                            }
+                        }
+
+                        <li class="page-item">
+                            <a class="page-link" href="#">
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Partial("_SubscriptionComponent");
+<!--================ End Subscription Area ================-->
+<!--================ start footer Area  =================-->
+@Html.Partial("_FooterComponent")
+<!--================ End footer Area  =================-->

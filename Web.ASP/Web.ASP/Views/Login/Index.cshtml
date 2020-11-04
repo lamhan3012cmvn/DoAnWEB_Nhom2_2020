@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<!--================Header Menu Area =================-->
+@Html.Partial("_HeaderComponent")
+<!--================Header Menu Area =================-->
+<!--================Home Banner Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Đăng nhập/Đăng kí</h2>
+                <div class="page_link">
+                    <a href="/Home/Index">Trang chủ</a>
+                    <a href="/Login/Index">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Home Banner Area =================-->
+<!--================Login Box Area =================-->
+
+
+<section class="login_box_area p_120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                @Html.Partial("_ImgLoginRegisterComponent")
+            </div>
+            <div class="col-lg-6">
+           
+                <div class="login_form_inner">
+                    @if (@ViewBag.Mess != "")
+                    {
+                        <h4 style="text-align:center">@ViewBag.Mess</h4>
+                    }
+                    <h2>Đăng nhập</h2>
+                    <form class="row login_form" action="/Login/Validate" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="name" name="C_email_ID" placeholder="Email">
+                        </div>
+                        @if (@ViewBag.MessEmail != "")
+                        {
+                            <h4 style="text-align:center">@ViewBag.MessEmail</h4>
+                        }
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="name" name="password" placeholder="Mật khẩu">
+                        </div>
+                        @if (@ViewBag.MessPass != "")
+                        {
+                            <h4 style="text-align:center">@ViewBag.MessPass</h4>
+                        }
+                        <div class="col-md-12 form-group">
+                            <div class="creat_account">
+                                <input type="checkbox" id="f-option2" name="selector">
+                                <label for="f-option2">Nhớ mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" class="btn submit_btn">Đăng nhập</button>
+                            <a href="#">Quên mật khẩu?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+<!--================ Subscription Area ================-->
+@Html.Partial("_SubscriptionComponent");
+<!--================ End Subscription Area ================-->
+<!--================ start footer Area  =================-->
+@Html.Partial("_FooterComponent")
+<!--================ End footer Area  =================-->
