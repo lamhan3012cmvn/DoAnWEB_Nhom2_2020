@@ -1,0 +1,65 @@
+﻿
+@Html.Partial("_HeaderComponent")
+
+<section class="addCart_box_area p_120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="cart_box_img">
+                    <img class="img-fluid" src="~/Content/img/login8.jpeg" alt="">
+                    <div class="hover">
+                        <h4>Team Nụ Nụ</h4>
+                        <p>Tạo tài khoản để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều ưu đãi hấp dẫn</p>
+                        <a class="main_btn" href="/Registration/Index">Tạo tài khoản</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                 
+                <form class="cart_form_inner" action="/Category/AddCart " method="post">
+                    <h2>Thêm Sách</h2>
+                    <div class="col-md-10 form-group mx-auto">
+                        <input class="col-md-12 form-control"name="nameBook" placeholder="Nhập tên sách" type="text" />
+                    </div>
+                    <div class="col-md-10 form-group  mx-auto">
+                        <textarea class="col-md-12 form-control  " name="contentBook"  placeholder="Nhập tên sách" type="text"></textarea>
+                    </div>
+                    <div class="col-md-10 form-group  mx-auto">
+                        <input class="col-md-12 form-control" name="countBook" placeholder="Số Lượng Sách" type="number" />
+                    </div>
+                    <div class="col-md-10 form-group  mx-auto">
+                        <input class="col-md-12 form-control" name="priceBook" placeholder="Giá Sách" type="number" />
+                    </div>
+                    <div class="col-md-10 form-group mx-auto">
+                        <div class="left_dorp">
+                            <select class="sorting w-100" name="categoryBook_ID">
+                                <option value="">Thể Loại</option>
+                                @foreach (var element in ViewBag.categoryBook.Items)
+                                {
+                                    <option value="@element.C_id">@element.nameCategory</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-10 form-group  mx-auto">
+                        <div class="left_dorp">
+                            <select class="sorting w-100" name="publishingHouseBook_ID" onfocus='this.size=3;' onblur='this.size=1;' onchange='this.size=1;' this.blur();>
+                                <option value="">Nhà Xuất Bản</option>
+                                @foreach (var element in ViewBag.publishingHouseBook.Items)
+                                {
+                                    <option value="@element.C_id">@element.namePublishingHouse</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-10 form-group mx-auto">
+                        <button class="btn submit_btn">Nhập Sách</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+

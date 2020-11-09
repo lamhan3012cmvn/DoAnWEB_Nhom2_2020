@@ -16,5 +16,73 @@ namespace Web.ASP.Controllers
             var db = new BookStoreNewEntities();
             return View(db.BOOKs);
         }
+        // Login
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Validate(string C_email_ID, string password)
+        {
+            if (String.IsNullOrEmpty(C_email_ID))
+            {
+                ViewBag.MessEmail = "Vui lòng nhập email";
+            }
+            if (String.IsNullOrEmpty(password))
+            {
+                ViewBag.MessPass = "Vui lòng nhập mật khẩu";
+            }
+            var db = new BookStoreNewEntities();
+            var user = db.AUTHs.Find(C_email_ID);
+            if (user is null)
+            {
+                ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
+                return View("Index");
+            }
+            else
+            {
+                if (user.password.Trim() != password)
+                {
+                    ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
+                    return View("Index");
+                }
+            }
+            return RedirectToAction("../Home/Index");
+        }
+        // Registor
+        public ActionResult Registration()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(string email, string password, string confirmpassword)
+        {
+            if (String.IsNullOrEmpty(email))
+            {
+                ViewBag.MessEmail = "Vui lòng nhập email";
+            }
+            if (String.IsNullOrEmpty(password))
+            {
+                ViewBag.MessPass = "Vui lòng nhập mật khẩu";
+            }
+            if (String.IsNullOrEmpty(confirmpassword))
+            {
+                ViewBag.MessConfirm = "Vui lòng nhập mật khẩu";
+            }
+            var db = new BookStoreNewEntities();
+            var user = db.AUTHs.Find(email);
+            if (!(user is null) || password != confirmpassword)
+            {
+                ViewBag.Mess = "Đăng kí không thành công";
+                return View("Index");
+            }
+            var acc = new AUTH();
+            acc.C_email_ID = email;
+            acc.password = password;
+            db.AUTHs.Add(acc);
+            db.SaveChanges();
+            return View("../Home/Index", db.BOOKs);
+        }
+
     }
 }

@@ -8,8 +8,13 @@ namespace Web.ASP.Controllers
 {
     public class BlogController : Controller
     {
-        // GET: Blog
+        // Blog
         public ActionResult Index()
+        {
+            return View();
+        }
+        // SingleBlog
+        public ActionResult SingleBlog()
         {
             return View();
         }

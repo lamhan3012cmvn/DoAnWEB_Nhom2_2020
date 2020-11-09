@@ -5575,6 +5575,116 @@ h6 {
 /* End Cart Area css
 ============================================================================================ */
 
+/* Add Cart form Area css
+============================================================================================ */
+
+.addCart_box_area .cart_box_img {
+    margin-right: -30px;
+    position: relative;
+    height:100%;
+}
+
+    .addCart_box_area .cart_box_img .hover {
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        text-align: center;
+        width: 100%;
+        transform: translateY(-50%);
+    }
+
+        .addCart_box_area .cart_box_img .hover h4 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .addCart_box_area .cart_box_img .hover p {
+            max-width: 380px;
+            margin: 0px auto 25px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .addCart_box_area .cart_box_img .hover .main_btn {
+            border-radius: 0px;
+            line-height: 38px;
+            text-transform: uppercase;
+        }
+
+.cart_form_inner {
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.07);
+    height: 100%;
+    padding-top: 50px;
+}
+
+    .cart_form_inner h2 {
+        color: #222222;
+        text-transform: uppercase;
+        font-size: 24px;
+        margin-bottom: 50px;
+        margin-top:0px;
+        text-align:center;
+    }
+
+    .cart_form_inner .login_form {
+        max-width: 385px;
+        margin: auto;
+    }
+
+    .cart_form_inner.reg_form {
+        padding-top: 60px;
+    }
+
+        .cart_form_inner.reg_form h3 {
+            margin-bottom: 70px;
+        }
+
+    .cart_form_inner .form-group input,
+    .cart_form_inner .form-group textarea,
+    .cart_form_inner .form-group .left_dorp {
+        height: 54px;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        border-radius: 0px;
+        outline: none;
+        box-shadow: none;
+    }
+    .cart_form_inner .form-group textarea {
+        resize: none;
+        height: 80px;
+    }
+    .cart_form_inner .form-group .left_dorp div {
+        height: 54px;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        border-radius: 0px;
+        outline: none;
+        box-shadow: none;
+    }
+
+
+
+    .cart_form_inner .form-group .submit_btn {
+        display: block;
+        border-radius: 0px;
+        width: 100%;
+        text-transform: uppercase;
+    }
+/*
+.login_form .form-group a {
+    font-size: 14px;
+    color: #777777;
+    font-family: "Roboto", sans-serif;
+    margin-top: 20px;
+    display: block;
+}*/
+
+
+/* End Add Cart form Area css
+============================================================================================ */
+
+
 
 /* Login form Area css
 ============================================================================================ */

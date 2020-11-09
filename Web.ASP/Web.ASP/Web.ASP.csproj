@@ -320,26 +320,18 @@
     <Content Include="Scripts\theme.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AddbookController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\BOOKsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\CheckoutController.cs" />
-    <Compile Include="Controllers\ConfirmationController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\RegistrationController.cs" />
-    <Compile Include="Controllers\SingleBlogController.cs" />
-    <Compile Include="Controllers\SingleBookController.cs" />
-    <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -394,21 +386,25 @@
     <Content Include="Views\Shared\_HeaderComponent.cshtml" />
     <Content Include="Views\Shared\_FooterComponent.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Category\Cart.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Checkout\Index.cshtml" />
-    <Content Include="Views\Confirmation\Index.cshtml" />
+    <Content Include="Views\Category\Checkout.cshtml" />
+    <Content Include="Views\Category\Confirmation.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
-    <Content Include="Views\SingleBlog\Index.cshtml" />
-    <Content Include="Views\SingleBook\Index.cshtml" />
-    <Content Include="Views\Tracking\Index.cshtml" />
+    <Content Include="Views\Blog\SingleBlog.cshtml" />
+    <Content Include="Views\Category\SingleBook.cshtml" />
+    <Content Include="Views\Category\Tracking.cshtml" />
     <Content Include="Views\Shared\_SubscriptionComponent.cshtml" />
     <Content Include="Views\Shared\_ImgLoginRegisterComponent.cshtml" />
     <Content Include="Views\Components\BookItemComponent.cshtml" />
-    <Content Include="Views\SingleBook\test.cshtml" />
-    <Content Include="Views\Addbook\Index.cshtml" />
     <Content Include="Views\Components\SelectCategoryComponent.cshtml" />
     <Content Include="Views\Components\SelectPublishingHouseComponent.cshtml" />
+    <Content Include="Views\Category\AddCart.cshtml" />
+    <Content Include="Views\BOOKs\Create.cshtml" />
+    <Content Include="Views\BOOKs\Delete.cshtml" />
+    <Content Include="Views\BOOKs\Details.cshtml" />
+    <Content Include="Views\BOOKs\Edit.cshtml" />
+    <Content Include="Views\BOOKs\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
