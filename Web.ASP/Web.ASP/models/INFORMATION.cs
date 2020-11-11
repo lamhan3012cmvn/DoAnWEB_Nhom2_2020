@@ -14,15 +14,13 @@ namespace Web.ASP.models
     
     public partial class INFORMATION
     {
+        public string C_id { get; set; }
         public string nameInformation { get; set; }
         public string maleInformation { get; set; }
         public string phoneInformation { get; set; }
         public string addressInformation { get; set; }
-        public string authentication_ID { get; set; }
-        public string book_ID { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
+        public System.DateTime birthday { get; set; }
     
         public virtual AUTH AUTH { get; set; }
-        public virtual BOOK BOOK { get; set; }
     }
 }

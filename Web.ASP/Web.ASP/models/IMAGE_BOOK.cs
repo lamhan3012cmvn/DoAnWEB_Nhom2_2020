@@ -12,29 +12,18 @@ namespace Web.ASP.models
     using System;
     using System.Collections.Generic;
     
-    public partial class BOOK
+    public partial class IMAGE_BOOK
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BOOK()
+        public IMAGE_BOOK()
         {
-            this.AUTHORs = new HashSet<AUTHOR>();
+            this.BOOKs = new HashSet<BOOK>();
         }
     
         public string C_id { get; set; }
-        public string nameBook { get; set; }
-        public double priceBook { get; set; }
-        public string contentBook { get; set; }
-        public int countBook { get; set; }
-        public string imgBook_ID { get; set; }
-        public string categoryBook_ID { get; set; }
-        public string discountBook_ID { get; set; }
-        public string publishingHouseBook_ID { get; set; }
+        public string link { get; set; }
     
-        public virtual CATEGORY CATEGORY { get; set; }
-        public virtual DISCOUNT_BOOK DISCOUNT_BOOK { get; set; }
-        public virtual IMAGE_BOOK IMAGE_BOOK { get; set; }
-        public virtual PUBLISHING_HOUSE PUBLISHING_HOUSE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AUTHOR> AUTHORs { get; set; }
+        public virtual ICollection<BOOK> BOOKs { get; set; }
     }
 }

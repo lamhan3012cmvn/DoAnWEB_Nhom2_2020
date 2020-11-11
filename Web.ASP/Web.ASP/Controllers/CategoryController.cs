@@ -9,16 +9,16 @@ namespace Web.ASP.Controllers
 {
     public class CategoryController : Controller
     {
-        private BookStoreNewEntities db = new BookStoreNewEntities();
+        private Manager_BookEntities db = new Manager_BookEntities();
         // GET: Category
         public ActionResult Index()
         {
-            return View();
+
+            return View(db.BOOKs);
         }
         // Single Book
         public ActionResult SingleBook(String _id)
         {
-            var db = new BookStoreNewEntities();
             ViewBag.book = db.BOOKs.Find(_id);
             return View();
         }
@@ -57,7 +57,11 @@ namespace Web.ASP.Controllers
 
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
             //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
-            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
+            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE.Take(10), "C_id", "namePublishingHouse");
+            return View();
+        }
+        public ActionResult AddCategory()
+        {
             return View();
         }
     }

@@ -114,6 +114,23 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\Cus.css" />
     <Content Include="Content\img\b-1.jfif" />
+    <Content Include="Content\img\b-c-7.jpg" />
+    <Content Include="Content\img\b-c-8.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-CaiTetMeoCon.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-CoNan.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-DeMen.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-Doraemonjpg.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-GuongDanhNhan.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-HaiConMeo.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-LuuSonMinh.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-MotDuaTre.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-OnePiece.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-ThoiGianTuoiDep.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-ToiThayHoaVang.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-ToMau.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-TracNghiem.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-TrenDoi.png" />
+    <Content Include="Content\img\book\book-cover\b-c-XuXu.jpg" />
     <Content Include="Content\img\banner\b-2.jpeg" />
     <Content Include="Content\img\banner\b-3.jpeg" />
     <Content Include="Content\img\icons\users-solid.svg" />
@@ -158,14 +175,6 @@
     <Content Include="Content\img\blog\post-img1.jpg" />
     <Content Include="Content\img\blog\post-img2.jpg" />
     <Content Include="Content\img\blog\prev.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-1.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-2.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-3.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-4.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-5.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-6.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-7.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-8.jpg" />
     <Content Include="Content\img\breadcrumb\checkout-bg.jpg" />
     <Content Include="Content\img\clients-logo\c-logo-1.png" />
     <Content Include="Content\img\clients-logo\c-logo-2.png" />
@@ -280,8 +289,8 @@
     <Content Include="Content\vendors\owl-carousel\.DS_Store" />
     <Content Include="models\dbBook.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>dbBook.Context.cs</LastGenOutput>
       <DependentUpon>dbBook.edmx</DependentUpon>
+      <LastGenOutput>dbBook.Context.cs</LastGenOutput>
     </Content>
     <Content Include="models\dbBook.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -327,6 +336,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Content\support\cus-image.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\BOOKsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -363,6 +373,9 @@
       <DependentUpon>dbBook.edmx</DependentUpon>
     </Compile>
     <Compile Include="models\DISCOUNT_BOOK.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\IMAGE_BOOK.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
     <Compile Include="models\INFORMATION.cs">
@@ -405,6 +418,7 @@
     <Content Include="Views\BOOKs\Details.cshtml" />
     <Content Include="Views\BOOKs\Edit.cshtml" />
     <Content Include="Views\BOOKs\Index.cshtml" />
+    <Content Include="Views\Category\AddCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

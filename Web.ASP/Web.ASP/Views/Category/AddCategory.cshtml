@@ -1,0 +1,32 @@
+﻿
+@Html.Partial("_HeaderComponent")
+
+<section class="addCate_box_area p_120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="cate_box_img">
+                    <img class="img-fluid" src="~/Content/img/login8.jpeg" alt="">
+                    <div class="hover">
+                        <h4>Team Nụ Nụ</h4>
+                        <p>Tạo tài khoản để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều ưu đãi hấp dẫn</p>
+                        <a class="main_btn" href="/Home/Registation">Tạo tài khoản</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form class="cate_form_inner" action="/Category/AddCategory" method="post">
+                    <h2>Thêm thể loại sách</h2>
+                    <div class="col-md-10 form-group mx-auto">
+                        <input class="col-md-12 form-control" name="nameCategory" placeholder="Nhập thể loại sách" type="text" />
+                    </div>
+                    <div class="col-md-10 form-group mx-auto">
+                        <button class="btn submit_btn">Thêm Thể Loại Sách</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+       
+    </div>
+</section>

@@ -22,7 +22,6 @@ namespace Web.ASP.models
     
         public string C_id { get; set; }
         public string nameAuthor { get; set; }
-        public string businessUnits { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BOOK> BOOKs { get; set; }

@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f986ebf5aca4f449e55c0cc42653c09" Name="Diagram1">
-        <EntityTypeShape EntityType="BookStoreNewModel.AUTH" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.AUTHOR" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.BOOK" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.CATEGORY" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.INFORMATION" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookStoreNewModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
-        <AssociationConnector Association="BookStoreNewModel.FK_INFORMATION_AUTH" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreNewModel.FK_BOOK_CATEGORY" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreNewModel.FK_BOOK_DISCOUNT_BOOK" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreNewModel.FK_BOOK_PUBLISHING_HOUSE" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreNewModel.FK_INFORMATION_BOOK" ManuallyRouted="false" />
-        <AssociationConnector Association="BookStoreNewModel.FK_BOOK_AUTHOR" ManuallyRouted="false" />
+      <Diagram DiagramId="1e6f8b8c04784957b7e7ab250db7493c" Name="Diagram1">
+        <EntityTypeShape EntityType="Manager_BookModel.AUTH" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.AUTHOR" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.BOOK" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.CATEGORY" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.IMAGE_BOOK" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.INFORMATION" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Manager_BookModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <AssociationConnector Association="Manager_BookModel.FK_INFORMATION_AUTH" ManuallyRouted="false" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_CATEGORY" ManuallyRouted="false" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK" ManuallyRouted="false" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_IMAGE_BOOK" ManuallyRouted="false" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" ManuallyRouted="false" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_AUTHOR" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

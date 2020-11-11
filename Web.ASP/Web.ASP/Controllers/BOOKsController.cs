@@ -10,9 +10,10 @@ using Web.ASP.models;
 
 namespace Web.ASP.Controllers
 {
+
     public class BOOKsController : Controller
     {
-        private BookStoreNewEntities db = new BookStoreNewEntities();
+        private Manager_BookEntities db = new Manager_BookEntities();
 
         // GET: BOOKs
         public ActionResult Index()

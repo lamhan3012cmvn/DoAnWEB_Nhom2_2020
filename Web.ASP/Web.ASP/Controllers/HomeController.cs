@@ -11,9 +11,9 @@ namespace Web.ASP.Controllers
     public class HomeController : Controller
     {
         // GET: Index
+        private Manager_BookEntities db = new Manager_BookEntities();
         public ActionResult Index()
         {
-            var db = new BookStoreNewEntities();
             return View(db.BOOKs);
         }
         // Login
@@ -32,7 +32,6 @@ namespace Web.ASP.Controllers
             {
                 ViewBag.MessPass = "Vui lòng nhập mật khẩu";
             }
-            var db = new BookStoreNewEntities();
             var user = db.AUTHs.Find(C_email_ID);
             if (user is null)
             {
@@ -69,7 +68,6 @@ namespace Web.ASP.Controllers
             {
                 ViewBag.MessConfirm = "Vui lòng nhập mật khẩu";
             }
-            var db = new BookStoreNewEntities();
             var user = db.AUTHs.Find(email);
             if (!(user is null) || password != confirmpassword)
             {

@@ -13,10 +13,10 @@ namespace Web.ASP.models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BookStoreNewEntities : DbContext
+    public partial class Manager_BookEntities : DbContext
     {
-        public BookStoreNewEntities()
-            : base("name=BookStoreNewEntities")
+        public Manager_BookEntities()
+            : base("name=Manager_BookEntities")
         {
         }
     
@@ -30,6 +30,7 @@ namespace Web.ASP.models
         public virtual DbSet<BOOK> BOOKs { get; set; }
         public virtual DbSet<CATEGORY> CATEGORies { get; set; }
         public virtual DbSet<DISCOUNT_BOOK> DISCOUNT_BOOK { get; set; }
+        public virtual DbSet<IMAGE_BOOK> IMAGE_BOOK { get; set; }
         public virtual DbSet<INFORMATION> INFORMATION { get; set; }
         public virtual DbSet<PUBLISHING_HOUSE> PUBLISHING_HOUSE { get; set; }
     }

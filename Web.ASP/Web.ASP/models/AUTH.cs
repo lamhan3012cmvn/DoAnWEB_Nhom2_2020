@@ -14,17 +14,10 @@ namespace Web.ASP.models
     
     public partial class AUTH
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AUTH()
-        {
-            this.INFORMATION = new HashSet<INFORMATION>();
-        }
-    
         public string C_email_ID { get; set; }
         public string password { get; set; }
         public string powers { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<INFORMATION> INFORMATION { get; set; }
+        public virtual INFORMATION INFORMATION { get; set; }
     }
 }
