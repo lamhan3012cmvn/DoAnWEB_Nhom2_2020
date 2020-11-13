@@ -13,7 +13,14 @@
             </div>
         </div>
         <a href="/Category/SingleBook/Index?_id=@Model.C_id">
-            <h4>@Model.nameBook</h4>
+            @if (@Model.nameBook.Length > 20)
+            {
+                @Model.nameBook.Substring(0, 20);
+            }
+            else
+            {
+                @Model.nameBook;
+            }
         </a>
         <h5>@Model.priceBook VND</h5>
     </div>

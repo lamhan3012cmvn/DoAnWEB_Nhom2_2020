@@ -1,4 +1,7 @@
-﻿
+﻿@model PagedList.IPagedList<Web.ASP.models.BOOK>
+
+
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Category";
 }
@@ -48,21 +51,14 @@
                                         <i class="fas fa-long-arrow-left" aria-hidden="true"></i>
                                     </a>
                                 </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item blank">
-                                    <a class="page-link" href="#">...</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">6</a>
-                                </li>
+                                @for (int i = 1; i <= Model.PageCount; i++)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=@i">
+                                            @i
+                                        </a>
+                                    </li>
+                                }
                                 <li class="page-item">
                                     <a class="page-link" href="#">
                                         <i class="fas fa-long-arrow-right" aria-hidden="true"></i>
@@ -73,158 +69,40 @@
                     </div>
                 </div>
                 <div class="latest_product_inner row">
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-1.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
+                    @if (!(Model is null))
+                    {
+                        foreach (var book in Model.ToList())
+                        {
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <div class="f_p_item book_items">
+                                    <div class="f_p_img">
+                                        <img class="img-fluid" src="@book.IMAGE_BOOK.link" alt="">
+                                        <div class="p_icon">
+                                            <a href="#">
+                                                <i class="lnr lnr-heart"></i>
+                                            </a>
+                                            <a href="#">
+                                                <i class="lnr lnr-cart"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="/Category/SingleBook/Index?_id=@book.C_id">
+                                        <h4>
+                                            @if (@book.nameBook.Length > 20)
+                                            {
+                                                @book.nameBook.Substring(0, 20);
+                                            }
+                                            else
+                                            {
+                                                @book.nameBook;
+                                            }
+                                        </h4>
                                     </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
+                                    <h5>@book.priceBook VND</h5>
                                 </div>
                             </div>
-                            <a href="#">
-                                <h4>Một đứa trẻ vừa chạy trốn khỏi tôi</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-2.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Xu Xu đừng khóc</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-3.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Một đứa trẻ vừa chạy trốn khỏi tôi</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-4.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Có hai con mèo ngồi bên cửa sổ</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-5.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Tôi thấy hoa vàng trên cỏ xanh</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-6.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Thời gian tươi đẹp</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-7.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Hai vạn dạm dưới đáy biển</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div  class="f_p_item book_items">
-                            <div class="f_p_img">
-                                <img class="img-fluid" src="~/Content/img/book/book-cover/b-c-8.jpg" alt="">
-                                <div class="p_icon">
-                                    <a href="#">
-                                        <i class="lnr lnr-heart"></i>
-                                    </a>
-                                    <a href="#">
-                                        <i class="lnr lnr-cart"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <h4>Nhà giả kim</h4>
-                            </a>
-                            <h5>$150.00</h5>
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
             </div>
             <div class="col-lg-3">
@@ -241,7 +119,7 @@
                                 <li>
                                     <a href="#">Bán chạy </a>
                                 </li>
-                             
+
                             </ul>
                         </div>
                     </aside>
@@ -252,7 +130,7 @@
                         <div class="widgets_inner">
                             <ul class="list">
                                 <li class="active">
-                                    <a href="#">Truyện dài</a>
+                                    <a href="">Truyện dài</a>
                                 </li>
                                 <li>
                                     <a href="#">Truyện ngắn</a>
@@ -306,39 +184,9 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <nav class="cat_page mx-auto" aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">01</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">02</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">03</a>
-                    </li>
-                    <li class="page-item blank">
-                        <a class="page-link" href="#">...</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">09</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+
         </div>
-    </div>
 </section>
 <!--================End Category Product Area =================-->
 <!--================ Subscription Area ================-->
@@ -347,3 +195,5 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+
+
