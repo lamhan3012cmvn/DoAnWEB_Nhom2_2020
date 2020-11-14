@@ -12,23 +12,14 @@ namespace Web.ASP.Controllers
     {
         private Manager_BookEntities db = new Manager_BookEntities();
         // GET: Category
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,string? categoryID)
         {
             int pageSize = 8;
             int pageNumber = (page ?? 1);
-            //if (page == null)
-            //    page = 1;​
-
-            //int pageSize = 3;​
-
-            //// 4.1 Toán tử ?? trong C# mô tả nếu page khác null thì lấy giá trị page, còn nếu page = null thì lấy giá trị 1 cho biến pageNumber.​
-
-            //int pageNumber = (page ?? 1);​
-
-            //// 5. Trả về các Link được phân trang theo kích thước và số trang.​
-
-            //return View(db.BOOKs.ToPagedList(pageNumber, pageSize));​
-            return View(db.BOOKs.OrderBy(x=>x.C_id).ToPagedList(pageNumber,pageSize));
+            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            string category = (categoryID ?? "");
+            return View(db.BOOKs.Where(b=>b.categoryBook_ID.Contains(category)).OrderBy(x=>x.C_id).ToPagedList(pageNumber,pageSize));
+          
         }
         // Single Book
         public ActionResult SingleBook(String _id)

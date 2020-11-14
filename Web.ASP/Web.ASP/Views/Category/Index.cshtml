@@ -129,21 +129,16 @@
                         </div>
                         <div class="widgets_inner">
                             <ul class="list">
+
                                 <li class="active">
-                                    <a href="">Truyện dài</a>
+                                    <a href="">Tất Cả</a>
                                 </li>
-                                <li>
-                                    <a href="#">Truyện ngắn</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tản văn</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tự truyện/Hồi ký</a>
-                                </li>
-                                <li>
-                                    <a href="#">Truyện tranh</a>
-                                </li>
+                                @foreach (var element in ViewBag.categoryBook.Items)
+                                {
+                                    <li>
+                                        <a href="?categoryID=@element.C_id">@element.nameCategory</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </aside>
