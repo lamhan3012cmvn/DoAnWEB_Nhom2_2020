@@ -17,9 +17,22 @@ namespace Web.ASP.Controllers
             int pageSize = 8;
             int pageNumber = (page ?? 1);
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             string category = (categoryID ?? "");
             return View(db.BOOKs.Where(b=>b.categoryBook_ID.Contains(category)).OrderBy(x=>x.C_id).ToPagedList(pageNumber,pageSize));
           
+        }
+        public ActionResult loadData(int? page, string? categoryID,string? publishingHouseID)
+        {
+            int pageSize = 8;
+            int pageNumber = (page ?? 1);
+            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            string category = (categoryID ?? "");
+            ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
+            string publishingHouse = (publishingHouseID ?? "");
+            var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse)).OrderBy(x => x.C_id);
+            return View(result.ToPagedList(pageNumber, pageSize));
+
         }
         // Single Book
         public ActionResult SingleBook(String _id)

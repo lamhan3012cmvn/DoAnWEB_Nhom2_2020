@@ -127,7 +127,7 @@
     <Content Include="Content\img\book\book-cover\b-c-CaiTetMeoCon.jpg" />
     <Content Include="Content\img\book\book-cover\b-c-CoNan.jpg" />
     <Content Include="Content\img\book\book-cover\b-c-DeMen.jpg" />
-    <Content Include="Content\img\book\book-cover\b-c-Doraemonjpg.jpg" />
+    <Content Include="Content\img\book\book-cover\b-c-Doraemon.jpg" />
     <Content Include="Content\img\book\book-cover\b-c-GuongDanhNhan.jpg" />
     <Content Include="Content\img\book\book-cover\b-c-HaiConMeo.jpg" />
     <Content Include="Content\img\book\book-cover\b-c-LuuSonMinh.jpg" />
@@ -318,14 +318,15 @@
     <Content Include="models\dbBook.edmx.diagram">
       <DependentUpon>dbBook.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery.ajaxchimp.min.js" />
     <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -428,6 +429,7 @@
     <Content Include="Views\BOOKs\Edit.cshtml" />
     <Content Include="Views\BOOKs\Index.cshtml" />
     <Content Include="Views\Category\AddCategory.cshtml" />
+    <Content Include="Views\Category\loadData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

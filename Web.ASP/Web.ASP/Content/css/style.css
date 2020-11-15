@@ -111,6 +111,7 @@ button:focus {
     list-style: none;
     margin: 0px;
     padding: 0px;
+    
 }
 
 a {
@@ -4100,7 +4101,6 @@ h6 {
     padding-top: 15px;
     padding-bottom: 15px;
 }
-
 .l_w_title {
     background: #f9f9ff;
     padding-left: 30px;
@@ -4114,7 +4114,20 @@ h6 {
         font-weight: 500;
         line-height: 60px;
     }
+.cat_widgets .list.size{
+    overflow-y:scroll;
+    height:167px;
+}
 
+.cat_widgets .list.size::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.cat_widgets .list.size::-webkit-scrollbar-thumb {
+    background-color: #C6C6C6;
+    border-radius:50px;
+}
 .cat_widgets .list li {
     margin-bottom: 13px;
 }
@@ -4127,6 +4140,7 @@ h6 {
         font-weight: normal;
         color: #777777;
         position: relative;
+        cursor:pointer;
     }
     .cat_widgets .list li a::before {
         content: "";
@@ -4163,6 +4177,7 @@ h6 {
     .cat_widgets .list li:hover a:before {
         background: #1641ff;
         border-color: #1641ff;
+        cursor:pointer;
     }
 
     .cat_widgets .list li:last-child {
@@ -4170,137 +4185,7 @@ h6 {
     }
 
 
-.p_filter_widgets .widgets_inner {
-    border-bottom: 1px solid #eeeeee;
-}
-
-    .p_filter_widgets .widgets_inner:last-child {
-        border-bottom: 0px;
-    }
-
-.p_filter_widgets h4 {
-    color: #222222;
-    font-size: 14px;
-    font-family: "Roboto", sans-serif;
-    font-weight: normal;
-    margin-bottom: 22px;
-    margin-top: 10px;
-}
-
-.p_filter_widgets .list li {
-    margin-bottom: 18px;
-}
-
-    .p_filter_widgets .list li a {
-        padding-left: 30px;
-        font-size: 14px;
-        font-family: "Roboto", sans-serif;
-        font-weight: normal;
-        color: #777777;
-        position: relative;
-    }
-
-        .p_filter_widgets .list li a:before {
-            content: "";
-            height: 10px;
-            width: 10px;
-            border-radius: 50%;
-            border: 1px solid #777777;
-            position: absolute;
-            left: 0px;
-            top: 5px;
-            transition: all 300ms linear 0s;
-        }
-
-        .p_filter_widgets .list li a:after {
-            content: "";
-            height: 4px;
-            width: 4px;
-            background: #fff;
-            border-radius: 50%;
-            position: absolute;
-            left: 3px;
-            top: 8px;
-            transition: all 300ms linear 0s;
-        }
-
-    .p_filter_widgets .list li.active a:before,
-    .p_filter_widgets .list li:hover a:before {
-        background: #1641ff;
-        border-color: #1641ff;
-    }
-
-    .p_filter_widgets .list li:last-child {
-        margin-bottom: 0px;
-    }
-
-.p_filter_widgets .range_item .ui-slider {
-    height: 6px;
-    border: none;
-    background: #f9f9ff;
-}
-
-    .p_filter_widgets .range_item .ui-slider .ui-slider-range {
-        background: #f9f9ff;
-    }
-
-    .p_filter_widgets .range_item .ui-slider .ui-slider-handle {
-        height: 16px;
-        width: 16px;
-        border-radius: 50%;
-        border: none;
-        background: #1641ff;
-        outline: none !important;
-        box-shadow: none;
-        top: -6px;
-        cursor: pointer;
-    }
-
-.p_filter_widgets .range_item label {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: normal;
-    color: #777777;
-    font-family: "Roboto", sans-serif;
-    margin-top: 15px;
-}
-
-.p_filter_widgets .range_item input {
-    display: inline-block;
-    border: none;
-    width: 100px;
-    font-size: 14px;
-    color: #777777;
-    font-family: "Roboto", sans-serif;
-    margin-top: 9px;
-    padding-left: 3px;
-}
-
-    .p_filter_widgets .range_item input.placeholder {
-        font-size: 14px;
-        color: #777777;
-        font-family: "Roboto", sans-serif;
-    }
-
-    .p_filter_widgets .range_item input:-moz-placeholder {
-        font-size: 14px;
-        color: #777777;
-        font-family: "Roboto", sans-serif;
-    }
-
-    .p_filter_widgets .range_item input::-moz-placeholder {
-        font-size: 14px;
-        color: #777777;
-        font-family: "Roboto", sans-serif;
-    }
-
-    .p_filter_widgets .range_item input::-webkit-input-placeholder {
-        font-size: 14px;
-        color: #777777;
-        font-family: "Roboto", sans-serif;
-    }
-
-.product_top_bar {
+  .product_top_bar {
     background: #f9f9ff;
     clear: both;
     display: flex;
