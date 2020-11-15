@@ -107,7 +107,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="left_sidebar_area">
-                    <aside class="left_widgets cat_widgets">
+                    <aside class="left_widgets time_widgets">
                         <div class="l_w_title">
                             <h3>Top sản phẩm</h3>
                         </div>
@@ -192,3 +192,16 @@
 <!--================ End footer Area  =================-->
 
 
+<script>
+    $(document).ready(function () {
+        $(".widgets_inner .list li").click(function (e) {
+            const classActive = $(".widgets_inner .list li");
+            for (let i = 0; i < classActive.length; i++) {
+                classActive[i].classList.remove('active')
+            }
+            console.log(classActive)
+            e.currentTarget.classList.add('active');
+        });
+
+    });
+</script>
