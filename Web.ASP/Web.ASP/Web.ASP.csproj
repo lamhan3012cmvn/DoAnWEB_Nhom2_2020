@@ -347,8 +347,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Content\support\cus-image.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
-    <Compile Include="Controllers\BOOKsController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -422,14 +422,10 @@
     <Content Include="Views\Components\BookItemComponent.cshtml" />
     <Content Include="Views\Components\SelectCategoryComponent.cshtml" />
     <Content Include="Views\Components\SelectPublishingHouseComponent.cshtml" />
-    <Content Include="Views\Category\AddCart.cshtml" />
-    <Content Include="Views\BOOKs\Create.cshtml" />
-    <Content Include="Views\BOOKs\Delete.cshtml" />
-    <Content Include="Views\BOOKs\Details.cshtml" />
-    <Content Include="Views\BOOKs\Edit.cshtml" />
-    <Content Include="Views\BOOKs\Index.cshtml" />
-    <Content Include="Views\Category\AddCategory.cshtml" />
+    <Content Include="Views\Admin\AddBook.cshtml" />
+    <Content Include="Views\Admin\AddCategoryItem.cshtml" />
     <Content Include="Views\Category\loadData.cshtml" />
+    <Content Include="Views\Admin\AddPublishingHouse.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

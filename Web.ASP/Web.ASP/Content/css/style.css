@@ -5508,8 +5508,8 @@ h6 {
         text-transform: uppercase;
         font-size: 24px;
         margin-bottom: 50px;
-        margin-top:0px;
-        text-align:center;
+        margin-top: 0px;
+        text-align: center;
     }
 
     .cart_form_inner .login_form {
@@ -5540,10 +5540,19 @@ h6 {
             overflow-y: scroll;
             width: 100%;
         }
-        .cart_form_inner .form-group textarea {
-            resize: none;
-            height: 80px;
-        }
+            .cart_form_inner .form-group .left_dorp .nice-select.open .list::-webkit-scrollbar {
+                 width: 6px;
+                 background-color: #F5F5F5;  
+            }
+
+             .cart_form_inner .form-group .left_dorp .nice-select.open .list::-webkit-scrollbar-thumb {
+                background-color: #C6C6C6;
+                border-radius: 50px;
+             }
+             .cart_form_inner .form-group textarea {
+                resize: none;
+                height: 80px;
+             }
     .cart_form_inner .form-group .left_dorp div {
         height: 54px;
         border: none;

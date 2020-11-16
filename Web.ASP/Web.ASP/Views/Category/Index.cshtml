@@ -6,8 +6,6 @@
     ViewBag.Title = "Category";
 }
 
-
-
 <!--================Header Menu Area =================-->
 @Html.Partial("_HeaderComponent")
 <!--================Header Menu Area =================-->
@@ -183,8 +181,6 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
-
-
 <script>
     const ajax = (cate_id, publishing_id) => {
         $.ajax({
@@ -220,9 +216,5 @@
             e.currentTarget.classList.add('active');
             ajax(cate_id, publishing_id);
         });
-        
-       
-       
-
     });
 </script>
