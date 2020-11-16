@@ -35,11 +35,12 @@
                         <div class="left_dorp">
                             <select class="sorting w-100" name="categoryBook_ID">
                                 <option value="">Thể Loại</option>
+                                <option value="~/Home/Login">Thêm thể loại sách...</option>
                                 @foreach (var element in ViewBag.categoryBook.Items)
                                 {
                                     <option value="@element.C_id">@element.nameCategory</option>
                                 }
-                                <option value="">Thêm Thể Loại...</option>
+
                             </select>
                         </div>
                     </div>
