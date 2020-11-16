@@ -397,10 +397,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -426,6 +422,7 @@
     <Content Include="Views\Admin\AddCategoryItem.cshtml" />
     <Content Include="Views\Category\loadData.cshtml" />
     <Content Include="Views\Admin\AddPublishingHouse.cshtml" />
+    <Content Include="Views\Admin\AddBookItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

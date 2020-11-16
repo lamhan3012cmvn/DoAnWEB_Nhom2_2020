@@ -43,5 +43,10 @@ namespace Web.ASP.Controllers
         {
             return PartialView();
         }
+        [HttpGet]
+        public ActionResult AddBookItem()
+        {
+            return PartialView();
+        }
     }
 }

@@ -79,8 +79,10 @@
         $.ajax({
             url: url,
             success: function (response) {
-                $("#load").html(response)
                 console.log(response)
+                $("#load").slideUp("2000", function () {
+                    $("#load").html(response).slideDown("2000")
+                })
             },
             type: "GET",
         })
@@ -96,5 +98,6 @@
     $(document).ready(function () {
         selectChange("#formAddCategory", "/Admin/AddCategoryItem")
         selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse")
+        selectChange("#prePage","/Admin/AddBookItem")
     })
 </script>
