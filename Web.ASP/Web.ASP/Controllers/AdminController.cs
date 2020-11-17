@@ -46,6 +46,9 @@ namespace Web.ASP.Controllers
         [HttpGet]
         public ActionResult AddBookItem()
         {
+            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
+            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             return PartialView();
         }
     }

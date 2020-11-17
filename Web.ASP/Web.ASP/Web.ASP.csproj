@@ -263,7 +263,6 @@
     <Content Include="Content\vendors\bootstrap-datepicker\bootstrap-select.js" />
     <Content Include="Content\vendors\counter-up\jquery.counterup.js" />
     <Content Include="Content\vendors\counter-up\jquery.waypoints.min.js" />
-    <Content Include="Content\vendors\flipclock\timer.js" />
     <Content Include="Content\vendors\isotope\imagesloaded.pkgd.min.js" />
     <Content Include="Content\vendors\isotope\isotope-min.js" />
     <Content Include="Content\vendors\jquery-ui\jquery-ui.css" />
