@@ -36,17 +36,26 @@ namespace Web.ASP.Controllers
             if (user is null)
             {
                 ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
-                return View("Index");
+                return View("Login");
             }
+            else if (user.password.Trim() != password)
+            {
+                ViewBag.Mess = "user hoặc mật khẩu không hợp lệ...";
+                return View("Login");
+            }
+        
             else
             {
-                if (user.password.Trim() != password)
+                if (user.powers == "1")
                 {
-                    ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
+                    return RedirectToAction(actionName:"AddBook",controllerName:"Admin");
+                }
+                if (user.powers == "0")
+                {
                     return View("Index");
                 }
             }
-            return RedirectToAction("../Home/Index");
+            return View("");
         }
         // Registor
         public ActionResult Registration()
@@ -72,14 +81,15 @@ namespace Web.ASP.Controllers
             if (!(user is null) || password != confirmpassword)
             {
                 ViewBag.Mess = "Đăng kí không thành công";
-                return View("Index");
+                return View("Registration");
             }
             var acc = new AUTH();
             acc.C_email_ID = email;
             acc.password = password;
+            acc.powers = "0";
             db.AUTHs.Add(acc);
             db.SaveChanges();
-            return View("../Home/Index", db.BOOKs);
+            return View("Index", db.BOOKs);
         }
 
     }

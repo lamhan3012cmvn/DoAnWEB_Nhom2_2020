@@ -14,7 +14,7 @@
                 <h2>Đăng nhập/Đăng kí</h2>
                 <div class="page_link">
                     <a href="/Home/Index">Trang chủ</a>
-                    <a href="/Login/Index">Đăng nhập</a>
+                    <a href="/Home/Login">Đăng nhập</a>
                 </div>
             </div>
         </div>
@@ -31,14 +31,14 @@
                 @Html.Partial("_ImgLoginRegisterComponent")
             </div>
             <div class="col-lg-6">
-           
+                
                 <div class="login_form_inner">
                     @if (@ViewBag.Mess != "")
                     {
                         <h4 style="text-align:center">@ViewBag.Mess</h4>
                     }
                     <h2>Đăng nhập</h2>
-                    <form class="row login_form" action="/Login/Validate" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" action="/Home/Validate" method="post" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="name" name="C_email_ID" placeholder="Email">
                         </div>

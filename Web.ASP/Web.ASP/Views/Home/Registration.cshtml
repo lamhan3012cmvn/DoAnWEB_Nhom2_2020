@@ -14,7 +14,7 @@
                 <h2>Đăng kí</h2>
                 <div class="page_link">
                     <a href="/Home/Index">Home</a>
-                    <a href="/Registration/Index">Đăng kí</a>
+                    <a href="/Home/Registration">Đăng kí</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                         <h4 style="text-align:center">@ViewBag.Mess</h4>
                     }
                     <h3>Tạo tài khoản</h3>
-                    <form class="row login_form" action="~/Registration/Register" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" action="/Home/Register" method="post" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                         </div>
