@@ -13,9 +13,9 @@
             <div class="banner_content text-center">
                 <h2>Single Product Page</h2>
                 <div class="page_link">
-                    <a href="index.html">Home</a>
-                    <a href="category.html">Category</a>
-                    <a href="single-product.html">Product Details</a>
+                    <a href="/Home/Index">Trang chủ</a>
+                    <a href="/Category/Index">Sản phẩm</a>
+                    <a href="/Category/SingleBook">Chi tiết sản phẩm</a>
                 </div>
             </div>
         </div>
@@ -27,31 +27,32 @@
     <div class="container">
         <div class="row s_product_inner">
             <div class="col-lg-6">
-                <div class="s_product_img">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                                <img src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="">
-                            </li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                                <img src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="">
-                            </li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                                <img src="~/Content/img/product/single-product/s-product-s-4.jpg" alt="">
-                            </li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-1.jpg" alt="First slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="Second slide">
-                            </div>
-                            <div class="carousel-item">
-                                <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="Third slide">
-                            </div>
-                        </div>
-                    </div>
+                <div class=" d-flex s_product_img" style="height: 500px; justify-content: center; align-items: center;">
+                    <img class=" h-100" src="@ViewBag.book.IMAGE_BOOK.link" ">
+                    @*<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                    <img src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="">
+                </li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1">
+                    <img src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="">
+                </li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2">
+                    <img src="~/Content/img/product/single-product/s-product-s-4.jpg" alt="">
+                </li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="@ViewBag.book.IMAGE_BOOK.link" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="Third slide">
+                </div>
+            </div>
+        </div>*@
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
@@ -61,12 +62,12 @@
                     <ul class="list">
                         <li>
                             <a class="active" href="#">
-                                <span>Category</span> : @ViewBag.book.CATEGORY.nameCategory
+                                <span>Thể loại:</span> : @ViewBag.book.CATEGORY.nameCategory
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span>Availibility</span> : In Stock
+                            <a class="active" href="#">
+                                <span style="width: auto;">Số sản phẩm có sẵn</span> : @ViewBag.book.countBook
                             </a>
                         </li>
                     </ul>
@@ -75,12 +76,14 @@
                     </p>
                     <div class="product_count">
                         <label for="qty">Số lượng:</label>
-                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                        <input onkeypress="var result = document.getElementById('sst'); var sst = result.value; if (isNaN(sst) || sst > @ViewBag.book.countBook ) {
+                            result.value =@ViewBag.book.countBook; return false;} " type="number" 
+                            name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < @ViewBag.book.countBook ) result.value++;return false;"
                                 class="increase items-count" type="button">
                             <i class="lnr lnr-chevron-up"></i>
                         </button>
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if (!isNaN(sst) && sst > 0) result.value--; return false;"
                                 class="reduced items-count" type="button">
                             <i class="lnr lnr-chevron-down"></i>
                         </button>

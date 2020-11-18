@@ -30,6 +30,7 @@ namespace Web.ASP.Controllers
             string category = (categoryID ?? "");
             ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             string publishingHouse = (publishingHouseID ?? "");
+
             var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse)).OrderBy(x => x.C_id);
             return View(result.ToPagedList(pageNumber, pageSize));
 

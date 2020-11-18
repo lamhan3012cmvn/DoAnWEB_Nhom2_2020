@@ -13,7 +13,7 @@
             <div class="banner_content text-center">
                 <h2>Đăng kí</h2>
                 <div class="page_link">
-                    <a href="/Home/Index">Home</a>
+                    <a href="/Home/Index">Trang chủ</a>
                     <a href="/Home/Registration">Đăng kí</a>
                 </div>
             </div>
@@ -36,9 +36,9 @@
                         <h4 style="text-align:center">@ViewBag.Mess</h4>
                     }
                     <h3>Tạo tài khoản</h3>
-                    <form class="row login_form" action="/Home/Register" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" placeholder="Email">
                         </div>
                         @if (@ViewBag.MessEmail != "")
                         {
@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-md-12 form-group">
 
-                            <button type="submit" value="submit" class="btn submit_btn">Đăng kí</button>
+                            <div id="submit" class="btn submit_btn">Đăng kí</div>
                         </div>
                     </form>
                 </div>
@@ -79,3 +79,35 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+<script>
+    $(document).ready(function () {
+       
+        $("#submit").click(function () {
+            const userName = $("#email").val()
+            const pass = $("#password").val()
+            const confirmPass = $("#pass").val()
+            const objData = {
+                email: userName,
+                password: pass,
+                confirmpassword : confirmPass
+            }
+            $.ajax({
+                url: "/Home/Register",
+                type: "POST",
+                data: objData,
+                dataType: "JSON",
+                success: function (respone) {
+                    if (respone.status) {
+                        notify("Thông Báo", respone.message, "far fa-check-circle", "success")
+                        setTimeout(function () {
+                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                        }, 3300);
+                    }
+                    else {
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    }
+                }
+            })
+        })
+    })
+</script>

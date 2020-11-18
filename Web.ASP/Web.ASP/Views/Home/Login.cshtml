@@ -40,14 +40,14 @@
                     <h2>Đăng nhập</h2>
                     <form class="row login_form" action="/Home/Validate" method="post" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="C_email_ID" placeholder="Email">
+                            <input type="text" class="form-control" id="name" name="C_email_ID" value="" placeholder="Email">
                         </div>
                         @if (@ViewBag.MessEmail != "")
                         {
                             <h4 style="text-align:center">@ViewBag.MessEmail</h4>
                         }
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="name" name="password" placeholder="Mật khẩu">
+                            <input type="password" class="form-control" id="pass" name="password" value="" placeholder="Mật khẩu">
                         </div>
                         @if (@ViewBag.MessPass != "")
                         {
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="btn submit_btn">Đăng nhập</button>
+                            <div id="submit" class="btn submit_btn">Đăng nhập</div>
                             <a href="#">Quên mật khẩu?</a>
                         </div>
                     </form>
@@ -76,3 +76,33 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+<script>
+    $(document).ready(function () {
+        $("#btn_register").css("display", "inline-block");
+        $("#submit").click(function () {
+            const userName = $("#name").val()
+            const pass = $("#pass").val()
+            const objData = {
+                C_email_ID: userName,
+                password: pass
+            }
+            $.ajax({
+                url: "/Home/Validate",
+                type: "POST",
+                data: objData,
+                dataType:"JSON",
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                        setTimeout(function () {
+                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                        }, 3300);
+                    }
+                }
+            })
+        })
+
+    })
+</script>
