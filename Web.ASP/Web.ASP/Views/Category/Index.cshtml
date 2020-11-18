@@ -85,17 +85,16 @@
                                         </div>
                                     </div>
                                     <a href="/Category/SingleBook/Index?_id=@book.C_id">
-                                        <h4>
-                                            @if (@book.nameBook.Length > 20)
-                                            {
-                                                @book.nameBook.Substring(0, 20);
-                                            }
-                                            else
-                                            {
-                                                @book.nameBook;
-                                            }
-                                        </h4>
-                                    </a>
+
+                                        @if (@book.nameBook.Length > 20)
+                                        {
+                                            <h4>@book.nameBook.Substring(0, 20)...</h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@book.nameBook</h4>
+                                        }
+                                        </a>
                                     <h5>@book.priceBook VND</h5>
                                 </div>
                             </div>
@@ -159,10 +158,10 @@
                     </aside>
                     <aside class="left_widgets cat_widgets">
                         <div class="l_w_title">
-                             <h3>Giá thành</h3>
+                             <h3 style="margin-bottom: 10px;">Giá thành</h3>
                         </div>
                         <div class="range_item">
-                            <div id="slider-range"></div>
+                            <div id="slider-range" style="margin-left: 18px; margin-right: 18px;"></div>
                             <div class="row m0">
                                 <label for="amount">Price : </label>
                                 <input type="text" id="amount" readonly>
@@ -216,5 +215,6 @@
             e.currentTarget.classList.add('active');
             ajax(cate_id, publishing_id);
         });
+      
     });
 </script>

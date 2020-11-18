@@ -275,6 +275,8 @@
     <Content Include="Content\vendors\nice-select\css\style.css" />
     <Content Include="Content\vendors\nice-select\js\jquery.nice-select.js" />
     <Content Include="Content\vendors\nice-select\js\jquery.nice-select.min.js" />
+    <Content Include="Content\vendors\notify\bootstrap-notify.min.js" />
+    <Content Include="Content\vendors\notify\notify.js" />
     <Content Include="Content\vendors\owl-carousel\assets\ajax-loader.gif" />
     <Content Include="Content\vendors\owl-carousel\assets\animated.css" />
     <Content Include="Content\vendors\owl-carousel\assets\owl.carousel.css" />
@@ -347,9 +349,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Content\support\cus-image.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -403,13 +405,11 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\Shared\_HeaderComponent.cshtml" />
     <Content Include="Views\Shared\_FooterComponent.cshtml" />
-    <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Category\Cart.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Checkout.cshtml" />
     <Content Include="Views\Category\Confirmation.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
-    <Content Include="Views\Blog\SingleBlog.cshtml" />
     <Content Include="Views\Category\SingleBook.cshtml" />
     <Content Include="Views\Category\Tracking.cshtml" />
     <Content Include="Views\Shared\_SubscriptionComponent.cshtml" />
@@ -422,6 +422,7 @@
     <Content Include="Views\Category\loadData.cshtml" />
     <Content Include="Views\Admin\AddPublishingHouse.cshtml" />
     <Content Include="Views\Admin\AddBookItem.cshtml" />
+    <Content Include="Views\Default\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

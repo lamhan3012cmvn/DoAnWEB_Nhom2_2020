@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace Web.ASP.Controllers
 {
-    public class BlogController : Controller
+    public class DefaultController : Controller
     {
-        // Blog
+        // GET: Default
         public ActionResult Index()
-        {
-            return View();
-        }
-        // SingleBlog
-        public ActionResult SingleBlog()
         {
             return View();
         }

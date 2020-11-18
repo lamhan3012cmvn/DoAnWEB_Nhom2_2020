@@ -15,7 +15,8 @@ namespace Web.ASP.Controllers
         {
             return View();
         }
-        // Add Cart
+        // Add Book
+        [HttpGet]
         public ActionResult AddBook()
         {
 

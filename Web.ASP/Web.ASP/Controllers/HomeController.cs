@@ -26,27 +26,73 @@ namespace Web.ASP.Controllers
         {
             if (String.IsNullOrEmpty(C_email_ID))
             {
-                ViewBag.MessEmail = "Vui lòng nhập email";
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập email"
+                };
+                return Json(result,JsonRequestBehavior.AllowGet);         
             }
             if (String.IsNullOrEmpty(password))
             {
-                ViewBag.MessPass = "Vui lòng nhập mật khẩu";
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập mật khẩu"
+                };
+                return Json(result,JsonRequestBehavior.AllowGet);
             }
             var user = db.AUTHs.Find(C_email_ID);
             if (user is null)
             {
-                ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
-                return View("Index");
+                var result = new
+                {
+                    status = false,
+                    message = "User hoặc mật khẩu không hợp lệ"
+                };
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
+            else if (user.password.Trim() != password)
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "User hoặc mật khẩu không hợp lệ"
+                };
+                return Json(result,JsonRequestBehavior.AllowGet);
             }
             else
             {
-                if (user.password.Trim() != password)
+                if (user.powers == "1")
                 {
-                    ViewBag.Mess = "user hoặc mật khẩu không hợp lệ";
-                    return View("Index");
+                    var result = new
+                    {
+                        status = true,
+                        link = new
+                        {
+                            actionName="AddBook",
+                            controllerName= "Admin"
+                        },
+                        message = "Đăng nhập thành công"
+                    };
+                    return Json(result,JsonRequestBehavior.AllowGet);
+                }
+                if (user.powers == "0")
+                {
+                    var result = new
+                    {
+                        status = true,
+                        link = new
+                        {
+                            actionName = "Index",
+                            controllerName = "Home"
+                        },
+                        message = "Đăng nhập thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);   
                 }
             }
-            return RedirectToAction("../Home/Index");
+            return View("");
         }
         // Registor
         public ActionResult Registration()
@@ -58,28 +104,67 @@ namespace Web.ASP.Controllers
         {
             if (String.IsNullOrEmpty(email))
             {
-                ViewBag.MessEmail = "Vui lòng nhập email";
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập email"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             if (String.IsNullOrEmpty(password))
             {
-                ViewBag.MessPass = "Vui lòng nhập mật khẩu";
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập mật khẩu"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             if (String.IsNullOrEmpty(confirmpassword))
             {
-                ViewBag.MessConfirm = "Vui lòng nhập mật khẩu";
+                var result = new
+                {
+                    status = false,
+                    message = "Mật khẩu không trùng khớp"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             var user = db.AUTHs.Find(email);
             if (!(user is null) || password != confirmpassword)
             {
-                ViewBag.Mess = "Đăng kí không thành công";
-                return View("Index");
+                var result = new
+                {
+                    status = false,
+                    link = new
+                    {
+                        actionName = "Registration",
+                        controllerName = "Home"
+                    },
+                    message = "Đăng kí không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            var acc = new AUTH();
-            acc.C_email_ID = email;
-            acc.password = password;
-            db.AUTHs.Add(acc);
-            db.SaveChanges();
-            return View("../Home/Index", db.BOOKs);
+            else
+            {
+                var acc = new AUTH();
+                acc.C_email_ID = email;
+                acc.password = password;
+                acc.powers = "0";
+                db.AUTHs.Add(acc);
+                db.SaveChanges();
+                var result = new
+                {
+                    status = true,
+                    link = new
+                    {
+                        actionName = "Login",
+                        controllerName = "Home"
+                    },
+                    message = "Đăng kí thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            
         }
 
     }

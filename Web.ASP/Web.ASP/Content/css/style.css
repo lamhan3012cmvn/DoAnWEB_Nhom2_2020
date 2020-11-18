@@ -1,27 +1,4 @@
 
-
-/*Table of Content:
-01/ Variables
-02/ predefin
-03/ header
-04/ button
-05/ banner
-06/ breadcrumb
-07/ about
-08/ team
-09/ project 
-10/ price 
-11/ team 
-12/ blog 
-13/ video  
-14/ features  
-15/ career  
-16/ contact 
-17/ footer
-
-=====================================================================*/
-
-
 /*----------------------------------------------------*/
 
 
@@ -4184,12 +4161,43 @@ h6 {
         margin-bottom: 0px;
     }
 
-
+.cat_widgets .range_item .ui-slider .ui-slider-handle {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    border: none;
+    background: #1641ff;
+    outline: none !important;
+    box-shadow: none;
+    top: -6px;
+    cursor: pointer;
+}
+.cat_widgets .range_item .ui-slider .ui-slider-range {
+    background: #C6C6C6;
+}
   .product_top_bar {
     background: #f9f9ff;
     clear: both;
     display: flex;
     padding: 10px 20px;
+}
+.cat_widgets .range_item label {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    color: #777777;
+    font-family: "Roboto", sans-serif;
+    margin-top: 15px;
+}
+.cat_widgets .range_item input {
+    display: inline-block;
+    border: none;
+    width: 80%;
+    font-size: 14px;
+    color: #777777;
+    font-family: "Roboto", sans-serif;
+    margin-top: 9px;
+    padding-left: 3px;
 }
 
     .product_top_bar .left_dorp .sorting {
@@ -4315,7 +4323,7 @@ h6 {
 ============================================================================================ */
 
 .product_image_area {
-    padding-top: 120px;
+    padding-top: 70px;
 }
 
 .s_product_img .carousel {
