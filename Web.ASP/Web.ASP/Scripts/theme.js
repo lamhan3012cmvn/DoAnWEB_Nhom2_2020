@@ -202,13 +202,16 @@
     /*  Jquery Ui slider js
     /*----------------------------------------------------*/
 	$("#slider-range").slider({
-      range: true,
-      min: 0,
-      max: 500000,
-      values: [0, 100 ],
-      slide: function( event, ui ) {
-          $("#amount").val(ui.values[0] + "VND" +" - " + ui.values[1] + "VND"  );
-      }
+        range: true,
+        grid: true,
+        min: 0,
+        max: 500000,
+        values: [0, 100],
+        step: 10000,
+        slide: function( event, ui ) {
+            $("#amount").val(ui.values[0] + "VND" +" - " + ui.values[1] + "VND"  );
+        }
+
     });
     $("#amount").val($("#slider-range").slider("values", 0) + "VNĐ" +
       " - " + $("#slider-range").slider("values", 1) + "VND" );

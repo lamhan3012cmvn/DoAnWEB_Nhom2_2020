@@ -28,8 +28,7 @@
             <div class="col-lg-6">
                 @Html.Partial("_ImgLoginRegisterComponent")
             </div>
-            <div class="col-lg-6">
-               
+            <div class="col-lg-6">              
                 <div class="login_form_inner reg_form">
                     @if (@ViewBag.Mess != "")
                     {
@@ -81,7 +80,6 @@
 <!--================ End footer Area  =================-->
 <script>
     $(document).ready(function () {
-       
         $("#submit").click(function () {
             const userName = $("#email").val()
             const pass = $("#password").val()
