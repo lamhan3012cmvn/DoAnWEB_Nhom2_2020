@@ -20,10 +20,10 @@
                 <form id="load" class="cart_form_inner" action="/Admin/AddBook" method="post">
                     <h2>Thêm Sách</h2>
                     <div class="col-md-10 form-group mx-auto">
-                        <input class="col-md-12 form-control" name="nameBook" placeholder="Nhập tên sách" type="text" />
+                        <input class="col-md-12 form-control" id="name" name="nameBook" placeholder="Nhập tên sách" type="text" />
                     </div>
                     <div class="col-md-10 form-group  mx-auto">
-                        <textarea class="col-md-12 form-control  " name="contentBook" placeholder="Nhập nội dung sách" type="text"></textarea>
+                        <textarea class="col-md-12 form-control" id="content" name="contentBook" placeholder="Nhập nội dung sách" type="text"></textarea>
                     </div>
                     <div class="col-md-10 form-group mx-auto">
                         <div class="left_dorp">
@@ -51,14 +51,14 @@
                         </div>
                     </div>
                     <div class="col-md-10 form-group  mx-auto">
-                        <input class="col-md-12 form-control" name="countBook" placeholder="Số Lượng Sách" type="number" />
+                        <input class="col-md-12 form-control" id="count" name="countBook" placeholder="Số Lượng Sách" type="number" />
                     </div>
                     <div class="col-md-10 form-group  mx-auto">
-                        <input class="col-md-12 form-control" name="priceBook" placeholder="Giá Sách" type="number" />
+                        <input class="col-md-12 form-control" id="price" name="priceBook" placeholder="Giá Sách" type="number" />
                     </div>
 
                     <div class="col-md-10 form-group mx-auto">
-                        <button class="btn submit_btn">Thêm Sách</button>
+                        <div id="submit" class="btn submit_btn">Thêm Sách</div>
                     </div>
                 </form>
 
@@ -73,7 +73,44 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
-
+<script>
+    $(document).ready(function () {
+        console.log(1)
+        $("#submit").click(function () {
+            console.log(1)
+            const nameB = $("#name").val()
+            const contentB = $("#content").val()
+            const priceB = $("#price").val()
+            const countB = $("#count").val()
+            const category = $("#formAddCategory").val()
+            const publishinghouse = $("#formAddPublishingHouse").val()
+            const objData = {
+                nameBook : nameB,
+                contentBook : contentB,
+                priceBook : priceB,
+                countBook : countB,
+                categoryBook_ID : category,
+                publishingHouseBook_ID : publishinghouse
+            }
+            $.ajax({
+                url: "/Admin/ValidateBook",
+                type: "POST",
+                data: objData,
+                dataType: "JSON",
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                        setTimeout(function () {
+                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                        }, 3300);
+                    }
+                }
+            })
+        })
+    })
+</script>
 <script>
     const ajax = (url) => {
         $.ajax({
@@ -99,4 +136,6 @@
         selectChange("#formAddCategory", "/Admin/AddCategoryItem")
         selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse")
     })
+    
 </script>
+
