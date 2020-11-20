@@ -13,7 +13,15 @@ namespace Web.ASP.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
+            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             return View();
+        }
+
+        public ActionResult viewBook()
+        {
+            return PartialView(db.BOOKs.ToList());
         }
         // Add Book
         [HttpGet]
@@ -23,7 +31,7 @@ namespace Web.ASP.Controllers
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
             //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
-            return View();
+            return PartialView();
         }
         [HttpPost]
         public ActionResult AddBook(BOOK model)
@@ -42,14 +50,6 @@ namespace Web.ASP.Controllers
         [HttpGet]
         public ActionResult AddPublishingHouse()
         {
-            return PartialView();
-        }
-        [HttpGet]
-        public ActionResult AddBookItem()
-        {
-            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
-            //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
-            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             return PartialView();
         }
         public ActionResult ValidateBook( string nameBook, string contentBook,string categoryBook_ID,
@@ -118,7 +118,7 @@ namespace Web.ASP.Controllers
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            var book = db.BOOKs.Find(nameBook);
+            var book = db.BOOKs.Where(n => n.nameBook.Equals(nameBook)).SingleOrDefault();//???
             if(!(book is null))
             {
                 var result = new
@@ -135,19 +135,36 @@ namespace Web.ASP.Controllers
             }
             else
             {
-                var addbook = new BOOK();
-                addbook.C_id = "MS11";
-                addbook.nameBook = nameBook;
-                addbook.priceBook = Int32.Parse(priceBook);
-                addbook.contentBook = contentBook;
-                addbook.countBook = Int32.Parse(countBook); ;
-                addbook.imgBook_ID = "img01";
-                
-                addbook.categoryBook_ID = categoryBook_ID;
-                
-                addbook.publishingHouseBook_ID = publishingHouseBook_ID;
-                db.BOOKs.Add(addbook);
-                db.SaveChanges();
+                try {
+                    var addbook = new BOOK()
+                    {
+                        C_id = "MS12" +
+                        "",
+                        nameBook = nameBook,
+                        priceBook = Int32.Parse(priceBook),
+                        contentBook = contentBook,
+                        countBook = Int32.Parse(countBook),
+                        imgBook_ID = "img01",
+                        categoryBook_ID = categoryBook_ID,
+                        publishingHouseBook_ID = publishingHouseBook_ID
+                    };
+                     db.BOOKs.Add(addbook);//???
+                     db.SaveChanges();
+                }
+                catch
+                {
+                    var error = new
+                    {
+                        status = false,
+                        link = new
+                        {
+                            actionName = "AddBook",
+                            controllerName = "Admin"
+                        },
+                        message = "Nhập sách không thành công"
+                    };
+                    return Json(error, JsonRequestBehavior.AllowGet);
+                }
                 var result = new
                 {
                     status = true,

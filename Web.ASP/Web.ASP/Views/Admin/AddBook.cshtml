@@ -1,83 +1,74 @@
-﻿
-@Html.Partial("_HeaderComponent")
-
-<section class="addCart_box_area p_120">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="cart_box_img">
-                    <img class="img-fluid" src="~/Content/img/login8.jpeg" alt="">
-                    <div class="hover">
-                        <h4>Team Nụ Nụ</h4>
-                        <p>Tạo tài khoản để theo dõi đơn hàng, lưu danh sách sản phẩm yêu thích, nhận nhiều ưu đãi hấp dẫn</p>
-                        <a id="btn" class="main_btn" href="/Registration/Index">Tạo tài khoản</a>
-                    </div>
-                </div>
-
-            </div>
-            <div  class="col-lg-6">
-
-                <form id="load" class="cart_form_inner" action="/Admin/AddBook" method="post">
-                    <h2>Thêm Sách</h2>
-                    <div class="col-md-10 form-group mx-auto">
-                        <input class="col-md-12 form-control" id="name" name="nameBook" placeholder="Nhập tên sách" type="text" />
-                    </div>
-                    <div class="col-md-10 form-group  mx-auto">
-                        <textarea class="col-md-12 form-control" id="content" name="contentBook" placeholder="Nhập nội dung sách" type="text"></textarea>
-                    </div>
-                    <div class="col-md-10 form-group mx-auto">
-                        <div class="left_dorp">
-                            <select id="formAddCategory" class="sorting size w-100" name="categoryBook_ID">
-                                <option value="#">Thể Loại</option>
-                                @foreach (var element in ViewBag.categoryBook.Items)
-                                {
-                                    <option value="@element.C_id">@element.nameCategory</option>
-                                }
-                                <option value="">Thêm Thể Loại...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-10 form-group  mx-auto">
-                        <div class="left_dorp">
-                            <select id="formAddPublishingHouse" class="sorting w-100" name="publishingHouseBook_ID" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                                <option value="#">Nhà Xuất Bản</option>
-                                @foreach (var element in ViewBag.publishingHouseBook.Items)
-                                {
-                                    <option value="@element.C_id">@element.namePublishingHouse</option>
-                                }
-                                <option value="">Thêm Nhà Xuất Bản...</option>
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-md-10 form-group  mx-auto">
-                        <input class="col-md-12 form-control" id="count" name="countBook" placeholder="Số Lượng Sách" type="number" />
-                    </div>
-                    <div class="col-md-10 form-group  mx-auto">
-                        <input class="col-md-12 form-control" id="price" name="priceBook" placeholder="Giá Sách" type="number" />
-                    </div>
-
-                    <div class="col-md-10 form-group mx-auto">
-                        <div id="submit" class="btn submit_btn">Thêm Sách</div>
-                    </div>
-                </form>
-
-            </div>
+﻿<form class="cart_form_inner w-75 "
+      action="/Admin/AddBook"
+      method="post"
+      style="box-shadow:none">
+      
+    <h3 class="m-3">Thêm Sách</h3>
+    <div class="col-md-10 form-group mx-auto">
+        <input class="col-md-12 form-control"
+               name="nameBook"
+               placeholder="Nhập tên sách"
+               type="text" />
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <div class="left_dorp">
+            <select id="formAddCategory"
+                    class="sorting w-100 size "
+                    name="categoryBook_ID">
+                <option value="#">Thể Loại</option>
+                @foreach (var element in ViewBag.categoryBook.Items)
+                {
+                    <option value="@element.C_id">@element.nameCategory</option>
+                }
+                <option value="">Thêm Thể Loại...</option>
+            </select>
         </div>
     </div>
-</section>
-<!--================End Cart Area =================-->
-<!--================ Subscription Area ================-->
-@Html.Partial("_SubscriptionComponent");
-<!--================ End Subscription Area ================-->
-<!--================ start footer Area  =================-->
-@Html.Partial("_FooterComponent")
-<!--================ End footer Area  =================-->
+    <div class="col-md-10 form-group mx-auto">
+        <div class="left_dorp">
+            <select id="formAddPublishingHouse"
+                    class="sorting w-100"
+                    name="publishingHouseBook_ID">
+                <option value="#">Nhà Xuất Bản</option>
+
+                @foreach (var element in ViewBag.publishingHouseBook.Items)
+                {
+                    <option value="@element.C_id">@element.namePublishingHouse</option>
+                }
+
+                <option value="">Thêm Nhà Xuất Bản...</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <textarea class="col-md-12 form-control"
+                  name="contentBook"
+                  placeholder="Nhập nội dung sách"
+                  type="text"></textarea>
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <input class="col-md-12 form-control"
+               name="countBook"
+               placeholder="Số Lượng Sách"
+               type="number" />
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <input class="col-md-12 form-control"
+               name="priceBook"
+               placeholder="Giá Sách"
+               type="number" />
+    </div>
+
+    <div class="col-md-10 form-group mx-auto">
+        <button class="btn submit_btn">Thêm Sách</button>
+    </div>
+</form>
 <script>
+    $('select').niceSelect();
     $(document).ready(function () {
-        console.log(1)
+        selectChange("#formAddCategory", "/Admin/AddCategoryItem","#loadForm")
+        selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse","#loadForm")
         $("#submit").click(function () {
-            console.log(1)
             const nameB = $("#name").val()
             const contentB = $("#content").val()
             const priceB = $("#price").val()
@@ -85,12 +76,12 @@
             const category = $("#formAddCategory").val()
             const publishinghouse = $("#formAddPublishingHouse").val()
             const objData = {
-                nameBook : nameB,
-                contentBook : contentB,
-                priceBook : priceB,
-                countBook : countB,
-                categoryBook_ID : category,
-                publishingHouseBook_ID : publishinghouse
+                nameBook: nameB,
+                contentBook: contentB,
+                priceBook: priceB,
+                countBook: countB,
+                categoryBook_ID: category,
+                publishingHouseBook_ID: publishinghouse
             }
             $.ajax({
                 url: "/Admin/ValidateBook",
@@ -110,32 +101,6 @@
             })
         })
     })
-</script>
-<script>
-    const ajax = (url) => {
-        $.ajax({
-            url: url,
-            success: function (response) {
-                console.log(response)
-                $("#load").slideUp("2000", function () {                
-                    $("#load").html(response).slideDown("2000")
-                })
-            },
-            type: "GET",
-        })
-    }
-    const selectChange = (element, url) => {
-        $(element).change(function (e) {
-            const selectedValue = $(this).val();
-            if (selectedValue.toString() === "") {
-                ajax(url)
-            }
-        })
-    }
-    $(document).ready(function () {
-        selectChange("#formAddCategory", "/Admin/AddCategoryItem")
-        selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse")
-    })
-    
+
 </script>
 

@@ -3651,7 +3651,10 @@ h6 {
     .default-select .nice-select::after {
         right: 20px;
     }
-
+.nice-select .list{
+    max-height:200px;
+    width:100%;
+}
 @media (max-width: 991px) {
     .left-align-p p {
         margin-top: 20px;
@@ -4114,9 +4117,8 @@ h6 {
         font-weight: 500;
         line-height: 60px;
     }
-.cat_widgets .list.size{
+.cat_widgets .list{
     overflow-y:scroll;
-    height:167px;
 }
 
 .cat_widgets .list.size::-webkit-scrollbar {
@@ -5542,7 +5544,14 @@ h6 {
         margin-top: 0px;
         text-align: center;
     }
-
+    .cart_form_inner h3 {
+        color: #222222;
+        text-transform: uppercase;
+        font-size: 24px;
+        margin-bottom: 50px;
+        margin-top: 0px;
+        text-align: center;
+    }
     .cart_form_inner .login_form {
         max-width: 385px;
         margin: auto;
@@ -6220,5 +6229,86 @@ h6 {
 
 /*---------------------------------------------------- */
 
+
+/*--------------------------Admin--------------------- */
+.admin {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.logo {
+    height: 150px;
+    margin: 20px 0;
+}
+
+.admin .dashboard {
+    background: #F9F9FF;
+    border-right: 2px solid #191919;
+}
+
+    .admin .dashboard .btn-function {
+        display: inline-block;
+        background: #1641ff;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 38px;
+        border: 1px solid #1641ff;
+        border-radius: 0px;
+        outline: none !important;
+        box-shadow: none !important;
+        text-align: left;
+        padding-left: 30px;
+        border: 1px solid #1641ff;
+        cursor: pointer;
+        transition: all 300ms linear 0s;
+        margin: auto;
+        text-transform: uppercase;
+    }
+
+
+        .admin .dashboard .btn-function:hover {
+            background: transparent;
+            color: #1641ff;
+        }
+
+.admin #loadForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    height:100%;
+}
+
+    .admin #loadForm .form-data {
+        width: 95%;
+        height: 100%;
+        padding-top: 40px;
+    }
+
+        .admin #loadForm .form-data table td, th {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .admin #loadForm .form-data table td {
+            border-bottom: 1px solid black;
+            padding: 14px 10px;
+            border-collapse: collapse;
+        }
+
+        .admin #loadForm .form-data table tr:first-child {
+            color: #1641ff;
+        }
+
+        .admin #loadForm .form-data table tr:not(:first-child):hover {
+            cursor: pointer;
+            background-color: #1641ff;
+            color: white;
+        }
+
+/*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Web.ASP.models.BOOK>
+<div class="form-data">
+    <table style="width: 100%; border-collapse: collapse">
+        <tr>
+            <th>TÊN SÁCH</th>
+            <th>GIÁ SÁCH</th>
+            <th>MÔ TẢ</th>
+            <th>SỐ LƯỢNG</th>
+            <th>THỂ LOẠI</th>
+            <th>NHÀ XUẤT BẢN</th>
+        </tr>
+        @if (!(Model is null))
+        {
+            foreach (var book in Model)
+            {
+                <tr>
+                    <td style="text-align:left">@book.nameBook</td>
+                    <td>@book.priceBook</td>
+                    <td>@book.contentBook</td>
+                    <td>@book.countBook</td>
+                    <td>@book.CATEGORY.nameCategory</td>
+                    <td>@book.PUBLISHING_HOUSE.namePublishingHouse</td>
+
+                </tr>
+            }
+        }
+    </table>
+</div>

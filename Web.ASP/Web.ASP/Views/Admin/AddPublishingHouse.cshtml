@@ -1,10 +1,16 @@
-﻿<form id="load" class="cart_form_inner" action="/Admin/AddPublishingHouse" method="post">
-    <h2 style="padding-top: 150px;">Thêm nhà xuất bản</h2>
+﻿<form class="cart_form_inner add  w-75" style="height: auto;
+        box-shadow:none"  method="post">
+    <h3>Thêm nhà xuất bản</h3>
     <div class="col-md-10 form-group mx-auto">
         <input class="col-md-12 form-control" name="namePublishingHouse" placeholder="Nhập nhà xuất bản" type="text" />
     </div>
     <div class="col-md-10 form-group d-flex mx-auto">
-        <button id="prePage" class="btn submit_btn">Trở về</button>
+        <a id="prePage" class="btn submit_btn">Trở về</a>
         <button class="btn submit_btn">Thêm Nhà Xuất Bản</button>
     </div>
 </form>
+<script>
+    $("#prePage").click(function (e) {
+        ajax("/Admin/AddBook", "#loadForm")
+    })
+</script>

@@ -311,6 +311,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\Func.js" />
     <Content Include="Scripts\gmaps.min.js" />
     <EntityDeploy Include="models\dbBook.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -338,6 +339,7 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\stellar.js" />
     <Content Include="Scripts\theme.js" />
+    <Content Include="Scripts\UUID.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
@@ -421,8 +423,9 @@
     <Content Include="Views\Admin\AddCategoryItem.cshtml" />
     <Content Include="Views\Category\loadData.cshtml" />
     <Content Include="Views\Admin\AddPublishingHouse.cshtml" />
-    <Content Include="Views\Admin\AddBookItem.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\viewBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

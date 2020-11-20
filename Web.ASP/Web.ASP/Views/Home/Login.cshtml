@@ -33,26 +33,14 @@
             <div class="col-lg-6">
                 
                 <div class="login_form_inner">
-                    @if (@ViewBag.Mess != "")
-                    {
-                        <h4 style="text-align:center">@ViewBag.Mess</h4>
-                    }
                     <h2>Đăng nhập</h2>
                     <form class="row login_form" action="/Home/Validate" method="post" id="contactForm" novalidate="novalidate">
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="name" name="C_email_ID" value="" placeholder="Email">
                         </div>
-                        @if (@ViewBag.MessEmail != "")
-                        {
-                            <h4 style="text-align:center">@ViewBag.MessEmail</h4>
-                        }
                         <div class="col-md-12 form-group">
                             <input type="password" class="form-control" id="pass" name="password" value="" placeholder="Mật khẩu">
-                        </div>
-                        @if (@ViewBag.MessPass != "")
-                        {
-                            <h4 style="text-align:center">@ViewBag.MessPass</h4>
-                        }
+                        </div>                    
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option2" name="selector">
