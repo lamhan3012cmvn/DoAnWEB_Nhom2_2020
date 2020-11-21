@@ -11,6 +11,7 @@ namespace Web.ASP.Controllers
     {
         private Manager_BookEntities db = new Manager_BookEntities();
         // GET: Admin
+        [AuthController]
         public ActionResult Index()
         {
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");

@@ -19,6 +19,7 @@ namespace Web.ASP.Controllers
         // Login
         public ActionResult Login()
         {
+            Session["user"] = null;
             return View();
         }
         [HttpPost]
@@ -63,6 +64,7 @@ namespace Web.ASP.Controllers
             }
             else
             {
+                Session["user"] = user.C_email_ID;
                 if (user.powers == "1")
                 {
                     var result = new
@@ -70,7 +72,7 @@ namespace Web.ASP.Controllers
                         status = true,
                         link = new
                         {
-                            actionName="AddBook",
+                            actionName="Index",
                             controllerName= "Admin"
                         },
                         message = "Đăng nhập thành công"
