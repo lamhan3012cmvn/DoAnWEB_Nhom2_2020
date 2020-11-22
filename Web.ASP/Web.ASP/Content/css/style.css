@@ -4119,6 +4119,7 @@ h6 {
     }
 .cat_widgets .list{
     overflow-y:scroll;
+    max-height:167px;
 }
 
 .cat_widgets .list.size::-webkit-scrollbar {

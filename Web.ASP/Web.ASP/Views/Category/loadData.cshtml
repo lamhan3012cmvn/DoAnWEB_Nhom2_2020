@@ -12,22 +12,22 @@
     <div class="right_page ml-auto">
         <nav class="cat_page" aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fas fa-long-arrow-left" aria-hidden="true"></i>
+                <li class="page-item" data-page="pre">
+                    <a class="page-link">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
                     </a>
                 </li>
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
-                    <li class="page-item">
-                        <a class="page-link" href="?page=@i">
+                    <li class="page-item" data-page="@i">
+                        <a class="page-link">
                             @i
                         </a>
                     </li>
                 }
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <i class="fas fa-long-arrow-right" aria-hidden="true"></i>
+                <li class="page-item" data-page="next">
+                    <a class="page-link">
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </li>
             </ul>
@@ -70,3 +70,4 @@
         }
     }
 </div>
+

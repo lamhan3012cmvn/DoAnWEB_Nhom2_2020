@@ -39,23 +39,19 @@
                             <option value="4">Giá từ cao đến thấp</option>
                             <!--<option value="4">Default sorting 02</option>*-->
                         </select>
-
                     </div>
                     <div class="right_page ml-auto">
                         <nav class="cat_page" aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item"  data-page="pre">
-                                    <a class="page-link" href="#">
+                                    <a class="page-link">
                                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 @for (int i = 1; i <= Model.PageCount; i++)
                                 {
-
                                     <li class="page-item" data-page="@i">
-                                        <a class="page-link" href="#">
-                                            @i
-                                        </a>
+                                        <a class="page-link">@i</a>
                                     </li>
                                 }
                                 <li class="page-item" data-page="next">
@@ -67,8 +63,7 @@
                         </nav>
                     </div>
                 </div>
-                <div id="load" class="latest_product_inner row">
- 
+                <div class="latest_product_inner row">
                     @if (!(Model is null))
                     {
                         foreach (var book in Model.ToList())
@@ -111,14 +106,13 @@
                             <h3>Top sản phẩm</h3>
                         </div>
                         <div class="widgets_inner">
-                            <ul class="list">
+                            <ul class="list size">
                                 <li class="active">
                                     <a href="#">Mới nhất</a>
                                 </li>
                                 <li>
                                     <a href="#">Bán chạy </a>
                                 </li>
-
                             </ul>
                         </div>
                     </aside>
@@ -183,13 +177,12 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
-import { type } from "jquery";
-
-    const ajax = (cate_id, publishing_id) => {
+    const ajax = (cate_id, publishing_id,page) => {
         $.ajax({
             url: "/Category/loadData",
-            data: { categoryID: cate_id, publishingHouseID: publishing_id },
+            data: { categoryID: cate_id, publishingHouseID: publishing_id,page:page },
             success: function (response) {
+                console.log("res")
                 $("#load").html(response)
             },
             type: "GET",
@@ -199,7 +192,6 @@ import { type } from "jquery";
         let page = 1;
         let cate_id = "";
         let publishing_id = "";
-       
         $("#category .widgets_inner .list li").click(function (e) {
             
             const notIsActiveCategory = $("#category .widgets_inner .list li");
@@ -208,7 +200,7 @@ import { type } from "jquery";
                 notIsActiveCategory[i].classList.remove('active')
             }
             e.currentTarget.classList.add('active');
-            ajax(cate_id, publishing_id);
+            ajax(cate_id, publishing_id,page);
         });
         $("#publishingHouse .widgets_inner .list li").click(function (e) {
             const notIsActivePublishingHouse = $("#publishingHouse .widgets_inner .list li");
@@ -218,30 +210,21 @@ import { type } from "jquery";
                 notIsActivePublishingHouse[i].classList.remove('active')
             }
             e.currentTarget.classList.add('active');
-            ajax(cate_id, publishing_id);
+            ajax(cate_id, publishing_id, page);
         });
-        $(".cat_page .pagination .page-item ").click(function (e) {
+        $(".cat_page .pagination .page-item").click(function (e) {
             const dataSetPage = e.currentTarget.dataset.page;
-            
+            const list = $(".cat_page .pagination .page-item ");
+            const max = list[list.length - 2].dataset.page;
             if (dataSetPage == "pre") {
-                
-                //Nếu page < 1 thì page =1
+                page = page==1?1:(page=page--)
             } else if (dataSetPage == "next") {
-
-                //Nếu nó cuối trang thì page=max
+                page = page >= max ? max : (page = page++);
             } else {
                 page = dataSetPage;
             }
-            $.ajax({
-                url:,
-                type: "GET",
-                data: page,
-                success: response(function () {
-                    //????
-                })
-
-            })
+            console.log(page)
+            ajax(cate_id, publishing_id, page)
         });
-    
     });
 </script>
