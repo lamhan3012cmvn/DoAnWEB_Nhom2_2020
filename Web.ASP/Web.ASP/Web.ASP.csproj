@@ -361,7 +361,7 @@
     <Compile Include="models\AUTH.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
-    <Compile Include="models\AuthController.cs" />
+    <Compile Include="models\isAdmin.cs" />
     <Compile Include="models\AUTHOR.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
@@ -395,6 +395,7 @@
     <Compile Include="models\INFORMATION.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\isLoginController.cs" />
     <Compile Include="models\PUBLISHING_HOUSE.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>

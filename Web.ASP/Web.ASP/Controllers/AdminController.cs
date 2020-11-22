@@ -11,7 +11,8 @@ namespace Web.ASP.Controllers
     {
         private Manager_BookEntities db = new Manager_BookEntities();
         // GET: Admin
-        [AuthController]
+        [isLoginController]
+        [isAdmin]
         public ActionResult Index()
         {
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
@@ -19,12 +20,16 @@ namespace Web.ASP.Controllers
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             return View();
         }
-
+        [isLoginController]
+        [isAdmin]
+        [HttpGet]
         public ActionResult viewBook()
         {
             return PartialView(db.BOOKs.ToList());
         }
         // Add Book
+        [isLoginController]
+        [isAdmin]
         [HttpGet]
         public ActionResult AddBook()
         {
@@ -34,6 +39,8 @@ namespace Web.ASP.Controllers
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             return PartialView();
         }
+        [isLoginController]
+        [isAdmin]
         [HttpPost]
         public ActionResult AddBook(BOOK model)
         {
@@ -43,16 +50,23 @@ namespace Web.ASP.Controllers
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE.Take(10), "C_id", "namePublishingHouse");
             return View();
         }
+        [isLoginController]
+        [isAdmin]
         [HttpGet]
         public ActionResult AddCategoryItem()
         {
             return PartialView();
         }
+        [isLoginController]
+        [isAdmin]
         [HttpGet]
         public ActionResult AddPublishingHouse()
         {
             return PartialView();
         }
+        [isLoginController]
+        [isAdmin]
+        [HttpGet]
         public ActionResult ValidateBook( string nameBook, string contentBook,string categoryBook_ID,
                                     string publishingHouseBook_ID, string countBook, string priceBook)
         {

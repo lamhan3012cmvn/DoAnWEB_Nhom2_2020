@@ -2,7 +2,7 @@
 <section class="row admin">
     <div class="col-2 h-100 dashboard">
         <div class="logo w-100 bg-info"></div>
-        <div class="btn-group w-100 m-2" >
+        <div class="btn-group w-100 m-2">
             <button id="AddBook" class="btn btn-function w-100">Add Book</button>
         </div>
 
@@ -17,6 +17,10 @@
         <div class="btn-group w-100 m-2">
             <button id="ViewBook" class="btn btn-function w-100">View Book</button>
         </div>
+
+        <div class="btn-group w-100 m-2">
+            <button id="exit" class="btn btn-function w-100">View Book</button>
+        </div>
     </div>
     <div class="col-10 h-100">
         <div id="loadForm"></div>
@@ -25,9 +29,9 @@
 
 <script src="~/Scripts/Func.js"></script>
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
         $("#AddBook").click(function () {
-            ajax("/Admin/AddBook","#loadForm")
+            ajax("/Admin/AddBook", "#loadForm")
         })
         $("#ViewBook").click(function () {
             ajax("/Admin/viewBook", "#loadForm")
@@ -37,6 +41,24 @@
         })
         $("#AddPublishHouse").click(function () {
             ajax("/Admin/AddPublishingHouse", "#loadForm")
+        })
+        $("#exit").click(function () {
+            $.ajax({
+                url: "/Home/Logout",
+                type: "GET",
+                dataType: "JSON",
+                success: function (response) {
+                    if (response.status == false)
+                        notify("Thông Báo", response.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                        notify("Thông Báo", response.message, "fas fa-exclamation-circle", "success")
+                        setTimeout(function () {
+                            window.location.href = '/' + response.link.controllerName + '/' + response.link.actionName + '';
+                        }, 3300);
+                    }
+                },
+
+            })
         })
     });
 </script>

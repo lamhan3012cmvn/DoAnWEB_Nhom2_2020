@@ -14,12 +14,11 @@ namespace Web.ASP.Controllers
         private Manager_BookEntities db = new Manager_BookEntities();
         public ActionResult Index()
         {
-            return View(db.BOOKs);
+            return View();
         }
         // Login
         public ActionResult Login()
         {
-            Session["user"] = null;
             return View();
         }
         [HttpPost]
@@ -64,6 +63,7 @@ namespace Web.ASP.Controllers
             }
             else
             {
+                Session["isLogin"] = true;
                 Session["user"] = user.C_email_ID;
                 if (user.powers == "1")
                 {
@@ -147,8 +147,7 @@ namespace Web.ASP.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             else
-            {
-
+            { 
                 var acc = new AUTH();
                 acc.C_email_ID = email;
                 acc.password = password;
@@ -170,5 +169,22 @@ namespace Web.ASP.Controllers
             
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["user"] = null;
+            Session["isLogin"] = null;
+            var result = new
+            {
+                status = true,
+                link = new
+                {
+                    actionName = "Index",
+                    controllerName = "Home"
+                },
+                message = "Đăng xuất thành công"
+            };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
