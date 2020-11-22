@@ -67,13 +67,15 @@
 <script>
     $(document).ready(function () {
         $("#btn_register").css("display", "inline-block");
-        $("#submit").click(function () {
+        
+        $("#submit").click(function (e) {
             const userName = $("#name").val()
             const pass = $("#pass").val()
             const objData = {
                 C_email_ID: userName,
                 password: pass
             }
+            
             $.ajax({
                 url: "/Home/Validate",
                 type: "POST",

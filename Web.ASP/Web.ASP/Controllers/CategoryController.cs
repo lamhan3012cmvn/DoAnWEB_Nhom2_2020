@@ -36,12 +36,14 @@ namespace Web.ASP.Controllers
 
         }
         // Single Book
+       
         public ActionResult SingleBook(String _id)
         {
             ViewBag.book = db.BOOKs.Find(_id);
             return View();
         }
         // Cart
+        [isLoginController]
         public ActionResult Cart()
         {
             return View();

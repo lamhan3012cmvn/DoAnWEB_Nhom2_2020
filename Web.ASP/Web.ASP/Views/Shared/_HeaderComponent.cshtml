@@ -1,6 +1,8 @@
-﻿<!--================Header Menu Area =================-->
+﻿@using Web.ASP.models
+
+<!--================Header Menu Area =================-->
 <header class="header_area">
-  
+
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
@@ -41,8 +43,26 @@
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Home/Login">Đăng nhập</a>
+                                        @{if (!(Session["user"] is null))
+                                            {
+                                                var u = Session["user"];
+                                                
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="loginsuccess" href="/Home/Login">@u</a>
+                                                </li>
+
+                                            }
+                                            else
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="loginsuccess" href="/Home/Login">Đăng nhập</a>
+                                                </li>
+                                            }
+
+                                        }
+
+
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Tracking/Index">Theo dõi đơn hàng</a>
                                         <li class="nav-item">
@@ -67,10 +87,27 @@
 
                                 <hr>
 
-                                <li class="nav-item">
-                                    <a href="/Home/Login" class="icons">
-                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="/Home/Login" class="dropdown-toggle nav-link icons" style="font-size:18px">
+                                        <i class="fas fa-user" id="icon" aria-hidden="true"></i>
                                     </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Category/Index">Sản phẩm</a>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Category/Checkout">Product Checkout</a>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Category/Cart">Giỏ hàng</a>
+                                        </li>
+                                        @if (!(Session["isLogin"] is null))
+                                        {
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="logout">Đăng xuất</a>
+                                        </li>
+                                        }
+                                        
+                                    </ul>
+                                    
                                 </li>
 
                                 <hr>
@@ -88,7 +125,6 @@
                                         <i class="lnr lnr-cart"></i>
                                     </a>
                                 </li>
-
                                 <hr>
                             </ul>
                         </div>
@@ -98,3 +134,24 @@
         </nav>
     </div>
 </header>
+
+<script>
+    $("#logout").click(function () {
+        $.ajax({
+            url: "/Home/Logout",
+            type: "GET",
+            dataType: "JSON",
+            success: function (response) {
+                if (response.status == false)
+                    notify("Thông Báo", response.message, "fas fa-exclamation-circle", "warning")
+                else {
+                    notify("Thông Báo", response.message, "fas fa-exclamation-circle", "success")
+                    setTimeout(function () {
+                        window.location.href = '/' + response.link.controllerName + '/' + response.link.actionName + '';
+                    }, 3300);
+                }
+            },
+
+        })
+    })
+</script>

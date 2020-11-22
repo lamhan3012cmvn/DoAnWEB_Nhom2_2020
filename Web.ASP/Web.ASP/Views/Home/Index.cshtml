@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Web.ASP.models.BOOK>
-
+@using Web.ASP.models
 
 @{
     ViewBag.Title = "Home";
@@ -55,7 +55,7 @@
                                 <i class="fas fa-chevron-left" aria-hidden="true"></i>
                             </a>
                         </li>
-                        @if(!(Model is null))
+                        @if (!(Model is null))
                         {
                             for (int i = 0; i <= Model.ToList().Count / 10; i++)
                             {
@@ -64,7 +64,6 @@
                                 </li>
                             }
                         }
-
                         <li class="page-item">
                             <a class="page-link" href="#">
                                 <i class="fas fa-chevron-right" aria-hidden="true"></i>
@@ -81,3 +80,13 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+@{
+    if (!(Session["isLogin"] is null))
+    {
+        <script>
+            $(document).ready(function () {
+                $("#icon").addClass("active");
+            });
+        </script>
+    }
+}

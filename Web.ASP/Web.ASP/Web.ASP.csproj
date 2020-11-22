@@ -428,6 +428,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\viewBook.cshtml" />
+    <Content Include="Views\Admin\_HeaderComponentLoggedIn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

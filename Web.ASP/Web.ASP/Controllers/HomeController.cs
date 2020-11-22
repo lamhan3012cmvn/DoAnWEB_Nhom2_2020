@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,9 +13,11 @@ namespace Web.ASP.Controllers
     {
         // GET: Index
         private Manager_BookEntities db = new Manager_BookEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View();
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(db.BOOKs.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
         }
         // Login
         public ActionResult Login()
