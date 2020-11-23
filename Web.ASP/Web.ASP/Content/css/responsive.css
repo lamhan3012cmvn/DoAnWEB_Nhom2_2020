@@ -152,6 +152,15 @@
 		max-height: 340px;
 		overflow-y: scroll;
 	}
+		.header_area .navbar-collapse::-webkit-scrollbar {
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		.header_area .navbar-collapse::-webkit-scrollbar-thumb {
+			background-color: #C6C6C6;
+			border-radius: 50px;
+		}
 	.header_area .navbar .nav .nav-item.submenu ul .nav-item .nav-link {
 		padding: 0px 15px;
 	}

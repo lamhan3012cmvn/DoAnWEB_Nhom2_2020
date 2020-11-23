@@ -65,33 +65,40 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
+    const ajaxLogin = () => {
+        const userName = $("#name").val()
+        const pass = $("#pass").val()
+        const objData = {
+            C_email_ID: userName,
+            password: pass
+        }
+        $.ajax({
+            url: "/Home/Validate",
+            type: "POST",
+            data: objData,
+            dataType: "JSON",
+            success: function (respone) {
+                if (respone.status == false)
+                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                else {
+                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                    setTimeout(function () {
+                        window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                    }, 3300);
+                }
+            }
+        })
+    }
     $(document).ready(function () {
         $("#btn_register").css("display", "inline-block");
-        
-        $("#submit").click(function (e) {
-            const userName = $("#name").val()
-            const pass = $("#pass").val()
-            const objData = {
-                C_email_ID: userName,
-                password: pass
+        $('input').keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                ajaxLogin()
             }
-            
-            $.ajax({
-                url: "/Home/Validate",
-                type: "POST",
-                data: objData,
-                dataType:"JSON",
-                success: function (respone) {
-                    if (respone.status == false)
-                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
-                    else {
-                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                        setTimeout(function () {
-                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                        }, 3300);
-                    }
-                }
-            })
+        });
+        $("#submit").click(function (e) {
+            ajaxLogin()
         })
 
     })
