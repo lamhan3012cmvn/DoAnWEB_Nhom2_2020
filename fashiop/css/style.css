@@ -6095,53 +6095,6 @@ h6 {
     background: transparent;
     color: #1641ff;
 }
-.cart_form_inner .form-group input,
-    .cart_form_inner .form-group textarea,
-    .cart_form_inner .form-group .left_dorp {
-        height: 54px;
-        border: none;
-        border-bottom: 1px solid #cccccc;
-        border-radius: 0px;
-        outline: none;
-        box-shadow: none;
-    }
-        .cart_form_inner .form-group .left_dorp .nice-select.open .list {
-            max-height: 200px;
-            overflow-y: scroll;
-            width: 100%;
-        }
-            .cart_form_inner .form-group .left_dorp .nice-select.open .list::-webkit-scrollbar {
-                 width: 6px;
-                 background-color: #F5F5F5;  
-            }
-
-             .cart_form_inner .form-group .left_dorp .nice-select.open .list::-webkit-scrollbar-thumb {
-                background-color: #C6C6C6;
-                border-radius: 50px;
-             }
-             .cart_form_inner .form-group textarea {
-                resize: none;
-                height: 80px;
-             }
-    .cart_form_inner .form-group .left_dorp div {
-        height: 54px;
-        border: none;
-        border-bottom: 1px solid #cccccc;
-        border-radius: 0px;
-        outline: none;
-        box-shadow: none;
-    }
-
-
-
-    .cart_form_inner .form-group .submit_btn {
-        display: block;
-        border-radius: 0px;
-        margin: auto;
-        text-transform: uppercase;
-        padding: 0 50px;
-    }
-
 .admin #loadForm{
     display: flex;
     justify-content: center;
@@ -6174,3 +6127,91 @@ h6 {
 /*---------------------------------------------------- */
 
 /*# sourceMappingURL=style.css.map */
+
+/* Login form Area css
+============================================================================================ */
+
+.infor_user .infor_user_box_img {
+    margin-right: -30px;
+    position: relative;
+}
+
+.infor_user .infor_user_box_img .hover {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    text-align: center;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+.infor_user .infor_user_box_img .hover h4 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.infor_user .infor_user_box_img .hover p {
+    max-width: 380px;
+    margin: 0px auto 25px;
+    color: #fff;
+}
+
+
+.infor_user_form_inner {
+    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.07);
+    height: 100%;
+    text-align: center;
+    padding-top: 70px;
+}
+
+.infor_user_form_inner h3 {
+    color: #222222;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+.infor_user_form_inner .infor_user
+{
+    max-width: 385px;
+    margin: auto;
+}
+
+.infor_user_form_inner .login_form {
+    max-width: 385px;
+    margin: auto;
+}
+
+.infor_user_form_inner.reg_form {
+    padding-top: 60px;
+}
+
+.infor_user_form_inner.reg_form h3 {
+    margin-bottom: 70px;
+}
+
+.infor_user .form-group input {
+    height: 54px;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    border-radius: 0px;
+    outline: none;
+    box-shadow: none;
+}
+
+.login_form .form-group .creat_infor {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.infor_user .form-group .submit_btn {
+    margin-top: 20px;
+    display: block;
+    border-radius: 0px;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+/* End Login form Area css
+============================================================================================ */

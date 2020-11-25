@@ -153,8 +153,7 @@ namespace Web.ASP.Controllers
                 try {
                     var addbook = new BOOK()
                     {
-                        C_id = "MS12" +
-                        "",
+                        C_id = "MS12" +"",
                         nameBook = nameBook,
                         priceBook = Int32.Parse(priceBook),
                         contentBook = contentBook,

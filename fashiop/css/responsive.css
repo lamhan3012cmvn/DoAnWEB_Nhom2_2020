@@ -73,6 +73,10 @@
 	.login_form_inner.reg_form {
 		padding-top: 30px;
 	}
+	.infor_user .infor_user_boximg .infor_user_box_img .img-fluid
+	{
+		height: 100%;
+	}
 }
 
 @media (max-width:991px){
@@ -262,6 +266,16 @@
 	.login_form_inner.reg_form {
 		padding-top: 60px;
 	}
+	
+	.infor_user .infor_user_boximg
+	{
+		display: none;
+	}
+	
+	.infor_user .infor_user_form_inner .submit_btn
+	{
+		margin-bottom: 50px;
+	}
 }
 @media (max-width:767px){
 	.home_banner_area {
@@ -363,11 +377,6 @@
 	.order_details_table .table tbody tr td p {
 		white-space: nowrap;
 	}
-/*
-	.p_filter_widgets .list li a::after {
-		top: 7px;
-	}
-*/
 }
 @media (max-width:600px){
 	
