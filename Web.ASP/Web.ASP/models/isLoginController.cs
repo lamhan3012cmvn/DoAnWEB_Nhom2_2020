@@ -13,6 +13,7 @@ namespace Web.ASP.models
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var isLogin = HttpContext.Current.Session["isLogin"];
+           // var user = HttpContext.Current.Session["user"];
             if (isLogin == null)
             {
                 filterContext.Result = new RedirectResult("~/Home/Login");

@@ -60,7 +60,7 @@
     </div>
 
     <div class="col-md-10 form-group mx-auto">
-        <button class="btn submit_btn">Thêm Sách</button>
+        <button id="submit" class="btn submit_btn">Thêm Sách</button>
     </div>
 </form>
 <script>
@@ -68,7 +68,7 @@
     $(document).ready(function () {
         selectChange("#formAddCategory", "/Admin/AddCategoryItem","#loadForm")
         selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse","#loadForm")
-        $("#submit").click(function () {
+        $("#submit").submit(function () {
             const nameB = $("#name").val()
             const contentB = $("#content").val()
             const priceB = $("#price").val()

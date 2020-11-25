@@ -24,39 +24,42 @@
 <!--================Login Box Area =================-->
 
 
-<section class="login_box_area p_120">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                @Html.Partial("_ImgLoginRegisterComponent")
-            </div>
-            <div class="col-lg-6">
-                
-                <div class="login_form_inner">
-                    <h2>Đăng nhập</h2>
-                    <form class="row login_form" action="/Home/Validate" method="post" id="contactForm" novalidate="novalidate">
-                        <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="C_email_ID" value="" placeholder="Email">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="pass" name="password" value="" placeholder="Mật khẩu">
-                        </div>                    
-                        <div class="col-md-12 form-group">
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Nhớ mật khẩu</label>
+<div id="loadAddInfor">
+    <section  class="login_box_area p_120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    @Html.Partial("_ImgLoginRegisterComponent")
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="login_form_inner">
+                        <h2>Đăng nhập</h2>
+                        <form class="row login_form" action="/Home/Validate" method="post" id="contactForm" novalidate="novalidate">
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="C_email_ID" value="" placeholder="Email">
                             </div>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <div id="submit" class="btn submit_btn">Đăng nhập</div>
-                            <a href="#">Quên mật khẩu?</a>
-                        </div>
-                    </form>
+                            <div class="col-md-12 form-group">
+                                <input type="password" class="form-control" id="pass" name="password" value="" placeholder="Mật khẩu">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Nhớ mật khẩu</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div id="submit" class="btn submit_btn">Đăng nhập</div>
+                                <a href="#">Quên mật khẩu?</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
+
 <!--================End Login Box Area =================-->
 <!--================ Subscription Area ================-->
 @Html.Partial("_SubscriptionComponent");
@@ -64,6 +67,7 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+<script src="~/Scripts/Func.js"></script>
 <script>
     const ajaxLogin = () => {
         const userName = $("#name").val()
@@ -82,9 +86,16 @@
                     notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
                 else {
                     notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                    setTimeout(function () {
-                        window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                    }, 3300);
+                    if (respone.isInfor == false)
+                    {
+                        ajax('/' + respone.link.controllerName + '/' + respone.link.actionName + '', "#loadAddInfor");
+                    }
+                    else
+                    {
+                        setTimeout(function () {
+                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                        }, 3300);
+                    }
                 }
             }
         })

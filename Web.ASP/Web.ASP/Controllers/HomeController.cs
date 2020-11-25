@@ -22,6 +22,13 @@ namespace Web.ASP.Controllers
         // Login
         public ActionResult Login()
         {
+            var isLogin = Session["isLogin"] ;
+         
+            if(!(isLogin is null)) 
+            {
+                return RedirectToAction(actionName: "Index", controllerName: "Home");
+            }
+
             return View();
         }
         [HttpPost]
@@ -68,6 +75,22 @@ namespace Web.ASP.Controllers
             {
                 Session["isLogin"] = true;
                 Session["user"] = user.C_email_ID;
+                var inforUser = db.INFORMATION.Find(user.C_email_ID);
+                if(inforUser is null)
+                {
+                    var result = new
+                    {
+                        status = true,
+                        isInfor = false,
+                        link = new
+                        {
+                            actionName = "Information",
+                            controllerName = "Home"
+                        },
+                        message = "Đăng nhập thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
                 if (user.powers == "1")
                 {
                     var result = new
@@ -80,6 +103,7 @@ namespace Web.ASP.Controllers
                         },
                         message = "Đăng nhập thành công"
                     };
+
                     return Json(result,JsonRequestBehavior.AllowGet);
                 }
                 if (user.powers == "0")
@@ -96,6 +120,8 @@ namespace Web.ASP.Controllers
                     };
                     return Json(result, JsonRequestBehavior.AllowGet);   
                 }
+                
+
             }
             return View("");
         }
@@ -188,6 +214,93 @@ namespace Web.ASP.Controllers
                 message = "Đăng xuất thành công"
             };
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        //infor
+        [HttpGet]
+        [isLoginController]
+        public ActionResult Information()
+        {
+            return PartialView();
+        }
+        [isLoginController]
+        [HttpPost]
+        public ActionResult ValidateInfor(INFORMATION infor)
+        {
+
+            if (String.IsNullOrEmpty(infor.nameInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập họ và tên"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(infor.maleInformation) || infor.maleInformation == "#")
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn giới tính"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(infor.phoneInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập số điện thoại"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(infor.addressInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập địa chỉ"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if ((infor.birthday) > DateTime.Now   )
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Ngày sinh không hợp lệ"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                try
+                {
+                    infor.C_id = Session["user"].ToString();
+                    db.INFORMATION.Add(infor);
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                        link = new
+                        {
+                            actionName = "Index",
+                            controllerName = "Home"
+                        },
+                        message = "Nhập thông tin thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "Nhập thông tin không thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }    
         }
     }
 }
