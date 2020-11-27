@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using Web.ASP.models;
+using Facebook;
+using System.Configuration;
 
 namespace Web.ASP.Controllers
 {
@@ -13,6 +15,17 @@ namespace Web.ASP.Controllers
     {
         // GET: Index
         private Manager_BookEntities db = new Manager_BookEntities();
+        private Uri RedirectUri
+        {
+            get
+            {
+                var uriBuilder = new UriBuilder(Request.Url);
+                uriBuilder.Query = null;
+                uriBuilder.Fragment = null;
+                uriBuilder.Path = Url.Action("FacebookCallback");
+                return uriBuilder.Uri;
+            }
+        }
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -301,6 +314,55 @@ namespace Web.ASP.Controllers
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }    
+        }
+        public ActionResult LoginFaceBook()
+        {
+            var fb = new FacebookClient();
+            var loginUrl = fb.GetLoginUrl(new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                response_type = "code",
+                scope = "email",
+            });
+            return Redirect(loginUrl.AbsoluteUri);
+
+        }
+        public ActionResult FacebookCallback(string code)
+        {
+            var fb = new FacebookClient();
+            dynamic result = fb.Post("oauth/access_token", new
+            {
+                client_id = ConfigurationManager.AppSettings["FbAppId"],
+                client_secret = ConfigurationManager.AppSettings["FbAppSecret"],
+                redirect_uri = RedirectUri.AbsoluteUri,
+                code = code
+            });
+            var accessToken = result.access_token;
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                fb.AccessToken = accessToken;
+                dynamic me = fb.Get("me?fields=id,name");
+                if((db.AUTHs.Find(me.id) is null))
+                {
+                    var auth = new AUTH()
+                    {
+                        C_email_ID = me.id,
+                        powers = "0",
+                        password = "12345",
+                    };
+                    InsertFacebook(auth);
+                    return RedirectToAction(actionName: "Index", controllerName: "Home");
+                }    
+               
+            }
+            return View("");
+        }
+        private void InsertFacebook(AUTH auth)
+        {
+            db.AUTHs.Add(auth);
+            db.SaveChanges();
         }
     }
 }
