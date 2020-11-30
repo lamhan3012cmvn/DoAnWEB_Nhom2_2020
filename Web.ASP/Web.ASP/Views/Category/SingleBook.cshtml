@@ -38,7 +38,12 @@
                     <ul class="list">
                         <li>
                             <a class="active" href="#">
-                                <span>Thể loại:</span> : @ViewBag.book.CATEGORY.nameCategory
+                                <span style="width: auto;">Tác giả</span> : @ViewBag.book.AUTHOR.nameAuthor
+                            </a>
+                        </li>
+                        <li>
+                            <a class="active" href="#">
+                                <span>Thể loại</span> : @ViewBag.book.CATEGORY.nameCategory
                             </a>
                         </li>
                         <li>
@@ -46,6 +51,7 @@
                                 <span style="width: auto;">Số sản phẩm có sẵn</span> : @ViewBag.book.countBook
                             </a>
                         </li>
+
                     </ul>
                     <p>
                         @ViewBag.book.contentBook
