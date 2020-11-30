@@ -46,7 +46,9 @@ namespace Web.ASP.Controllers
         [isLoginController]
         public ActionResult Cart()
         {
-            return View();
+            String id = Session["user"].ToString();
+            var result = db.INFORMATION.Find(id).CARTs.ToList();
+            return View(result);
         }
         // Confirmation
         public ActionResult Confirmation()

@@ -361,6 +361,15 @@
     <Compile Include="models\AUTH.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\BILL.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\CART.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\IMPORT_BOOK.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="models\isAdmin.cs" />
     <Compile Include="models\AUTHOR.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
@@ -397,6 +406,9 @@
     </Compile>
     <Compile Include="models\isLoginController.cs" />
     <Compile Include="models\PUBLISHING_HOUSE.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
+    <Compile Include="models\sysdiagram.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

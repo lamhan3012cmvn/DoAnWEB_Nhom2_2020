@@ -5,20 +5,29 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1e6f8b8c04784957b7e7ab250db7493c" Name="Diagram1">
-        <EntityTypeShape EntityType="Manager_BookModel.AUTH" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.AUTHOR" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.BOOK" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.CATEGORY" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.IMAGE_BOOK" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.INFORMATION" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Manager_BookModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
-        <AssociationConnector Association="Manager_BookModel.FK_INFORMATION_AUTH" ManuallyRouted="false" />
-        <AssociationConnector Association="Manager_BookModel.FK_BOOK_CATEGORY" ManuallyRouted="false" />
-        <AssociationConnector Association="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK" ManuallyRouted="false" />
-        <AssociationConnector Association="Manager_BookModel.FK_BOOK_IMAGE_BOOK" ManuallyRouted="false" />
-        <AssociationConnector Association="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" ManuallyRouted="false" />
-        <AssociationConnector Association="Manager_BookModel.FK_BOOK_AUTHOR" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Manager_BookModel.AUTH" Width="1.5" PointX="0.75" PointY="18.875" />
+        <EntityTypeShape EntityType="Manager_BookModel.AUTHOR" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="Manager_BookModel.BILL" Width="1.5" PointX="5.25" PointY="3.875" />
+        <EntityTypeShape EntityType="Manager_BookModel.BOOK" Width="1.5" PointX="3" PointY="2.625" />
+        <EntityTypeShape EntityType="Manager_BookModel.CART" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="Manager_BookModel.CATEGORY" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="Manager_BookModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="10.375" />
+        <EntityTypeShape EntityType="Manager_BookModel.IMAGE_BOOK" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="Manager_BookModel.IMPORT_BOOK" Width="1.5" PointX="5.25" PointY="10" />
+        <EntityTypeShape EntityType="Manager_BookModel.INFORMATION" Width="1.5" PointX="3" PointY="18.375" />
+        <EntityTypeShape EntityType="Manager_BookModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="Manager_BookModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="Manager_BookModel.FK_INFORMATION_AUTH" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_AUTHOR" />
+        <AssociationConnector Association="Manager_BookModel.FK_BILL_BOOK" />
+        <AssociationConnector Association="Manager_BookModel.FK_BILL_INFORMATION" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_CATEGORY" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_IMAGE_BOOK" />
+        <AssociationConnector Association="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" />
+        <AssociationConnector Association="Manager_BookModel.FK_CART_BOOK" />
+        <AssociationConnector Association="Manager_BookModel.FK_IMPORT_BOOK_BOOK" />
+        <AssociationConnector Association="Manager_BookModel.FK_CART_INFORMATION" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

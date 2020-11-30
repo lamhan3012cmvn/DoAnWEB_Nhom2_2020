@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Manager_BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Manager_BookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AUTH">
           <Key>
             <PropertyRef Name="_email_ID" />
@@ -20,6 +20,17 @@
           <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="nameAuthor" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="information_id" />
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="order_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="book_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="total" Type="float" />
+        </EntityType>
         <EntityType Name="BOOK">
           <Key>
             <PropertyRef Name="_id" />
@@ -33,6 +44,17 @@
           <Property Name="categoryBook_ID" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="discountBook_ID" Type="varchar" MaxLength="10" />
           <Property Name="publishingHouseBook_ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="author_id" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="information_id" />
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="book_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="count" Type="int" />
+          <Property Name="order_date" Type="datetime" />
         </EntityType>
         <EntityType Name="CATEGORY">
           <Key>
@@ -50,20 +72,19 @@
           <Property Name="startTime" Type="date" Nullable="false" />
           <Property Name="endTime" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="FK_BOOK_AUTHOR">
-          <Key>
-            <PropertyRef Name="book_ID" />
-            <PropertyRef Name="author_ID" />
-          </Key>
-          <Property Name="book_ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="author_ID" Type="varchar" MaxLength="10" Nullable="false" />
-        </EntityType>
         <EntityType Name="IMAGE_BOOK">
           <Key>
             <PropertyRef Name="_id" />
           </Key>
           <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="link" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IMPORT_BOOK">
+          <Key>
+            <PropertyRef Name="book_ID" />
+          </Key>
+          <Property Name="book_ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="import_date" Type="datetime" />
         </EntityType>
         <EntityType Name="INFORMATION">
           <Key>
@@ -85,27 +106,49 @@
           <Property Name="phonePublishingHouse" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <Association Name="FK_BOOK_AUTHOR_AUTHOR">
-          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="1" />
-          <End Role="FK_BOOK_AUTHOR" Type="Self.FK_BOOK_AUTHOR" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AUTHOR">
-              <PropertyRef Name="_id" />
-            </Principal>
-            <Dependent Role="FK_BOOK_AUTHOR">
-              <PropertyRef Name="author_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BOOK_AUTHOR_BOOK">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_BILL_BOOK">
           <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
-          <End Role="FK_BOOK_AUTHOR" Type="Self.FK_BOOK_AUTHOR" Multiplicity="*" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BOOK">
               <PropertyRef Name="_id" />
             </Principal>
-            <Dependent Role="FK_BOOK_AUTHOR">
-              <PropertyRef Name="book_ID" />
+            <Dependent Role="BILL">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_INFORMATION">
+          <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BOOK_AUTHOR">
+          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="0..1" />
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="BOOK">
+              <PropertyRef Name="author_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -154,6 +197,42 @@
             </Principal>
             <Dependent Role="BOOK">
               <PropertyRef Name="publishingHouseBook_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CART_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CART_INFORMATION">
+          <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="1" />
+          <End Role="CART" Type="Self.CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IMPORT_BOOK_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="IMPORT_BOOK" Type="Self.IMPORT_BOOK" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="IMPORT_BOOK">
+              <PropertyRef Name="book_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -172,20 +251,27 @@
         <EntityContainer Name="Manager_BookModelStoreContainer">
           <EntitySet Name="AUTH" EntityType="Self.AUTH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL" EntityType="Self.BILL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BOOK" EntityType="Self.BOOK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CART" EntityType="Self.CART" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DISCOUNT_BOOK" EntityType="Self.DISCOUNT_BOOK" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FK_BOOK_AUTHOR" EntityType="Self.FK_BOOK_AUTHOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IMAGE_BOOK" EntityType="Self.IMAGE_BOOK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IMPORT_BOOK" EntityType="Self.IMPORT_BOOK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PUBLISHING_HOUSE" EntityType="Self.PUBLISHING_HOUSE" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BOOK_AUTHOR_AUTHOR" Association="Self.FK_BOOK_AUTHOR_AUTHOR">
-            <End Role="AUTHOR" EntitySet="AUTHOR" />
-            <End Role="FK_BOOK_AUTHOR" EntitySet="FK_BOOK_AUTHOR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_AUTHOR_BOOK" Association="Self.FK_BOOK_AUTHOR_BOOK">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BILL_BOOK" Association="Self.FK_BILL_BOOK">
             <End Role="BOOK" EntitySet="BOOK" />
-            <End Role="FK_BOOK_AUTHOR" EntitySet="FK_BOOK_AUTHOR" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_INFORMATION" Association="Self.FK_BILL_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_AUTHOR" Association="Self.FK_BOOK_AUTHOR">
+            <End Role="AUTHOR" EntitySet="AUTHOR" />
+            <End Role="BOOK" EntitySet="BOOK" />
           </AssociationSet>
           <AssociationSet Name="FK_BOOK_CATEGORY" Association="Self.FK_BOOK_CATEGORY">
             <End Role="CATEGORY" EntitySet="CATEGORY" />
@@ -203,103 +289,221 @@
             <End Role="PUBLISHING_HOUSE" EntitySet="PUBLISHING_HOUSE" />
             <End Role="BOOK" EntitySet="BOOK" />
           </AssociationSet>
+          <AssociationSet Name="FK_CART_BOOK" Association="Self.FK_CART_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="CART" EntitySet="CART" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CART_INFORMATION" Association="Self.FK_CART_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="CART" EntitySet="CART" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IMPORT_BOOK_BOOK" Association="Self.FK_IMPORT_BOOK_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="IMPORT_BOOK" EntitySet="IMPORT_BOOK" />
+          </AssociationSet>
           <AssociationSet Name="FK_INFORMATION_AUTH" Association="Self.FK_INFORMATION_AUTH">
             <End Role="AUTH" EntitySet="AUTH" />
             <End Role="INFORMATION" EntitySet="INFORMATION" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Manager_BookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Manager_BookEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AUTHs" EntityType="Manager_BookModel.AUTH" />
+          <EntitySet Name="AUTHORs" EntityType="Manager_BookModel.AUTHOR" />
+          <EntitySet Name="BILLs" EntityType="Manager_BookModel.BILL" />
+          <EntitySet Name="BOOKs" EntityType="Manager_BookModel.BOOK" />
+          <EntitySet Name="CARTs" EntityType="Manager_BookModel.CART" />
+          <EntitySet Name="CATEGORies" EntityType="Manager_BookModel.CATEGORY" />
+          <EntitySet Name="DISCOUNT_BOOK" EntityType="Manager_BookModel.DISCOUNT_BOOK" />
+          <EntitySet Name="IMAGE_BOOK" EntityType="Manager_BookModel.IMAGE_BOOK" />
+          <EntitySet Name="IMPORT_BOOK" EntityType="Manager_BookModel.IMPORT_BOOK" />
+          <EntitySet Name="INFORMATION" EntityType="Manager_BookModel.INFORMATION" />
+          <EntitySet Name="PUBLISHING_HOUSE" EntityType="Manager_BookModel.PUBLISHING_HOUSE" />
+          <EntitySet Name="sysdiagrams" EntityType="Manager_BookModel.sysdiagram" />
+          <AssociationSet Name="FK_INFORMATION_AUTH" Association="Manager_BookModel.FK_INFORMATION_AUTH">
+            <End Role="AUTH" EntitySet="AUTHs" />
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_AUTHOR" Association="Manager_BookModel.FK_BOOK_AUTHOR">
+            <End Role="AUTHOR" EntitySet="AUTHORs" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_BOOK" Association="Manager_BookModel.FK_BILL_BOOK">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_INFORMATION" Association="Manager_BookModel.FK_BILL_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_CATEGORY" Association="Manager_BookModel.FK_BOOK_CATEGORY">
+            <End Role="CATEGORY" EntitySet="CATEGORies" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_DISCOUNT_BOOK" Association="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK">
+            <End Role="DISCOUNT_BOOK" EntitySet="DISCOUNT_BOOK" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_IMAGE_BOOK" Association="Manager_BookModel.FK_BOOK_IMAGE_BOOK">
+            <End Role="IMAGE_BOOK" EntitySet="IMAGE_BOOK" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BOOK_PUBLISHING_HOUSE" Association="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE">
+            <End Role="PUBLISHING_HOUSE" EntitySet="PUBLISHING_HOUSE" />
+            <End Role="BOOK" EntitySet="BOOKs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CART_BOOK" Association="Manager_BookModel.FK_CART_BOOK">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IMPORT_BOOK_BOOK" Association="Manager_BookModel.FK_IMPORT_BOOK_BOOK">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="IMPORT_BOOK" EntitySet="IMPORT_BOOK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CART_INFORMATION" Association="Manager_BookModel.FK_CART_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AUTH">
           <Key>
             <PropertyRef Name="C_email_ID" />
           </Key>
-          <Property Name="C_email_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="powers" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="INFORMATION" Relationship="Self.FK_INFORMATION_AUTH" FromRole="AUTH" ToRole="INFORMATION" />
+          <Property Name="C_email_ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="powers" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_INFORMATION_AUTH" FromRole="AUTH" ToRole="INFORMATION" />
         </EntityType>
         <EntityType Name="AUTHOR">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_AUTHOR" FromRole="AUTHOR" ToRole="BOOK" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nameAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_AUTHOR" FromRole="AUTHOR" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="information_id" />
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="order_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="total" Type="Double" />
+          <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BILL" ToRole="BOOK" />
+          <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="BILL" ToRole="INFORMATION" />
         </EntityType>
         <EntityType Name="BOOK">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameBook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nameBook" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="priceBook" Type="Double" Nullable="false" />
           <Property Name="contentBook" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="countBook" Type="Int32" Nullable="false" />
-          <Property Name="imgBook_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="categoryBook_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imgBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="categoryBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="discountBook_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="publishingHouseBook_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="CATEGORY" Relationship="Self.FK_BOOK_CATEGORY" FromRole="BOOK" ToRole="CATEGORY" />
-          <NavigationProperty Name="DISCOUNT_BOOK" Relationship="Self.FK_BOOK_DISCOUNT_BOOK" FromRole="BOOK" ToRole="DISCOUNT_BOOK" />
-          <NavigationProperty Name="IMAGE_BOOK" Relationship="Self.FK_BOOK_IMAGE_BOOK" FromRole="BOOK" ToRole="IMAGE_BOOK" />
-          <NavigationProperty Name="PUBLISHING_HOUSE" Relationship="Self.FK_BOOK_PUBLISHING_HOUSE" FromRole="BOOK" ToRole="PUBLISHING_HOUSE" />
-          <NavigationProperty Name="AUTHORs" Relationship="Self.FK_BOOK_AUTHOR" FromRole="BOOK" ToRole="AUTHOR" />
+          <Property Name="publishingHouseBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="author_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AUTHOR" Relationship="Manager_BookModel.FK_BOOK_AUTHOR" FromRole="BOOK" ToRole="AUTHOR" />
+          <NavigationProperty Name="BILLs" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BOOK" ToRole="BILL" />
+          <NavigationProperty Name="CATEGORY" Relationship="Manager_BookModel.FK_BOOK_CATEGORY" FromRole="BOOK" ToRole="CATEGORY" />
+          <NavigationProperty Name="DISCOUNT_BOOK" Relationship="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK" FromRole="BOOK" ToRole="DISCOUNT_BOOK" />
+          <NavigationProperty Name="IMAGE_BOOK" Relationship="Manager_BookModel.FK_BOOK_IMAGE_BOOK" FromRole="BOOK" ToRole="IMAGE_BOOK" />
+          <NavigationProperty Name="PUBLISHING_HOUSE" Relationship="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" FromRole="BOOK" ToRole="PUBLISHING_HOUSE" />
+          <NavigationProperty Name="CARTs" Relationship="Manager_BookModel.FK_CART_BOOK" FromRole="BOOK" ToRole="CART" />
+          <NavigationProperty Name="IMPORT_BOOK" Relationship="Manager_BookModel.FK_IMPORT_BOOK_BOOK" FromRole="BOOK" ToRole="IMPORT_BOOK" />
+        </EntityType>
+        <EntityType Name="CART">
+          <Key>
+            <PropertyRef Name="information_id" />
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="count" Type="Int32" />
+          <Property Name="order_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_CART_BOOK" FromRole="CART" ToRole="BOOK" />
+          <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_CART_INFORMATION" FromRole="CART" ToRole="INFORMATION" />
         </EntityType>
         <EntityType Name="CATEGORY">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_CATEGORY" FromRole="CATEGORY" ToRole="BOOK" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nameCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_CATEGORY" FromRole="CATEGORY" ToRole="BOOK" />
         </EntityType>
         <EntityType Name="DISCOUNT_BOOK">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="discount" Type="Double" Nullable="false" />
           <Property Name="startTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="endTime" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_DISCOUNT_BOOK" FromRole="DISCOUNT_BOOK" ToRole="BOOK" />
+          <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_DISCOUNT_BOOK" FromRole="DISCOUNT_BOOK" ToRole="BOOK" />
         </EntityType>
         <EntityType Name="IMAGE_BOOK">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="link" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_IMAGE_BOOK" FromRole="IMAGE_BOOK" ToRole="BOOK" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="link" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_IMAGE_BOOK" FromRole="IMAGE_BOOK" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="IMPORT_BOOK">
+          <Key>
+            <PropertyRef Name="book_ID" />
+          </Key>
+          <Property Name="book_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="import_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_IMPORT_BOOK_BOOK" FromRole="IMPORT_BOOK" ToRole="BOOK" />
         </EntityType>
         <EntityType Name="INFORMATION">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nameInformation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="maleInformation" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phoneInformation" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="addressInformation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nameInformation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="maleInformation" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="phoneInformation" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="addressInformation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="birthday" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="AUTH" Relationship="Self.FK_INFORMATION_AUTH" FromRole="INFORMATION" ToRole="AUTH" />
+          <NavigationProperty Name="AUTH" Relationship="Manager_BookModel.FK_INFORMATION_AUTH" FromRole="INFORMATION" ToRole="AUTH" />
+          <NavigationProperty Name="BILLs" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="INFORMATION" ToRole="BILL" />
+          <NavigationProperty Name="CARTs" Relationship="Manager_BookModel.FK_CART_INFORMATION" FromRole="INFORMATION" ToRole="CART" />
         </EntityType>
         <EntityType Name="PUBLISHING_HOUSE">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="namePublishingHouse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phonePublishingHouse" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="BOOKs" Relationship="Self.FK_BOOK_PUBLISHING_HOUSE" FromRole="PUBLISHING_HOUSE" ToRole="BOOK" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="namePublishingHouse" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="phonePublishingHouse" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" FromRole="PUBLISHING_HOUSE" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_INFORMATION_AUTH">
-          <End Role="AUTH" Type="Self.AUTH" Multiplicity="1" />
-          <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="0..1" />
+          <End Type="Manager_BookModel.AUTH" Role="AUTH" Multiplicity="1" />
+          <End Type="Manager_BookModel.INFORMATION" Role="INFORMATION" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="AUTH">
               <PropertyRef Name="C_email_ID" />
@@ -309,9 +513,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BOOK_AUTHOR">
+          <End Type="Manager_BookModel.AUTHOR" Role="AUTHOR" Multiplicity="0..1" />
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AUTHOR">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="BOOK">
+              <PropertyRef Name="author_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_BOOK">
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="1" />
+          <End Type="Manager_BookModel.BILL" Role="BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_INFORMATION">
+          <End Type="Manager_BookModel.INFORMATION" Role="INFORMATION" Multiplicity="1" />
+          <End Type="Manager_BookModel.BILL" Role="BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BOOK_CATEGORY">
-          <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="1" />
-          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Type="Manager_BookModel.CATEGORY" Role="CATEGORY" Multiplicity="1" />
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CATEGORY">
               <PropertyRef Name="C_id" />
@@ -322,8 +562,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BOOK_DISCOUNT_BOOK">
-          <End Role="DISCOUNT_BOOK" Type="Self.DISCOUNT_BOOK" Multiplicity="0..1" />
-          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Type="Manager_BookModel.DISCOUNT_BOOK" Role="DISCOUNT_BOOK" Multiplicity="0..1" />
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DISCOUNT_BOOK">
               <PropertyRef Name="C_id" />
@@ -334,8 +574,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BOOK_IMAGE_BOOK">
-          <End Role="IMAGE_BOOK" Type="Self.IMAGE_BOOK" Multiplicity="1" />
-          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Type="Manager_BookModel.IMAGE_BOOK" Role="IMAGE_BOOK" Multiplicity="1" />
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="IMAGE_BOOK">
               <PropertyRef Name="C_id" />
@@ -346,8 +586,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BOOK_PUBLISHING_HOUSE">
-          <End Role="PUBLISHING_HOUSE" Type="Self.PUBLISHING_HOUSE" Multiplicity="1" />
-          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+          <End Type="Manager_BookModel.PUBLISHING_HOUSE" Role="PUBLISHING_HOUSE" Multiplicity="1" />
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PUBLISHING_HOUSE">
               <PropertyRef Name="C_id" />
@@ -357,44 +597,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BOOK_AUTHOR">
-          <End Role="AUTHOR" Type="Self.AUTHOR" Multiplicity="*" />
-          <End Role="BOOK" Type="Self.BOOK" Multiplicity="*" />
+        <Association Name="FK_CART_BOOK">
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="1" />
+          <End Type="Manager_BookModel.CART" Role="CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Manager_BookEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AUTHs" EntityType="Self.AUTH" />
-          <EntitySet Name="AUTHORs" EntityType="Self.AUTHOR" />
-          <EntitySet Name="BOOKs" EntityType="Self.BOOK" />
-          <EntitySet Name="CATEGORies" EntityType="Self.CATEGORY" />
-          <EntitySet Name="DISCOUNT_BOOK" EntityType="Self.DISCOUNT_BOOK" />
-          <EntitySet Name="IMAGE_BOOK" EntityType="Self.IMAGE_BOOK" />
-          <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" />
-          <EntitySet Name="PUBLISHING_HOUSE" EntityType="Self.PUBLISHING_HOUSE" />
-          <AssociationSet Name="FK_INFORMATION_AUTH" Association="Self.FK_INFORMATION_AUTH">
-            <End Role="AUTH" EntitySet="AUTHs" />
-            <End Role="INFORMATION" EntitySet="INFORMATION" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_CATEGORY" Association="Self.FK_BOOK_CATEGORY">
-            <End Role="CATEGORY" EntitySet="CATEGORies" />
-            <End Role="BOOK" EntitySet="BOOKs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_DISCOUNT_BOOK" Association="Self.FK_BOOK_DISCOUNT_BOOK">
-            <End Role="DISCOUNT_BOOK" EntitySet="DISCOUNT_BOOK" />
-            <End Role="BOOK" EntitySet="BOOKs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_IMAGE_BOOK" Association="Self.FK_BOOK_IMAGE_BOOK">
-            <End Role="IMAGE_BOOK" EntitySet="IMAGE_BOOK" />
-            <End Role="BOOK" EntitySet="BOOKs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_PUBLISHING_HOUSE" Association="Self.FK_BOOK_PUBLISHING_HOUSE">
-            <End Role="PUBLISHING_HOUSE" EntitySet="PUBLISHING_HOUSE" />
-            <End Role="BOOK" EntitySet="BOOKs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BOOK_AUTHOR" Association="Self.FK_BOOK_AUTHOR">
-            <End Role="AUTHOR" EntitySet="AUTHORs" />
-            <End Role="BOOK" EntitySet="BOOKs" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_IMPORT_BOOK_BOOK">
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="1" />
+          <End Type="Manager_BookModel.IMPORT_BOOK" Role="IMPORT_BOOK" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="IMPORT_BOOK">
+              <PropertyRef Name="book_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CART_INFORMATION">
+          <End Type="Manager_BookModel.INFORMATION" Role="INFORMATION" Multiplicity="1" />
+          <End Type="Manager_BookModel.CART" Role="CART" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="CART">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -404,91 +642,123 @@
           <EntitySetMapping Name="AUTHs">
             <EntityTypeMapping TypeName="Manager_BookModel.AUTH">
               <MappingFragment StoreEntitySet="AUTH">
-                <ScalarProperty Name="C_email_ID" ColumnName="_email_ID" />
-                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="powers" ColumnName="powers" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="C_email_ID" ColumnName="_email_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AUTHORs">
             <EntityTypeMapping TypeName="Manager_BookModel.AUTHOR">
               <MappingFragment StoreEntitySet="AUTHOR">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
                 <ScalarProperty Name="nameAuthor" ColumnName="nameAuthor" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLs">
+            <EntityTypeMapping TypeName="Manager_BookModel.BILL">
+              <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+                <ScalarProperty Name="information_id" ColumnName="information_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BOOKs">
             <EntityTypeMapping TypeName="Manager_BookModel.BOOK">
               <MappingFragment StoreEntitySet="BOOK">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
-                <ScalarProperty Name="nameBook" ColumnName="nameBook" />
-                <ScalarProperty Name="priceBook" ColumnName="priceBook" />
-                <ScalarProperty Name="contentBook" ColumnName="contentBook" />
-                <ScalarProperty Name="countBook" ColumnName="countBook" />
-                <ScalarProperty Name="imgBook_ID" ColumnName="imgBook_ID" />
-                <ScalarProperty Name="categoryBook_ID" ColumnName="categoryBook_ID" />
-                <ScalarProperty Name="discountBook_ID" ColumnName="discountBook_ID" />
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
                 <ScalarProperty Name="publishingHouseBook_ID" ColumnName="publishingHouseBook_ID" />
+                <ScalarProperty Name="discountBook_ID" ColumnName="discountBook_ID" />
+                <ScalarProperty Name="categoryBook_ID" ColumnName="categoryBook_ID" />
+                <ScalarProperty Name="imgBook_ID" ColumnName="imgBook_ID" />
+                <ScalarProperty Name="countBook" ColumnName="countBook" />
+                <ScalarProperty Name="contentBook" ColumnName="contentBook" />
+                <ScalarProperty Name="priceBook" ColumnName="priceBook" />
+                <ScalarProperty Name="nameBook" ColumnName="nameBook" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARTs">
+            <EntityTypeMapping TypeName="Manager_BookModel.CART">
+              <MappingFragment StoreEntitySet="CART">
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+                <ScalarProperty Name="information_id" ColumnName="information_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CATEGORies">
             <EntityTypeMapping TypeName="Manager_BookModel.CATEGORY">
               <MappingFragment StoreEntitySet="CATEGORY">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
                 <ScalarProperty Name="nameCategory" ColumnName="nameCategory" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DISCOUNT_BOOK">
             <EntityTypeMapping TypeName="Manager_BookModel.DISCOUNT_BOOK">
               <MappingFragment StoreEntitySet="DISCOUNT_BOOK">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="startTime" ColumnName="startTime" />
                 <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="IMAGE_BOOK">
             <EntityTypeMapping TypeName="Manager_BookModel.IMAGE_BOOK">
               <MappingFragment StoreEntitySet="IMAGE_BOOK">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
                 <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IMPORT_BOOK">
+            <EntityTypeMapping TypeName="Manager_BookModel.IMPORT_BOOK">
+              <MappingFragment StoreEntitySet="IMPORT_BOOK">
+                <ScalarProperty Name="import_date" ColumnName="import_date" />
+                <ScalarProperty Name="book_ID" ColumnName="book_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="INFORMATION">
             <EntityTypeMapping TypeName="Manager_BookModel.INFORMATION">
               <MappingFragment StoreEntitySet="INFORMATION">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
-                <ScalarProperty Name="nameInformation" ColumnName="nameInformation" />
-                <ScalarProperty Name="maleInformation" ColumnName="maleInformation" />
-                <ScalarProperty Name="phoneInformation" ColumnName="phoneInformation" />
-                <ScalarProperty Name="addressInformation" ColumnName="addressInformation" />
                 <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="addressInformation" ColumnName="addressInformation" />
+                <ScalarProperty Name="phoneInformation" ColumnName="phoneInformation" />
+                <ScalarProperty Name="maleInformation" ColumnName="maleInformation" />
+                <ScalarProperty Name="nameInformation" ColumnName="nameInformation" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PUBLISHING_HOUSE">
             <EntityTypeMapping TypeName="Manager_BookModel.PUBLISHING_HOUSE">
               <MappingFragment StoreEntitySet="PUBLISHING_HOUSE">
-                <ScalarProperty Name="C_id" ColumnName="_id" />
-                <ScalarProperty Name="namePublishingHouse" ColumnName="namePublishingHouse" />
-                <ScalarProperty Name="phonePublishingHouse" ColumnName="phonePublishingHouse" />
                 <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phonePublishingHouse" ColumnName="phonePublishingHouse" />
+                <ScalarProperty Name="namePublishingHouse" ColumnName="namePublishingHouse" />
+                <ScalarProperty Name="C_id" ColumnName="_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_BOOK_AUTHOR" TypeName="Manager_BookModel.FK_BOOK_AUTHOR" StoreEntitySet="FK_BOOK_AUTHOR">
-            <EndProperty Name="AUTHOR">
-              <ScalarProperty Name="C_id" ColumnName="author_ID" />
-            </EndProperty>
-            <EndProperty Name="BOOK">
-              <ScalarProperty Name="C_id" ColumnName="book_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Manager_BookModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

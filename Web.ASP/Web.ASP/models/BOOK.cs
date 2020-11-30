@@ -17,7 +17,8 @@ namespace Web.ASP.models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BOOK()
         {
-            this.AUTHORs = new HashSet<AUTHOR>();
+            this.BILLs = new HashSet<BILL>();
+            this.CARTs = new HashSet<CART>();
         }
     
         public string C_id { get; set; }
@@ -29,12 +30,17 @@ namespace Web.ASP.models
         public string categoryBook_ID { get; set; }
         public string discountBook_ID { get; set; }
         public string publishingHouseBook_ID { get; set; }
+        public string author_id { get; set; }
     
+        public virtual AUTHOR AUTHOR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BILL> BILLs { get; set; }
         public virtual CATEGORY CATEGORY { get; set; }
         public virtual DISCOUNT_BOOK DISCOUNT_BOOK { get; set; }
         public virtual IMAGE_BOOK IMAGE_BOOK { get; set; }
         public virtual PUBLISHING_HOUSE PUBLISHING_HOUSE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AUTHOR> AUTHORs { get; set; }
+        public virtual ICollection<CART> CARTs { get; set; }
+        public virtual IMPORT_BOOK IMPORT_BOOK { get; set; }
     }
 }

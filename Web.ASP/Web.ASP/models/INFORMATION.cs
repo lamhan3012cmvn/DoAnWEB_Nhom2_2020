@@ -14,6 +14,13 @@ namespace Web.ASP.models
     
     public partial class INFORMATION
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public INFORMATION()
+        {
+            this.BILLs = new HashSet<BILL>();
+            this.CARTs = new HashSet<CART>();
+        }
+    
         public string C_id { get; set; }
         public string nameInformation { get; set; }
         public string maleInformation { get; set; }
@@ -22,5 +29,9 @@ namespace Web.ASP.models
         public System.DateTime birthday { get; set; }
     
         public virtual AUTH AUTH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BILL> BILLs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CART> CARTs { get; set; }
     }
 }
