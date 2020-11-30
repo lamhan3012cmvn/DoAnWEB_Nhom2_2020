@@ -354,7 +354,12 @@ namespace Web.ASP.Controllers
                     };
                     InsertFacebook(auth);
                     return RedirectToAction(actionName: "Index", controllerName: "Home");
-                }    
+                }
+                else{
+                    Session["isLogin"] = true;
+                    Session["user"] = me.id;
+                    return RedirectToAction(actionName: "Index", controllerName: "Home");
+                }
                
             }
             return View("");

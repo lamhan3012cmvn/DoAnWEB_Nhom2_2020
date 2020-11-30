@@ -1,13 +1,4 @@
-﻿const ajax = (cate_id, publishing_id, page) => {
-    $.ajax({
-        url: "/Category/loadData",
-        data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
-        success: function (response) {
-            $("#loadBook").html(response)
-        },
-        type: "GET",
-    })
-}
+﻿
 $(document).ready(function () {
     let page = 1;
     let cate_id = "";
@@ -20,7 +11,14 @@ $(document).ready(function () {
             notIsActiveCategory[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        ajax(cate_id, publishing_id, page);
+        $.ajax({
+            url: "/Category/loadData",
+            data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
+            success: function (response) {
+                $("#loadBook").html(response)
+            },
+            type: "GET",
+        })
     });
     $("#publishingHouse .widgets_inner .list li").click(function (e) {
         const notIsActivePublishingHouse = $("#publishingHouse .widgets_inner .list li");
@@ -30,19 +28,37 @@ $(document).ready(function () {
             notIsActivePublishingHouse[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        ajax(cate_id, publishing_id, page);
+        $.ajax({
+            url: "/Category/loadData",
+            data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
+            success: function (response) {
+                $("#loadBook").html(response)
+            },
+            type: "GET",
+        })
     });
-    //$(".cat_page .pagination .page-item").click(function (e) {
-    //    const dataSetPage = e.currentTarget.dataset.page;
-    //    const list = $(".cat_page .pagination .page-item ");
-    //    const max = list[list.length - 2].dataset.page;
-    //    if (dataSetPage == "pre") {
-    //        page = page==1?1:(page=page--)
-    //    } else if (dataSetPage == "next") {
-    //        page = page >= max ? max : (page = page++);
-    //    } else {
-    //        page = dataSetPage;
-    //    }
-    //    ajax(cate_id, publishing_id, page)
-    //});
+    $(".cat_page .pagination .page-item").click(function (e) {
+        const dataSetPage = e.currentTarget.dataset.page;
+        const list = $(".cat_page .pagination .page-item ");
+        const max = list[list.length - 2].dataset.page;
+        if (dataSetPage == "pre") {
+            if (page <= 1)
+                page = 1;
+            else page = parseInt(page) - 1;
+        } else if (dataSetPage == "next") {
+            if (page >= max)
+                page = max;
+            else page = parseInt(page) + 1;
+        } else {
+            page = dataSetPage;
+        }
+        $.ajax({
+            url: "/Category/loadData",
+            data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
+            success: function (response) {
+                $("#loadBook").html(response)
+            },
+            type: "GET",
+        })
+    });
 });

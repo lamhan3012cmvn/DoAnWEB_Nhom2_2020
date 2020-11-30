@@ -28,36 +28,12 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class=" d-flex s_product_img" style="height: 500px; justify-content: center; align-items: center;">
-                    <img class=" h-100" src="@ViewBag.book.IMAGE_BOOK.link" ">
-                    @*<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-                    <img src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="">
-                </li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1">
-                    <img src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="">
-                </li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2">
-                    <img src="~/Content/img/product/single-product/s-product-s-4.jpg" alt="">
-                </li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="@ViewBag.book.IMAGE_BOOK.link" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-2.jpg" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Content/img/product/single-product/s-product-s-3.jpg" alt="Third slide">
-                </div>
-            </div>
-        </div>*@
+                    <img class=" h-100" src="@ViewBag.book.IMAGE_BOOK.link"/>
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>@ViewBag.book.nameBook</h3>
+                    <h3 data-id="@ViewBag.book.C_id" id="idBook">@ViewBag.book.nameBook</h3>
                     <h2>@ViewBag.book.priceBook</h2>
                     <ul class="list">
                         <li>
@@ -89,7 +65,7 @@
                         </button>
                     </div>
                     <div class="card_area">
-                        <a class="main_btn" href="#">Thêm vào giỏ hàng</a>
+                        <a class="main_btn" id="addCart">Thêm vào giỏ hàng</a>
                         <a class="icon_btn" href="#">
                             <i class="lnr lnr lnr-diamond"></i>
                         </a>
@@ -220,7 +196,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-1.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-1.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -236,7 +212,7 @@
                             <div class="review_item reply">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-2.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-2.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -252,7 +228,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-3.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-3.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -270,7 +246,7 @@
                     <div class="col-lg-6">
                         <div class="review_box">
                             <h4>Hỏi-đáp</h4>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                            <form class="row contact_form" action="" method="post" id="contactForm" novalidate="novalidate">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên">
@@ -372,7 +348,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-1.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-1.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -391,7 +367,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-2.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-2.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -410,7 +386,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="img/product/single-product/review-3.png" alt="">
+                                        <img src="~/Content/img/product/single-product/review-3.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -460,25 +436,25 @@
                                 </li>
                             </ul>
                             <p>Nổi bật</p>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                            <form class="row contact_form" action="" method="post" id="contactForm_c" novalidate="novalidate">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên">
+                                        <input type="text" class="form-control" id="name_c" name="name" placeholder="Họ tên">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="email_c" name="email" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Số điện thoại">
+                                        <input type="text" class="form-control" id="number_c" name="number" placeholder="Số điện thoại">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Nhận xét"></textarea>
+                                        <textarea class="form-control" name="message" id="message_c" rows="1" placeholder="Nhận xét"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-right">
@@ -499,3 +475,25 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+<script>
+    $(document).ready(function () {
+        $("#addCart").click(function () {
+            const idBook = document.getElementById("idBook").dataset.id;
+            const result = document.getElementById('sst');
+            const obj = {
+                book_id: idBook,
+                count: result.value,
+                order_date: Date.now()
+            }
+            console.log(obj)
+            $.ajax({
+                url: "/Category/createCart",
+                data: obj,
+                success: function (response) {
+                    console.log(1)
+                },
+                type: "POST",
+            })
+        });
+    });
+</script>

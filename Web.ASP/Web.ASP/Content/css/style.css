@@ -67,7 +67,15 @@ body {
     font-weight: normal;
     color: #777777;
 }
+    body::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
 
+    body::-webkit-scrollbar-thumb {
+        background-color: #C6C6C6;
+        border-radius: 50px;
+    }
 h1,
 h2,
 h3,
@@ -237,13 +245,20 @@ a {
     .header_area .main_menu {
         background: #f8f8f8;
     }
+        .header_area .main_menu .logo_h{
+            width:70px;
 
-    .header_area .navbar {
-        padding: 0px;
-        border: 0px;
-        border-radius: 0px;
-        border-top: 1px solid rgba(221, 221, 221, 0.38);
-    }
+        }
+            .header_area .main_menu .logo_h img {
+                border-radius: 50%;
+                width: 100%;
+            }
+            .header_area .navbar {
+                padding: 0px;
+                border: 0px;
+                border-radius: 0px;
+                border-top: 1px solid rgba(221, 221, 221, 0.38);
+            }
 
         .header_area .navbar .right_nav hr {
             height: 80px;

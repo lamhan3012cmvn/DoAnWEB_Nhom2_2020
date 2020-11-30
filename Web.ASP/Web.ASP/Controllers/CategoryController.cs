@@ -50,6 +50,15 @@ namespace Web.ASP.Controllers
             var result = db.INFORMATION.Find(id).CARTs.ToList();
             return View(result);
         }
+        [isLoginController]
+        [HttpPost]
+        public ActionResult createCart(CART cart)
+        {
+            String id = Session["user"].ToString();
+            cart.information_id = id;
+            var a = 1;
+            return View();
+        }
         // Confirmation
         public ActionResult Confirmation()
         {

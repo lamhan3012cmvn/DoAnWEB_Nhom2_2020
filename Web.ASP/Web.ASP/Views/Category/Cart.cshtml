@@ -43,7 +43,7 @@
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="img/product/single-product/cart-1.jpg" alt="">
+                                                <img style="width:40px;height:40px;" src="@cart.BOOK.IMAGE_BOOK.link" alt="">
                                             </div>
                                             <div class="media-body">
                                                 <p>@cart.BOOK.nameBook</p>
@@ -51,11 +51,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <h5>@cart.BOOK.priceBook</h5>
+                                        <h5 data-id="@cart.book_id" data-price="@cart.BOOK.priceBook" class="@cart.book_id" >@cart.BOOK.priceBook VND</h5>
                                     </td>
                                     <td>
                                        <div class="product_count">
-                                            <input type="text" name="qty" data-id="@cart.book_id" id="@cart.book_id" maxlength="12" value=@cart.count title="Quantity:" class="input-text qty">
+                                            <input type="text" name="qty" data-id="@cart.book_id" data-max="@cart.BOOK.countBook" class="@cart.book_id input-text qty" maxlength="12" value=@cart.count title="Quantity:">
                                             <button class="increase items-count" type="button">
                                                 <i class="lnr lnr-chevron-up"></i>
                                             </button>
@@ -66,53 +66,12 @@
                                        </div>
                                     </td>
                                     <td>
-           
-                                        <h5> @(cart.count * cart.BOOK.priceBook) VND</h5>
+                                        <h5 data-id="@cart.book_id" class="@cart.book_id price" > @(cart.count * cart.BOOK.priceBook) VND</h5>
                                     </td>
                                  </tr>
                             }
                         }
-                        @*@if (!(Model is null))
-                        {
-                            foreach (var cart in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="d-flex">
-                                                <img src="img/product/single-product/cart-1.jpg" alt="">
-                                            </div>
-                                            <div class="media-body">
-                                                <p>123</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5>123</h5>
-                                    </td>
-                                    <td>
-                                        <div class="product_count">
-                                            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < @ViewBag.book.countBook ) result.value++;return false;"
-                                                    class="increase items-count" type="button">
-                                                <i class="lnr lnr-chevron-up"></i>
-                                            </button>
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if (!isNaN(sst) && sst > 0) result.value--; return false;"
-                                                    class="reduced items-count" type="button">
-                                                <i class="lnr lnr-chevron-down"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5>VND</h5>
-                                    </td>
-                                </tr>
-                            }
-                        }*@
-
-
-
-                        <tr class="bottom_button">
+                        @*<tr class="bottom_button">
                             <td>
                                 <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
                             </td>
@@ -127,7 +86,7 @@
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>
                             </td>
@@ -137,10 +96,10 @@
                                 <h5>Tổng cộng</h5>
                             </td>
                             <td>
-                                <h5>123</h5>
+                                <h5 id="totalPrice">123</h5>
                             </td>
                         </tr>
-                        <tr class="shipping_area">
+                        @*<tr class="shipping_area">
                             <td>
                             </td>
                             <td>
@@ -162,7 +121,7 @@
 
                                 </div>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr class="out_button_area">
                             <td>
                             </td>
@@ -191,23 +150,41 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
+    const price = (a,b) => {
+        return (a * b)+" VND";
+    }
+    const totalPrice = () => {
+        const products = $(".price");
+        const arr = [];
+        for (let i = 0; i < products.length; i++) {
+            arr.push(products[i].innerText.split(" ")[0])
+        }
+        const total = arr.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+        return total+ " VND";
+    }
     $(document).ready(function () {
+        $("#totalPrice")[0].innerHTML = totalPrice();
         $(".increase").click(function (e) {
             let current = (e.currentTarget);
             let parent = current.parentElement.children[0];
             var id = `${parent.dataset.id}`;
-            var result = document.getElementById(`${id}`);
-            var sst = result.value;
-            if (!isNaN(sst) && sst < 1000) result.value++;
+            var result = document.getElementsByClassName(`${id}`);
+            var sst = result[1].value;
+            const max =parseInt(result[1].dataset.max)
+            if (!isNaN(sst) && sst < max) result[1].value++;
+            result[2].innerHTML = price(parseInt(result[0].dataset.price), result[1].value);
+            $("#totalPrice")[0].innerHTML = totalPrice();
             return false;
         })
         $(".reduced").click(function (e) {
             let current = (e.currentTarget);
             let parent = current.parentElement.children[0];
             var id = `${parent.dataset.id}`;
-            var result = document.getElementById(`${id}`);
-            var sst = result.value;
-            if (!isNaN(sst) && sst > 1) result.value--;
+            var result = document.getElementsByClassName(`${id}`);
+            var sst = result[1].value;
+            if (!isNaN(sst) && sst > 1) result[1].value--;
+            result[2].innerHTML = price(parseInt(result[0].dataset.price), result[1].value);
+            $("#totalPrice")[0].innerHTML = totalPrice();
             return false;
         })
     })
