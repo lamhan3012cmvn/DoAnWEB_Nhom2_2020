@@ -6,12 +6,12 @@
             <option value="2">Mới nhất</option>
             <option value="3">Giá từ thấp đến cao</option>
             <option value="4">Giá từ cao đến thấp</option>
+            <!--<option value="4">Default sorting 02</option>*-->
         </select>
-
     </div>
     <div class="right_page ml-auto">
         <nav class="cat_page" aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination" id="loadPagination">
                 <li class="page-item" data-page="pre">
                     <a class="page-link">
                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -20,13 +20,11 @@
                 @for (int i = 1; i <= Model.PageCount; i++)
                 {
                     <li class="page-item" data-page="@i">
-                        <a class="page-link">
-                            @i
-                        </a>
+                        <a class="page-link">@i</a>
                     </li>
                 }
                 <li class="page-item" data-page="next">
-                    <a class="page-link">
+                    <a class="page-link" href="#">
                         <i class="fas fa-arrow-right" aria-hidden="true"></i>
                     </a>
                 </li>
@@ -48,26 +46,26 @@
                                 <i class="lnr lnr-heart"></i>
                             </a>
                             <a href="#">
-                                <i class="lnr lnrs-cart"></i>
+                                <i class="lnr lnr-cart"></i>
                             </a>
                         </div>
                     </div>
                     <a href="/Category/SingleBook/Index?_id=@book.C_id">
-                        <h4>
-                            @if (@book.nameBook.Length > 20)
-                            {
-                                @book.nameBook.Substring(0, 20);
-                            }
-                            else
-                            {
-                                @book.nameBook;
-                            }
-                        </h4>
+
+                        @if (@book.nameBook.Length > 20)
+                        {
+                            <h4>@book.nameBook.Substring(0, 20)...</h4>
+                        }
+                        else
+                        {
+                            <h4>@book.nameBook</h4>
+                        }
                     </a>
                     <h5>@book.priceBook VND</h5>
                 </div>
             </div>
         }
     }
-</div>
 
+</div>
+<script src="~/Scripts/loadBook.js"></script>
