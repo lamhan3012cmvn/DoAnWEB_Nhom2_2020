@@ -19,6 +19,7 @@ namespace Web.ASP.models
         {
             this.BILLs = new HashSet<BILL>();
             this.CARTs = new HashSet<CART>();
+            this.REVIEWS = new HashSet<REVIEW>();
         }
     
         public string C_id { get; set; }
@@ -33,5 +34,7 @@ namespace Web.ASP.models
         public virtual ICollection<BILL> BILLs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REVIEW> REVIEWS { get; set; }
     }
 }

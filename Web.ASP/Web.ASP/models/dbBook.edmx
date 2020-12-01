@@ -17,7 +17,7 @@
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nameAuthor" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="BILL">
@@ -26,25 +26,25 @@
             <PropertyRef Name="information_id" />
             <PropertyRef Name="book_id" />
           </Key>
-          <Property Name="order_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="order_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="book_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="book_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="total" Type="float" />
         </EntityType>
         <EntityType Name="BOOK">
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nameBook" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="priceBook" Type="float" Nullable="false" />
           <Property Name="contentBook" Type="nvarchar(max)" />
           <Property Name="countBook" Type="int" Nullable="false" />
-          <Property Name="imgBook_ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="categoryBook_ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="discountBook_ID" Type="varchar" MaxLength="10" />
-          <Property Name="publishingHouseBook_ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="author_id" Type="varchar" MaxLength="10" />
+          <Property Name="imgBook_ID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="categoryBook_ID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="discountBook_ID" Type="varchar" MaxLength="30" />
+          <Property Name="publishingHouseBook_ID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="author_id" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="CART">
           <Key>
@@ -52,7 +52,7 @@
             <PropertyRef Name="book_id" />
           </Key>
           <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="book_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="book_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="count" Type="int" />
           <Property Name="order_date" Type="datetime" />
         </EntityType>
@@ -60,14 +60,14 @@
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="nameCategory" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="DISCOUNT_BOOK">
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="discount" Type="float" Nullable="false" />
           <Property Name="startTime" Type="date" Nullable="false" />
           <Property Name="endTime" Type="date" Nullable="false" />
@@ -76,14 +76,14 @@
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="link" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="IMPORT_BOOK">
           <Key>
             <PropertyRef Name="book_ID" />
           </Key>
-          <Property Name="book_ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="book_ID" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="import_date" Type="datetime" />
         </EntityType>
         <EntityType Name="INFORMATION">
@@ -101,10 +101,20 @@
           <Key>
             <PropertyRef Name="_id" />
           </Key>
-          <Property Name="_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="namePublishingHouse" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="phonePublishingHouse" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="address" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REVIEWS">
+          <Key>
+            <PropertyRef Name="book_id" />
+            <PropertyRef Name="information_id" />
+          </Key>
+          <Property Name="book_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="review" Type="nvarchar(max)" />
+          <Property Name="star" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -248,6 +258,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REVIEWS_BOOK">
+          <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
+          <End Role="REVIEWS" Type="Self.REVIEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="REVIEWS">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REVIEWS_INFORMATION">
+          <End Role="INFORMATION" Type="Self.INFORMATION" Multiplicity="1" />
+          <End Role="REVIEWS" Type="Self.REVIEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="_id" />
+            </Principal>
+            <Dependent Role="REVIEWS">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Manager_BookModelStoreContainer">
           <EntitySet Name="AUTH" EntityType="Self.AUTH" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AUTHOR" EntityType="Self.AUTHOR" Schema="dbo" store:Type="Tables" />
@@ -260,6 +294,7 @@
           <EntitySet Name="IMPORT_BOOK" EntityType="Self.IMPORT_BOOK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PUBLISHING_HOUSE" EntityType="Self.PUBLISHING_HOUSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REVIEWS" EntityType="Self.REVIEWS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BILL_BOOK" Association="Self.FK_BILL_BOOK">
             <End Role="BOOK" EntitySet="BOOK" />
@@ -305,6 +340,14 @@
             <End Role="AUTH" EntitySet="AUTH" />
             <End Role="INFORMATION" EntitySet="INFORMATION" />
           </AssociationSet>
+          <AssociationSet Name="FK_REVIEWS_BOOK" Association="Self.FK_REVIEWS_BOOK">
+            <End Role="BOOK" EntitySet="BOOK" />
+            <End Role="REVIEWS" EntitySet="REVIEWS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEWS_INFORMATION" Association="Self.FK_REVIEWS_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="REVIEWS" EntitySet="REVIEWS" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -322,6 +365,7 @@
           <EntitySet Name="IMPORT_BOOK" EntityType="Manager_BookModel.IMPORT_BOOK" />
           <EntitySet Name="INFORMATION" EntityType="Manager_BookModel.INFORMATION" />
           <EntitySet Name="PUBLISHING_HOUSE" EntityType="Manager_BookModel.PUBLISHING_HOUSE" />
+          <EntitySet Name="REVIEWS" EntityType="Manager_BookModel.REVIEW" />
           <EntitySet Name="sysdiagrams" EntityType="Manager_BookModel.sysdiagram" />
           <AssociationSet Name="FK_INFORMATION_AUTH" Association="Manager_BookModel.FK_INFORMATION_AUTH">
             <End Role="AUTH" EntitySet="AUTHs" />
@@ -363,9 +407,17 @@
             <End Role="BOOK" EntitySet="BOOKs" />
             <End Role="IMPORT_BOOK" EntitySet="IMPORT_BOOK" />
           </AssociationSet>
+          <AssociationSet Name="FK_REVIEWS_BOOK" Association="Manager_BookModel.FK_REVIEWS_BOOK">
+            <End Role="BOOK" EntitySet="BOOKs" />
+            <End Role="REVIEW" EntitySet="REVIEWS" />
+          </AssociationSet>
           <AssociationSet Name="FK_CART_INFORMATION" Association="Manager_BookModel.FK_CART_INFORMATION">
             <End Role="INFORMATION" EntitySet="INFORMATION" />
             <End Role="CART" EntitySet="CARTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REVIEWS_INFORMATION" Association="Manager_BookModel.FK_REVIEWS_INFORMATION">
+            <End Role="INFORMATION" EntitySet="INFORMATION" />
+            <End Role="REVIEW" EntitySet="REVIEWS" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AUTH">
@@ -381,7 +433,7 @@
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="nameAuthor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_AUTHOR" FromRole="AUTHOR" ToRole="BOOK" />
         </EntityType>
@@ -391,9 +443,9 @@
             <PropertyRef Name="information_id" />
             <PropertyRef Name="book_id" />
           </Key>
-          <Property Name="order_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="order_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="book_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="total" Type="Double" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BILL" ToRole="BOOK" />
           <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="BILL" ToRole="INFORMATION" />
@@ -402,16 +454,16 @@
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="nameBook" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="priceBook" Type="Double" Nullable="false" />
           <Property Name="contentBook" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="countBook" Type="Int32" Nullable="false" />
-          <Property Name="imgBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="categoryBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="discountBook_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="publishingHouseBook_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="author_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="imgBook_ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="categoryBook_ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="discountBook_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="publishingHouseBook_ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="author_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AUTHOR" Relationship="Manager_BookModel.FK_BOOK_AUTHOR" FromRole="BOOK" ToRole="AUTHOR" />
           <NavigationProperty Name="BILLs" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BOOK" ToRole="BILL" />
           <NavigationProperty Name="CATEGORY" Relationship="Manager_BookModel.FK_BOOK_CATEGORY" FromRole="BOOK" ToRole="CATEGORY" />
@@ -420,6 +472,7 @@
           <NavigationProperty Name="PUBLISHING_HOUSE" Relationship="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" FromRole="BOOK" ToRole="PUBLISHING_HOUSE" />
           <NavigationProperty Name="CARTs" Relationship="Manager_BookModel.FK_CART_BOOK" FromRole="BOOK" ToRole="CART" />
           <NavigationProperty Name="IMPORT_BOOK" Relationship="Manager_BookModel.FK_IMPORT_BOOK_BOOK" FromRole="BOOK" ToRole="IMPORT_BOOK" />
+          <NavigationProperty Name="REVIEWS" Relationship="Manager_BookModel.FK_REVIEWS_BOOK" FromRole="BOOK" ToRole="REVIEW" />
         </EntityType>
         <EntityType Name="CART">
           <Key>
@@ -427,7 +480,7 @@
             <PropertyRef Name="book_id" />
           </Key>
           <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="book_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="count" Type="Int32" />
           <Property Name="order_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_CART_BOOK" FromRole="CART" ToRole="BOOK" />
@@ -437,7 +490,7 @@
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="nameCategory" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_CATEGORY" FromRole="CATEGORY" ToRole="BOOK" />
         </EntityType>
@@ -445,7 +498,7 @@
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="discount" Type="Double" Nullable="false" />
           <Property Name="startTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="endTime" Type="DateTime" Nullable="false" Precision="0" />
@@ -455,7 +508,7 @@
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="link" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_IMAGE_BOOK" FromRole="IMAGE_BOOK" ToRole="BOOK" />
         </EntityType>
@@ -463,7 +516,7 @@
           <Key>
             <PropertyRef Name="book_ID" />
           </Key>
-          <Property Name="book_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="book_ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="import_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_IMPORT_BOOK_BOOK" FromRole="IMPORT_BOOK" ToRole="BOOK" />
         </EntityType>
@@ -480,16 +533,29 @@
           <NavigationProperty Name="AUTH" Relationship="Manager_BookModel.FK_INFORMATION_AUTH" FromRole="INFORMATION" ToRole="AUTH" />
           <NavigationProperty Name="BILLs" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="INFORMATION" ToRole="BILL" />
           <NavigationProperty Name="CARTs" Relationship="Manager_BookModel.FK_CART_INFORMATION" FromRole="INFORMATION" ToRole="CART" />
+          <NavigationProperty Name="REVIEWS" Relationship="Manager_BookModel.FK_REVIEWS_INFORMATION" FromRole="INFORMATION" ToRole="REVIEW" />
         </EntityType>
         <EntityType Name="PUBLISHING_HOUSE">
           <Key>
             <PropertyRef Name="C_id" />
           </Key>
-          <Property Name="C_id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="C_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="namePublishingHouse" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="phonePublishingHouse" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BOOKs" Relationship="Manager_BookModel.FK_BOOK_PUBLISHING_HOUSE" FromRole="PUBLISHING_HOUSE" ToRole="BOOK" />
+        </EntityType>
+        <EntityType Name="REVIEW">
+          <Key>
+            <PropertyRef Name="book_id" />
+            <PropertyRef Name="information_id" />
+          </Key>
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="review1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="star" Type="Int32" />
+          <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_REVIEWS_BOOK" FromRole="REVIEW" ToRole="BOOK" />
+          <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_REVIEWS_INFORMATION" FromRole="REVIEW" ToRole="INFORMATION" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -621,6 +687,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_REVIEWS_BOOK">
+          <End Type="Manager_BookModel.BOOK" Role="BOOK" Multiplicity="1" />
+          <End Type="Manager_BookModel.REVIEW" Role="REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BOOK">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="book_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CART_INFORMATION">
           <End Type="Manager_BookModel.INFORMATION" Role="INFORMATION" Multiplicity="1" />
           <End Type="Manager_BookModel.CART" Role="CART" Multiplicity="*" />
@@ -633,7 +711,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_REVIEWS_INFORMATION">
+          <End Type="Manager_BookModel.INFORMATION" Role="INFORMATION" Multiplicity="1" />
+          <End Type="Manager_BookModel.REVIEW" Role="REVIEW" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INFORMATION">
+              <PropertyRef Name="C_id" />
+            </Principal>
+            <Dependent Role="REVIEW">
+              <PropertyRef Name="information_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -745,6 +835,16 @@
                 <ScalarProperty Name="phonePublishingHouse" ColumnName="phonePublishingHouse" />
                 <ScalarProperty Name="namePublishingHouse" ColumnName="namePublishingHouse" />
                 <ScalarProperty Name="C_id" ColumnName="_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REVIEWS">
+            <EntityTypeMapping TypeName="Manager_BookModel.REVIEW">
+              <MappingFragment StoreEntitySet="REVIEWS">
+                <ScalarProperty Name="star" ColumnName="star" />
+                <ScalarProperty Name="review1" ColumnName="review" />
+                <ScalarProperty Name="information_id" ColumnName="information_id" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

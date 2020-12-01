@@ -41,6 +41,7 @@ namespace Web.ASP.Controllers
         public ActionResult SingleBook(String _id)
         {
             ViewBag.book = db.BOOKs.Find(_id);
+            
             return View();
         }
         // Cart
