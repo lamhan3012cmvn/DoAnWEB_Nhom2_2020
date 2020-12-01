@@ -19,6 +19,7 @@ namespace Web.ASP.models
         {
             this.BILLs = new HashSet<BILL>();
             this.CARTs = new HashSet<CART>();
+            this.REVIEWS = new HashSet<REVIEW>();
         }
     
         public string C_id { get; set; }
@@ -31,6 +32,8 @@ namespace Web.ASP.models
         public string discountBook_ID { get; set; }
         public string publishingHouseBook_ID { get; set; }
         public string author_id { get; set; }
+        public string size { get; set; }
+        public Nullable<int> numberOfPages { get; set; }
     
         public virtual AUTHOR AUTHOR { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -42,5 +45,7 @@ namespace Web.ASP.models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
         public virtual IMPORT_BOOK IMPORT_BOOK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<REVIEW> REVIEWS { get; set; }
     }
 }

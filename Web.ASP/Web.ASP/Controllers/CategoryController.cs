@@ -36,10 +36,12 @@ namespace Web.ASP.Controllers
 
         }
         // Single Book
-       
+
+        //[isLoginController]
         public ActionResult SingleBook(String _id)
         {
             ViewBag.book = db.BOOKs.Find(_id);
+            
             return View();
         }
         // Cart
@@ -50,14 +52,40 @@ namespace Web.ASP.Controllers
             var result = db.INFORMATION.Find(id).CARTs.ToList();
             return View(result);
         }
-        [isLoginController]
+        
         [HttpPost]
-        public ActionResult createCart(CART cart)
+        public ActionResult createCart(string book_id,int count, string order_date)
         {
-            String id = Session["user"].ToString();
-            cart.information_id = id;
-            var a = 1;
-            return View();
+            var id = Session["user"];
+            
+            try
+            {
+                var cart = new CART()
+                {
+                    book_id = book_id,
+                    count = count,
+                    order_date = DateTime.Now,
+                    information_id = id.ToString()
+                };
+                db.CARTs.Add(cart);
+                db.SaveChanges();
+                var result = new
+                {
+                    status = true,
+                    message = "Thêm Vào giỏ thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Thêm Vào giỏ không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+               
+            }
         }
         // Confirmation
         public ActionResult Confirmation()

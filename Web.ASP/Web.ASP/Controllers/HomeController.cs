@@ -41,7 +41,6 @@ namespace Web.ASP.Controllers
             {
                 return RedirectToAction(actionName: "Index", controllerName: "Home");
             }
-
             return View();
         }
         [HttpPost]

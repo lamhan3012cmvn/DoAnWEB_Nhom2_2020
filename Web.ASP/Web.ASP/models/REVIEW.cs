@@ -12,12 +12,15 @@ namespace Web.ASP.models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class REVIEW
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string book_id { get; set; }
+        public string information_id { get; set; }
+        public string review1 { get; set; }
+        public Nullable<int> star { get; set; }
+        public Nullable<System.DateTime> DateOfReview { get; set; }
+    
+        public virtual BOOK BOOK { get; set; }
+        public virtual INFORMATION INFORMATION { get; set; }
     }
 }
