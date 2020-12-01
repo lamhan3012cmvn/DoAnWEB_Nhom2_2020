@@ -65,7 +65,7 @@
                         </button>
                     </div>
                     <div class="card_area">
-                        <a class="main_btn" id="addCart">Thêm vào giỏ hàng</a>
+                        <button class="main_btn" id="addCart">Thêm vào giỏ hàng</button>
                         <a class="icon_btn" href="#">
                             <i class="lnr lnr lnr-diamond"></i>
                         </a>
@@ -482,17 +482,20 @@
             const result = document.getElementById('sst');
             const obj = {
                 book_id: idBook,
-                count: result.value,
-                order_date: Date.now()
+                count: result.value
             }
-            console.log(obj)
             $.ajax({
                 url: "/Category/createCart",
                 data: obj,
-                success: function (response) {
-                    console.log(1)
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                    }
                 },
                 type: "POST",
+                dataType:"JSON"
             })
         });
     });
