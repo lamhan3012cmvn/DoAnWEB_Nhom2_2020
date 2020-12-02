@@ -40,9 +40,78 @@ namespace Web.ASP.Controllers
         //[isLoginController]
         public ActionResult SingleBook(String _id)
         {
-            ViewBag.book = db.BOOKs.Find(_id);
-            
+            var idInfor = Session["user"];
+            var result = db.BOOKs.Find(_id);
+            ViewBag.book = result;
+            var star = (float)(result.REVIEWS.Sum(t => t.star))/(result.REVIEWS.Count);
+            ViewBag.star = Math.Round(star,2);
+            ViewBag.countReview = result.REVIEWS.Count;
+            ViewBag.count5Star = result.REVIEWS.Count(s => s.star == 5);
+            ViewBag.count4Star = result.REVIEWS.Count(s => s.star == 4);
+            ViewBag.count3Star = result.REVIEWS.Count(s => s.star == 3);
+            ViewBag.count2Star = result.REVIEWS.Count(s => s.star == 2);
+            ViewBag.count1Star = result.REVIEWS.Count(s => s.star == 1);
+            if(idInfor is null)
+            {
+                return View();
+            }
+            var user=  db.INFORMATION.Find(idInfor.ToString());
+            ViewBag.nameUser = user.nameInformation;
+            ViewBag.emailUser = user.C_id;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult addReview (String book_id, String information_id, String review, String star)
+        {
+            //var id = Session["user"];
+          
+            try
+            {
+                var user = db.INFORMATION.Find(information_id);
+                if (user is null)
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "user không tồn tại"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var reviews = new REVIEW()
+                    {
+                        book_id = book_id,
+                        information_id = information_id,
+                        review1 = review,
+                        star = Int32.Parse(star),
+                        DateOfReview = DateTime.Now
+                    };
+                    db.REVIEWS.Add(reviews);
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                        message = "Thêm nhận xét thành công",
+                        link = new
+                        {
+                            actionName = "SingleBook?_id="+book_id,
+                            controllerName = "Category"
+                        }
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Thêm nhận xét không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
         // Cart
         [isLoginController]
@@ -60,15 +129,26 @@ namespace Web.ASP.Controllers
             
             try
             {
-                var cart = new CART()
+                var isCart = db.INFORMATION.Find(id).CARTs.Where(t=>t.book_id==book_id).SingleOrDefault();
+                if(!(isCart is null))
                 {
-                    book_id = book_id,
-                    count = count,
-                    order_date = DateTime.Now,
-                    information_id = id.ToString()
-                };
-                db.CARTs.Add(cart);
-                db.SaveChanges();
+                    isCart.count += count;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var cart = new CART()
+                    {
+                        book_id = book_id,
+                        count = count,
+                        order_date = DateTime.Now,
+                        information_id = id.ToString(),
+
+                    };
+                    db.CARTs.Add(cart);
+                    db.SaveChanges();
+
+                }
                 var result = new
                 {
                     status = true,

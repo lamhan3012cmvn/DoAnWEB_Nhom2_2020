@@ -285,6 +285,7 @@
     <Content Include="Content\vendors\owl-carousel\assets\owl.carousel.css" />
     <Content Include="Content\vendors\owl-carousel\owl.carousel.min.css" />
     <Content Include="Content\vendors\owl-carousel\owl.carousel.min.js" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\.DS_Store" />
     <Content Include="Content\img\banner\.DS_Store" />
@@ -322,6 +323,11 @@
     <Content Include="models\dbBook.edmx.diagram">
       <DependentUpon>dbBook.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -454,7 +460,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="class\" />
     <Folder Include="Data\" />
-    <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

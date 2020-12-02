@@ -33,20 +33,20 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3 data-id="@ViewBag.book.C_id" id="idBook">@ViewBag.book.nameBook</h3>
-                    <h2>@ViewBag.book.priceBook</h2>
+                    <h3 data-id="@ViewBag.book.C_id" id="idBook" class="mb-4">@ViewBag.book.nameBook</h3>
+                    <h2>@ViewBag.book.priceBook VND</h2>
                     <ul class="list">
-                        <li>
+                        <li class="mb-3">
                             <a class="active" href="#">
                                 <span style="width: auto;">Tác giả</span> : @ViewBag.book.AUTHOR.nameAuthor
                             </a>
                         </li>
-                        <li>
+                        <li class="mb-3">
                             <a class="active" href="#">
-                                <span>Thể loại</span> : @ViewBag.book.CATEGORY.nameCategory
+                                <span style="width: auto;">Thể loại</span> : @ViewBag.book.CATEGORY.nameCategory
                             </a>
                         </li>
-                        <li>
+                        <li class="mb-3">
                             <a class="active" href="#">
                                 <span style="width: auto;">Số sản phẩm có sẵn</span> : @ViewBag.book.countBook
                             </a>
@@ -158,62 +158,62 @@
                             <div class="col-6">
                                 <div class="box_total">
                                     <h5>Overall</h5>
-                                    <h4>4.0</h4>
-                                    <h6>(03 Reviews)</h6>
+                                    <h4>@ViewBag.star</h4>
+                                    <h6>( @ViewBag.countReview Reviews )</h6>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="rating_list">
-                                    <h3>Based on 3 Reviews</h3>
+                                    <h3>Based on @ViewBag.countReview Reviews</h3>
                                     <ul class="list">
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 5 Star
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 01
+                                                <i class="fa fa-star"></i> @ViewBag.count5Star
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 4 Star
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 01
+                                                <i class="fa fa-star-o"></i> @ViewBag.count4Star
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 3 Star
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 01
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i> @ViewBag.count3Star
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 2 Star
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 01
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i> @ViewBag.count2Star
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a>
                                                 1 Star
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 01
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i>
+                                                <i class="fa fa-star-o"></i> @ViewBag.count1Star
                                             </a>
                                         </li>
                                     </ul>
@@ -230,8 +230,60 @@
                                         </div>
                                         <div class="media-body">
                                             <h4>@review.INFORMATION.nameInformation </h4>
-                                            <h5>@review.DateOfReview</h5>
-                                            
+                                            @if (review.star == 1)
+                                            {
+                                                <a>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </a>
+                                            }
+                                            else if (review.star == 2)
+                                            {
+                                                <a>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </a>
+                                            }
+                                            else if (review.star == 3)
+                                            {
+                                                <a>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </a>
+                                            }
+                                            else if (review.star == 4)
+                                            {
+                                                <a>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o"></i>
+                                                </a>
+                                            }
+                                            else if (review.star == 5)
+                                            {
+                                                <a>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </a>
+                                            }
+
+                                             <h5>@review.DateOfReview.ToString("ddd d MMM  yyyy - HH:mm")</h5>
+
+
                                         </div>
                                     </div>
                                     <p>
@@ -245,57 +297,72 @@
                         <div class="review_box">
                             <h4>Thêm nhận xét</h4>
                             <p>Đánh giá:</p>
-                            <ul class="list">
+                            <ul class="list" id="id_star" data-idStar="0">
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-star"></i>
+                                    <a class="star" data-star="1">
+                                        <i class="fa fa-star-o"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-star"></i>
+                                    <a class="star" data-star="2">
+                                        <i class="fa fa-star-o"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-star"></i>
+                                    <a class="star" data-star="3">
+                                        <i class="fa fa-star-o"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-star"></i>
+                                    <a class="star" data-star="4">
+                                        <i class="fa fa-star-o"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-star"></i>
+                                    <a class="star" data-star="5">
+                                        <i class="fa fa-star-o"></i>
                                     </a>
                                 </li>
                             </ul>
-                            <p>Nổi bật</p>
                             <form class="row contact_form" action="" method="post" id="contactForm_c" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name_c" name="name" placeholder="Họ tên">
+                                @if (!(Session["user"] is null))
+                                {
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="name_c" name="name" placeholder="Họ tên" value="@ViewBag.nameUser">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email_c" name="email" placeholder="Email">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="email_c" name="information_id" placeholder="Email" value="@ViewBag.emailUser">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number_c" name="number" placeholder="Số điện thoại">
+
+                                }
+                                else
+                                {
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="name_c" name="name" placeholder="Họ tên">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="email_c" name="information_id" placeholder="Email">
+                                        </div>
+                                    </div>
+                                }
+
+             
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message_c" rows="1" placeholder="Nhận xét"></textarea>
+                                        <textarea class="form-control" name="review" id="review_c" rows="1" placeholder="Nhận xét"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn submit_btn">Gửi</button>
+                                    <div id="submit" class="btn submit_btn">Gửi</div>
+                                    @*<button id="submit_b" class="btn submit_btn" style="display:none">Gửi</button>*@
                                 </div>
                             </form>
                         </div>
@@ -335,5 +402,64 @@
                 dataType:"JSON"
             })
         });
+        $(".star").click(function (e) {
+            const star = e.currentTarget.dataset.star;
+            document.getElementById("id_star").dataset.idStar = star;
+            const allStar = $(".star");
+            let str = "";
+            for (let i = 0; i < 5; i++){
+                if (allStar[i].dataset.star <= star)
+                    str = "fa fa-star";
+                else
+                    str = "fa fa-star-o";
+                allStar[i].children[0].className = str;
+            }
+        })
+        $("#submit").click(function () {
+            const idBook = document.getElementById("idBook").dataset.id;
+            const name = $("#name_c").val();
+            const email = $("#email_c").val();
+            const review = $("#review_c").val();
+            const star = document.getElementById("id_star").dataset.idStar;
+            if (name === "") {
+                notify("Thông Báo", "Nhập họ tên của bạn", "fas fa-exclamation-circle", "warning");
+                return;
+            }
+            if (email === "") {
+                notify("Thông Báo", "Nhập họ tên của bạn", "fas fa-exclamation-circle", "warning");
+                return;
+            }
+            if (review === "") {
+                notify("Thông Báo", "Nhập nội dung ", "fas fa-exclamation-circle", "warning");
+                return;
+            }
+            if (star === undefined ) {
+                notify("Thông Báo", "Chọn đánh giá", "fas fa-exclamation-circle", "warning");
+                return;
+            }
+            const objData = {
+                book_id :idBook,
+                information_id :email,
+                review : review,
+                star : star
+            }
+            $.ajax({
+                url: "/Category/addReview",
+                data: objData,
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                         //Load lại trang cho lẹ
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                        setTimeout(function () {
+                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                        }, 3300);
+                    }
+                },
+                type: "POST",
+                dataType: "JSON"
+            })
+        })
     });
 </script>
