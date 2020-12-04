@@ -380,6 +380,9 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
+    //if (typeof (Storage) !== "undefined") {
+    //    localStorage.setItem("preUrl", window.location.href);
+    //}
     $(document).ready(function () {
         $("#addCart").click(function () {
             const idBook = document.getElementById("idBook").dataset.id;

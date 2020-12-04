@@ -20,9 +20,16 @@
     <link rel="stylesheet" href="~/Content/css/style.css">
     <link rel="stylesheet" href="~/Content/css/Cus.css" />
     <link rel="stylesheet" href="~/Content/css/responsive.css">
-
+    <script src="~/Scripts/Func.js"></script>
 </head>
 <body>
+    @*<script>
+        const url = localStorage.getItem('preUrl');
+        if (url) {
+            window.location.href = url;
+            localStorage.removeItem('preUrl');
+        }
+    </script>*@
     @RenderBody()
     <script src="~/Scripts/popper.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -40,5 +47,6 @@
     <script src="~/Scripts/theme.js"></script>
     <script src="~/Content/vendors/notify/bootstrap-notify.min.js"></script>
     <script src="~/Content/vendors/notify/notify.js"></script>
+    
 </body>
 </html>

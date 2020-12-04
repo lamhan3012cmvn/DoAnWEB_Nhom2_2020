@@ -346,7 +346,6 @@
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\stellar.js" />
     <Content Include="Scripts\theme.js" />
-    <Content Include="Scripts\UUID.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
@@ -458,7 +457,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="class\" />
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>

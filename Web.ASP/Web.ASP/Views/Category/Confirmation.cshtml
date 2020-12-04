@@ -108,50 +108,36 @@
             </div>
         </div>
         <div class="order_details_table">
-            <h2>Order Details</h2>
+            <h2>Order Details : @ViewBag.bills[0].order_id </h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
+                            <th scope="col" class="text-left ml-2">Product</th>
+                            <th scope="col" class="text-left ml-2">Quantity</th>
+                            <th scope="col" class="text-left ml-2">Price</th>
+                            <th scope="col" class="text-left ml-2">Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <p>Pixelstore fresh Blackberry</p>
-                            </td>
-                            <td>
-                                <h5>x 02</h5>
-                            </td>
-                            <td>
-                                <p>$720.00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Pixelstore fresh Blackberry</p>
-                            </td>
-                            <td>
-                                <h5>x 02</h5>
-                            </td>
-                            <td>
-                                <p>$720.00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Pixelstore fresh Blackberry</p>
-                            </td>
-                            <td>
-                                <h5>x 02</h5>
-                            </td>
-                            <td>
-                                <p>$720.00</p>
-                            </td>
-                        </tr>
+                        @foreach (var bill in ViewBag.bills)
+                        {
+                            <tr>
+                                <td>
+                                    <p>@bill.BOOK.nameBook</p>
+                                </td>
+                                <td>
+                                    <h5>x @bill.total</h5>
+                                </td>
+                                <td>
+                                    <p>@bill.BOOK.priceBook VND</p>
+                                </td>
+                                <td>
+                                    <p class="price">@(bill.total*@bill.BOOK.priceBook) VND</p>
+                                </td>
+                            </tr>
+                        }
+
                         <tr>
                             <td>
                                 <h4>Subtotal</h4>
@@ -160,10 +146,13 @@
                                 <h5></h5>
                             </td>
                             <td>
-                                <p>$2160.00</p>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p id="totalPrice"></p>
                             </td>
                         </tr>
-                        <tr>
+                        @*<tr>
                             <td>
                                 <h4>Shipping</h4>
                             </td>
@@ -171,9 +160,12 @@
                                 <h5></h5>
                             </td>
                             <td>
+                                <h5></h5>
+                            </td>
+                            <td>
                                 <p>Flat rate: $50.00</p>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>
                                 <h4>Total</h4>
@@ -182,7 +174,10 @@
                                 <h5></h5>
                             </td>
                             <td>
-                                <p>$2210.00</p>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p id="total"></p>
                             </td>
                         </tr>
                     </tbody>
@@ -198,3 +193,7 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
+<script>
+    document.getElementById("totalPrice").innerHTML = totalPrice();
+    document.getElementById("total").innerHTML = totalPrice();
+</script>

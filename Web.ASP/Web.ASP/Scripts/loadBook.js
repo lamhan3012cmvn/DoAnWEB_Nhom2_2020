@@ -3,39 +3,26 @@ $(document).ready(function () {
     let page = 1;
     let cate_id = "";
     let publishing_id = "";
+    let sort = "";
     $("#category .widgets_inner .list li").click(function (e) {
-
         const notIsActiveCategory = $("#category .widgets_inner .list li");
         cate_id = e.currentTarget.dataset.categoryid;
         for (let i = 0; i < notIsActiveCategory.length; i++) {
             notIsActiveCategory[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        $.ajax({
-            url: "/Category/loadData",
-            data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
-            success: function (response) {
-                $("#loadBook").html(response)
-            },
-            type: "GET",
-        })
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort }
+        ajaxLoadData("/Category/loadData", "#loadBook",obj)
     });
     $("#publishingHouse .widgets_inner .list li").click(function (e) {
         const notIsActivePublishingHouse = $("#publishingHouse .widgets_inner .list li");
         publishing_id = e.currentTarget.dataset.publishingid;
-        console.log(publishing_id);
         for (let i = 0; i < notIsActivePublishingHouse.length; i++) {
             notIsActivePublishingHouse[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        $.ajax({
-            url: "/Category/loadData",
-            data: { categoryID: cate_id, publishingHouseID: publishing_id, page: page },
-            success: function (response) {
-                $("#loadBook").html(response)
-            },
-            type: "GET",
-        })
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort }
+        ajaxLoadData("/Category/loadData", "#loadBook", obj)
     });
     $(".cat_page .pagination .page-item").click(function (e) {
         const dataSetPage = e.currentTarget.dataset.page;
@@ -61,4 +48,10 @@ $(document).ready(function () {
             type: "GET",
         })
     });
+    $("#sort").change(function (e) {
+        sort = $(this).val();
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort }
+        ajaxLoadData("/Category/loadData", "#loadBook", obj)
+    })
+    
 });

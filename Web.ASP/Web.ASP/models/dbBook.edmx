@@ -112,12 +112,13 @@
           <Key>
             <PropertyRef Name="book_id" />
             <PropertyRef Name="information_id" />
+            <PropertyRef Name="DateOfReview" />
           </Key>
           <Property Name="book_id" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="information_id" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="review" Type="nvarchar(max)" />
-          <Property Name="star" Type="int" />
-          <Property Name="DateOfReview" Type="datetime" />
+          <Property Name="review" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="star" Type="int" Nullable="false" />
+          <Property Name="DateOfReview" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_BILL_BOOK">
           <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
@@ -542,12 +543,13 @@
           <Key>
             <PropertyRef Name="book_id" />
             <PropertyRef Name="information_id" />
+            <PropertyRef Name="DateOfReview" />
           </Key>
           <Property Name="book_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="information_id" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="review1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="star" Type="Int32" />
-          <Property Name="DateOfReview" Type="DateTime" Precision="3" />
+          <Property Name="review1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="star" Type="Int32" Nullable="false" />
+          <Property Name="DateOfReview" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_REVIEWS_BOOK" FromRole="REVIEW" ToRole="BOOK" />
           <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_REVIEWS_INFORMATION" FromRole="REVIEW" ToRole="INFORMATION" />
         </EntityType>

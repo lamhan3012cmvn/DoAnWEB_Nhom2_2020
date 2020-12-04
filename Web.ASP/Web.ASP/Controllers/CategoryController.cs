@@ -22,7 +22,7 @@ namespace Web.ASP.Controllers
             return View(db.BOOKs.Where(b=>b.categoryBook_ID.Contains(category)).OrderBy(x=>x.C_id).ToPagedList(pageNumber,pageSize));
           
         }
-        public ActionResult loadData(string? categoryID,string? publishingHouseID, int? page)
+        public ActionResult loadData(string? categoryID,string? publishingHouseID, int? page,int? sort)
         {
             int pageSize = 8;
             int pageNumber = (page ?? 1);
@@ -30,10 +30,11 @@ namespace Web.ASP.Controllers
             string category = (categoryID ?? "");
             ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             string publishingHouse = (publishingHouseID ?? "");
-
-            var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse)).OrderBy(x => x.C_id);
-            return PartialView(result.ToPagedList(pageNumber, pageSize));
-
+            var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse));
+            int sortc = (sort ?? 1);
+            if (sortc == 2) return PartialView(result.OrderBy(x=>x.priceBook).ToPagedList(pageNumber, pageSize));
+            else if(sortc == 3) return PartialView(result.OrderByDescending(x => x.priceBook).ToPagedList(pageNumber, pageSize));
+            return PartialView(result.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
         }
         // Single Book
 
@@ -119,6 +120,8 @@ namespace Web.ASP.Controllers
         {
             String id = Session["user"].ToString();
             var result = db.INFORMATION.Find(id).CARTs.ToList();
+            if (result.Count == 0)
+                result = null;
             return View(result);
         }
         
@@ -168,9 +171,35 @@ namespace Web.ASP.Controllers
             }
         }
         // Confirmation
+        [isLoginController]
         public ActionResult Confirmation()
         {
-            return View();
+            try
+            {
+                var idInfo = Session["user"].ToString();
+                var order_id = "OD" + System.Guid.NewGuid().ToString().Substring(0, 20);
+                var cartOfInfo = db.INFORMATION.Find(idInfo).CARTs.ToList();
+                cartOfInfo.ForEach(cart =>
+                {
+                    var bill = new BILL();
+                    bill.order_id = order_id;
+                    bill.information_id = idInfo;
+                    bill.book_id = cart.book_id;
+                    bill.total = cart.count;
+                    cart.BOOK.countBook -= (int)cart.count;
+                    db.BILLs.Add(bill);
+                    db.CARTs.Remove(cart);
+                });
+                db.SaveChanges();
+                ViewBag.bills = db.BILLs.Where(b => b.information_id == idInfo && b.order_id == order_id).ToList();
+                return View();
+            }
+            catch
+            {
+                //Xin lỗi không đủ số lượng sách bán cho bạn
+                return RedirectToAction(actionName: "Cart", controllerName: "Category");
+            }
+            
         }
         // Checkout
         public ActionResult Checkout()

@@ -17,8 +17,8 @@ namespace Web.ASP.models
         public string book_id { get; set; }
         public string information_id { get; set; }
         public string review1 { get; set; }
-        public Nullable<int> star { get; set; }
-        public Nullable<System.DateTime> DateOfReview { get; set; }
+        public int star { get; set; }
+        public System.DateTime DateOfReview { get; set; }
     
         public virtual BOOK BOOK { get; set; }
         public virtual INFORMATION INFORMATION { get; set; }

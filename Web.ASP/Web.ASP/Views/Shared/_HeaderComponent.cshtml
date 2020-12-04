@@ -43,21 +43,21 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <ul class="dropdown-menu">
                                         @{if (!(Session["user"] is null))
-                                          {
+                                            {
                                                 var u = Session["user"];
 
-                                             <li class="nav-item">
-                                                <a class="nav-link" id="loginsuccess" href="">@u</a>
-                                             </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="loginsuccess" href="">@u</a>
+                                                </li>
 
-                                          }
-                                          else
-                                          {
-                                             <li class="nav-item">
-                                                <a class="nav-link" id="loginsuccess" href="/Home/Login">Đăng nhập</a>
-                                             </li>
-                                                }
                                             }
+                                            else
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="loginsuccess" href="/Home/Login">Đăng nhập</a>
+                                                </li>
+                                            }
+                                        }
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Tracking/Index">Theo dõi đơn hàng</a>
                                         </li>
@@ -128,6 +128,16 @@
         </nav>
     </div>
 </header>
+@{
+    if (!(Session["isLogin"] is null))
+    {
+        <script>
+            $(document).ready(function () {
+                $("#icon").addClass("active");
+            });
+        </script>
+    }
+}
 
 <script>
     $("#logout").click(function () {

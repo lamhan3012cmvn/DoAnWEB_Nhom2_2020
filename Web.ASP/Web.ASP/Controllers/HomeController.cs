@@ -8,6 +8,9 @@ using System.Web.Services.Description;
 using Web.ASP.models;
 using Facebook;
 using System.Configuration;
+using System.Net.Mail;
+using System.Net;
+using System.Text;
 
 namespace Web.ASP.Controllers
 {
@@ -26,6 +29,26 @@ namespace Web.ASP.Controllers
                 return uriBuilder.Uri;
             }
         }
+        public void sendMail()
+        {
+            var smtp = new SmtpClient("smtp.gmail.com",587);
+            var mail = new MailMessage();
+
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("lamhan3012@gmail.com", "lamhoangan3012cmvn");
+
+            mail.From = new MailAddress("lamhan3012@gmail.com", "Bạn Nụ Cute");
+            mail.BodyEncoding = mail.SubjectEncoding = Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+
+            mail.Body = "Nội dung email - có thể có cả thẻ html";
+            mail.Subject = "Xác nhận quên mật khẩu";
+            string mailTo = "laman3012@gmail.com";
+            mail.To.Add(mailTo);
+            smtp.UseDefaultCredentials = true;  
+            smtp.Send(mail);
+        }
         public ActionResult Index(int? page)
         {
             int pageSize = 10;
@@ -35,8 +58,7 @@ namespace Web.ASP.Controllers
         // Login
         public ActionResult Login()
         {
-            var isLogin = Session["isLogin"] ;
-         
+            var isLogin = Session["isLogin"];
             if(!(isLogin is null)) 
             {
                 return RedirectToAction(actionName: "Index", controllerName: "Home");

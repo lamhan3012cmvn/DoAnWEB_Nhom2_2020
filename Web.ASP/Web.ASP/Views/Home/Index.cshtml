@@ -80,13 +80,3 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
-@{
-    if (!(Session["isLogin"] is null))
-    {
-        <script>
-            $(document).ready(function () {
-                $("#icon").addClass("active");
-            });
-        </script>
-    }
-}

@@ -17,7 +17,6 @@
                 <div class="page_link">
                     <a href="/Home/Index">Trang chủ</a>
                     <a href="/Category/Index">Sản phẩm</a>
-                    <!--<a href="category.html">Women Fashion</a>-->
                 </div>
             </div>
         </div>
@@ -28,15 +27,14 @@
 <section class="cat_product_area section_gap">
     <div class="container-fluid">
         <div class="row flex-row-reverse">
-            <div class="col-lg-9" id="loadBook">
+            <div class="col-lg-9">
                 <div class="product_top_bar">
                     <div class="left_dorp">
-                        <select class="sorting">
-                            <option value="1">Sắp xếp theo</option>
-                            <option value="2">Mới nhất</option>
-                            <option value="3">Giá từ thấp đến cao</option>
-                            <option value="4">Giá từ cao đến thấp</option>
-                            <!--<option value="4">Default sorting 02</option>*-->
+                        <select class="sorting" id="sort">
+                            <option value="">Sắp xếp theo</option>
+                            <option value="1">Mới nhất</option>
+                            <option value="2">Giá từ thấp đến cao</option>
+                            <option value="3">Giá từ cao đến thấp</option>
                         </select>
                     </div>
                     <div class="right_page ml-auto">
@@ -62,7 +60,7 @@
                         </nav>
                     </div>
                 </div>
-                <div class="latest_product_inner row">
+                <div class="latest_product_inner row" id="loadBook">
                     @if (!(Model is null))
                     {
                         foreach (var book in Model.ToList())
@@ -98,11 +96,10 @@
                     }
 
                 </div>
-                <script src="~/Scripts/loadBook.js"></script>
             </div>
             <div class="col-lg-3">
                 <div class="left_sidebar_area">
-                    <aside class="left_widgets cat_widgets">
+                    @*<aside class="left_widgets cat_widgets">
                         <div class="l_w_title">
                             <h3>Top sản phẩm</h3>
                         </div>
@@ -116,7 +113,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </aside>
+                    </aside>*@
                     <aside id="category" class="left_widgets cat_widgets">
                         <div class="l_w_title">
                             <h3>Thể loại sách</h3>

@@ -1,70 +1,35 @@
 ﻿@model PagedList.IPagedList<Web.ASP.models.BOOK>
-<div class="product_top_bar">
-    <div class="left_dorp">
-        <select class="sorting">
-            <option value="1">Sắp xếp theo</option>
-            <option value="2">Mới nhất</option>
-            <option value="3">Giá từ thấp đến cao</option>
-            <option value="4">Giá từ cao đến thấp</option>
-            <!--<option value="4">Default sorting 02</option>*-->
-        </select>
-    </div>
-    <div class="right_page ml-auto">
-        <nav class="cat_page" aria-label="Page navigation example">
-            <ul class="pagination" id="loadPagination">
-                <li class="page-item" data-page="pre">
-                    <a class="page-link">
-                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                    </a>
-                </li>
-                @for (int i = 1; i <= Model.PageCount; i++)
-                {
-                    <li class="page-item" data-page="@i">
-                        <a class="page-link">@i</a>
-                    </li>
-                }
-                <li class="page-item" data-page="next">
-                    <a class="page-link">
-                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-<div class="latest_product_inner row">
-    @if (!(Model is null))
+@if (!(Model is null))
+{
+    foreach (var book in Model.ToList())
     {
-        foreach (var book in Model.ToList())
-        {
-            <div class="col-lg-3 col-md-3 col-sm-6">
-                <div class="f_p_item book_items">
-                    <div class="f_p_img">
-                        <img class="img-fluid" src="@book.IMAGE_BOOK.link" alt="">
-                        <div class="p_icon">
-                            <a href="#">
-                                <i class="lnr lnr-heart"></i>
-                            </a>
-                            <a href="#">
-                                <i class="lnr lnr-cart"></i>
-                            </a>
-                        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="f_p_item book_items">
+                <div class="f_p_img">
+                    <img class="img-fluid" src="@book.IMAGE_BOOK.link" alt="">
+                    <div class="p_icon">
+                        <a href="#">
+                            <i class="lnr lnr-heart"></i>
+                        </a>
+                        <a href="#">
+                            <i class="lnr lnr-cart"></i>
+                        </a>
                     </div>
-                    <a href="/Category/SingleBook/Index?_id=@book.C_id">
-
-                        @if (@book.nameBook.Length > 20)
-                        {
-                            <h4>@book.nameBook.Substring(0, 20)...</h4>
-                        }
-                        else
-                        {
-                            <h4>@book.nameBook</h4>
-                        }
-                    </a>
-                    <h5>@book.priceBook VND</h5>
                 </div>
-            </div>
-        }
-    }
+                <a href="/Category/SingleBook/Index?_id=@book.C_id">
 
-</div>
+                    @if (@book.nameBook.Length > 20)
+                    {
+                        <h4>@book.nameBook.Substring(0, 20)...</h4>
+                    }
+                    else
+                    {
+                        <h4>@book.nameBook</h4>
+                    }
+                </a>
+                <h5>@book.priceBook VND</h5>
+            </div>
+        </div>
+    }
+}
+
