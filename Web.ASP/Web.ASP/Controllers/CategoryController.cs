@@ -44,7 +44,9 @@ namespace Web.ASP.Controllers
             var idInfor = Session["user"];
             var result = db.BOOKs.Find(_id);
             ViewBag.book = result;
-            var star = (float)(result.REVIEWS.Sum(t => t.star))/(result.REVIEWS.Count);
+            int count = result.REVIEWS.Count == 0 ? 1 : result.REVIEWS.Count;
+            float star = (float)(result.REVIEWS.Sum(t => t.star))/(count);
+           
             ViewBag.star = Math.Round(star,2);
             ViewBag.countReview = result.REVIEWS.Count;
             ViewBag.count5Star = result.REVIEWS.Count(s => s.star == 5);

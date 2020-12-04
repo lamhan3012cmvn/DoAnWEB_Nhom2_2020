@@ -79,6 +79,11 @@
                 success: function (respone) {
                     if (respone.status) {
                         notify("Thông Báo", respone.message, "far fa-check-circle", "success")
+                        const check = document.getElementById("f-option2").checked;
+                        if (check && typeof (Storage) !== "undefined") {
+                            localStorage.setItem("username", userName);
+                            localStorage.setItem("password", pass);
+                        }
                         setTimeout(function () {
                             window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
                         }, 3300);

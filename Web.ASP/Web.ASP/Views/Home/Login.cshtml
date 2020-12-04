@@ -68,7 +68,7 @@
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
-<script src="~/Scripts/Func.js"></script>
+
 <script>
     const ajaxLogin = () => {
         const userName = $("#name").val()
@@ -93,6 +93,11 @@
                     }
                     else
                     {
+                        const check = document.getElementById("f-option2").checked;
+                        if (check && typeof (Storage) !== "undefined") {
+                            localStorage.setItem("username", userName);
+                            localStorage.setItem("password", pass);
+                        }
                         setTimeout(function () {
                             window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
                         }, 3300);
@@ -102,6 +107,14 @@
         })
     }
     $(document).ready(function () {
+        if (typeof (Storage) !== "undefined") {
+            const user = localStorage.getItem("username");
+            const pass = localStorage.getItem("password");
+            if (user && pass) {
+                document.getElementById("name").value = user
+                document.getElementById("pass").value = pass
+            }   
+        }
         $("#btn_register").css("display", "inline-block");
         $('input').keypress(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
