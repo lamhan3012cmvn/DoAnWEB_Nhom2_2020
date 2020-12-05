@@ -390,5 +390,12 @@ namespace Web.ASP.Controllers
             db.AUTHs.Add(auth);
             db.SaveChanges();
         }
+        [isLoginController]
+        public ActionResult Bills()
+        {
+            var idInfo = Session["user"].ToString();
+            ViewBag.bills = db.BILLs.Where(b => b.information_id == idInfo).ToList();
+            return View();
+        }
     }
 }

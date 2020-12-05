@@ -448,6 +448,7 @@
     <Content Include="Views\Admin\viewBook.cshtml" />
     <Content Include="Views\Admin\_HeaderComponentLoggedIn.cshtml" />
     <Content Include="Views\Home\Information.cshtml" />
+    <Content Include="Views\Home\Bills.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -29,14 +29,19 @@
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Category/Index">Sản phẩm</a>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Category/Checkout">Product Checkout</a>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Category/Cart">Giỏ hàng</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Category/Confirmation">Confirmation</a>
-                                        </li>
+                                        @if (!(Session["user"] is null))
+                                        {
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Category/Checkout">Product Checkout</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Category/Cart">Giỏ hàng</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Home/Bills">Thống kê</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
                                 <li class="nav-item submenu dropdown">
@@ -56,11 +61,14 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="loginsuccess" href="/Home/Login">Đăng nhập</a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link"  href="/Home/Registration">Đăng ký</a>
+                                                </li>
                                             }
                                         }
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="/Tracking/Index">Theo dõi đơn hàng</a>
-                                        </li>
+                                        @*<li class="nav-item">
+            <a class="nav-link" href="/Tracking/Index">Theo dõi đơn hàng</a>
+        </li>*@
                                     </ul>
                                 </li>
                                 <li class="nav-item">

@@ -109,78 +109,89 @@
         </div>
         <div class="order_details_table">
 
-            <h2>Order Details : @ViewBag.bills[0].order_id </h2>
+            <h2>Bill All Details</h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col" class="text-left ml-2">OrderID</th>
                             <th scope="col" class="text-left ml-2">Product</th>
                             <th scope="col" class="text-left ml-2">Quantity</th>
                             <th scope="col" class="text-left ml-2">Price</th>
                             <th scope="col" class="text-left ml-2">Total</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var bill in ViewBag.bills)
                         {
-                            <tr>
-                                <td>
-                                    <p>@bill.BOOK.nameBook</p>
-                                </td>
-                                <td>
-                                    <h5>x @bill.total</h5>
-                                </td>
-                                <td>
-                                    <p>@bill.BOOK.priceBook VND</p>
-                                </td>
-                                <td>
-                                    <p class="price">@(bill.total*@bill.BOOK.priceBook) VND</p>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <p>@bill.order_id</p>
+                            </td>
+                            <td>
+                                <p>@bill.BOOK.nameBook</p>
+                            </td>
+                            <td>
+                                <h5>x @bill.total</h5>
+                            </td>
+                            <td>
+                                <p>@bill.BOOK.priceBook VND</p>
+                            </td>
+                            <td>
+                                <p class="price">@(bill.total*@bill.BOOK.priceBook) VND</p>
+                            </td>
+                        </tr>
                         }
 
-                        <tr>
-                            <td>
-                                <h4>Subtotal</h4>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <p id="totalPrice"></p>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <h4>Subtotal</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p id="totalPrice"></p>
+                        </td>
+                    </tr>
                         @*<tr>
-                            <td>
-                                <h4>Shipping</h4>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <p>Flat rate: $50.00</p>
-                            </td>
-                        </tr>*@
-                        <tr>
-                            <td>
-                                <h4>Total</h4>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <h5></h5>
-                            </td>
-                            <td>
-                                <p id="total"></p>
-                            </td>
-                        </tr>
+                                <td>
+                                    <h4>Shipping</h4>
+                                </td>
+                                <td>
+                                    <h5></h5>
+                                </td>
+                                <td>
+                                    <h5></h5>
+                                </td>
+                                <td>
+                                    <p>Flat rate: $50.00</p>
+                                </td>
+                            </tr>*@
+                    <tr>
+                        <td>
+                            <h4>Total</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p id="total"></p>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

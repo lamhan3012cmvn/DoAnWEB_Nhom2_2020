@@ -194,6 +194,7 @@ namespace Web.ASP.Controllers
                 });
                 db.SaveChanges();
                 ViewBag.bills = db.BILLs.Where(b => b.information_id == idInfo && b.order_id == order_id).ToList();
+
                 return View();
             }
             catch
@@ -203,6 +204,7 @@ namespace Web.ASP.Controllers
             }
             
         }
+       
         // Checkout
         public ActionResult Checkout()
         {
