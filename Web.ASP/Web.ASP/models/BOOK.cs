@@ -19,6 +19,7 @@ namespace Web.ASP.models
         {
             this.BILLs = new HashSet<BILL>();
             this.CARTs = new HashSet<CART>();
+            this.IMPORT_BOOK = new HashSet<IMPORT_BOOK>();
             this.REVIEWS = new HashSet<REVIEW>();
         }
     
@@ -44,7 +45,8 @@ namespace Web.ASP.models
         public virtual PUBLISHING_HOUSE PUBLISHING_HOUSE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CART> CARTs { get; set; }
-        public virtual IMPORT_BOOK IMPORT_BOOK { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IMPORT_BOOK> IMPORT_BOOK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<REVIEW> REVIEWS { get; set; }
     }

@@ -2,10 +2,10 @@
       action="/Admin/AddBook"
       method="post"
       style="box-shadow:none">
-      
+
     <h3 class="m-3">Thêm Sách</h3>
     <div class="col-md-10 form-group mx-auto">
-        <input class="col-md-12 form-control"
+        <input id="name" class="col-md-12 form-control"
                name="nameBook"
                placeholder="Nhập tên sách"
                type="text" />
@@ -41,64 +41,97 @@
         </div>
     </div>
     <div class="col-md-10 form-group mx-auto">
-        <textarea class="col-md-12 form-control"
+        <div class="left_dorp">
+            <select id="formAuthor"
+                    class="sorting w-100 size "
+                    name="formAuthor">
+                <option value="#">Thể Loại</option>
+                @foreach (var element in ViewBag.authorBook.Items)
+                {
+                    <option value="@element.C_id">@element.nameAuthor</option>
+                }
+                <option value="">Thêm Tác Giả...</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <textarea id="content" class="col-md-12 form-control"
                   name="contentBook"
                   placeholder="Nhập nội dung sách"
                   type="text"></textarea>
     </div>
     <div class="col-md-10 form-group mx-auto">
-        <input class="col-md-12 form-control"
+        <input id="count" class="col-md-12 form-control"
                name="countBook"
                placeholder="Số Lượng Sách"
                type="number" />
     </div>
     <div class="col-md-10 form-group mx-auto">
-        <input class="col-md-12 form-control"
+        <input id="price" class="col-md-12 form-control"
                name="priceBook"
                placeholder="Giá Sách"
                type="number" />
     </div>
+    <div class="col-md-10 form-group mx-auto">
+        <input id="sizeBook" class="col-md-12 form-control"
+               name="size"
+               placeholder="Kích thước"
+               type="text" />
+    </div>
+    <div class="col-md-10 form-group mx-auto">
+        <input id="numberOfPage" class="col-md-12 form-control"
+               name="numberOfPage"
+               placeholder="Số trang"
+               type="number" />
+    </div>
 
     <div class="col-md-10 form-group mx-auto">
-        <button id="submit" class="btn submit_btn">Thêm Sách</button>
+        <div id="submit" class="btn submit_btn">Thêm Sách</div>
     </div>
 </form>
 <script>
     $('select').niceSelect();
     $(document).ready(function () {
         selectChange("#formAddCategory", "/Admin/AddCategoryItem","#loadForm")
-        selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse","#loadForm")
-        $("#submit").submit(function () {
+        selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse", "#loadForm")
+        $("#submit").click(function () {
             const nameB = $("#name").val()
             const contentB = $("#content").val()
             const priceB = $("#price").val()
             const countB = $("#count").val()
             const category = $("#formAddCategory").val()
             const publishinghouse = $("#formAddPublishingHouse").val()
-            const objData = {
-                nameBook: nameB,
-                contentBook: contentB,
-                priceBook: priceB,
-                countBook: countB,
-                categoryBook_ID: category,
-                publishingHouseBook_ID: publishinghouse
-            }
-            $.ajax({
-                url: "/Admin/ValidateBook",
-                type: "POST",
-                data: objData,
-                dataType: "JSON",
-                success: function (respone) {
-                    if (respone.status == false)
-                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
-                    else {
-                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                        setTimeout(function () {
-                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                        }, 3300);
-                    }
-                }
-            })
+            const author = $("#formAuthor").val()
+            const size = $("#sizeBook").val()
+            const numberOfPage = $("#numberOfPage").val()
+
+            //const objData = {
+            //    nameBook: nameB,
+            //    contentBook: contentB,
+            //    priceBook: priceB,
+            //    countBook: countB,
+            //    categoryBook_ID: category,
+            //    publishingHouseBook_ID: publishinghouse,
+            //    authorBook_ID: author,
+            //    size: size,
+            //    numberOfPage: numberOfPage
+            //}
+            //$.ajax({
+            //    url: "/Admin/ValidateBook",
+            //    type: "POST",
+            //    data: objData,
+            //    dataType: "JSON",
+            //    success: function (respone) {
+            //        if (respone.status == false)
+            //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+            //        else {
+            //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+            //            setTimeout(function () {
+            //                window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+            //            }, 3300);
+            //        }
+            //    }
+            //})
         })
     })
 

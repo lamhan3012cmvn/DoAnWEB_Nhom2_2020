@@ -37,6 +37,7 @@ namespace Web.ASP.Controllers
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
             //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
+            ViewBag.authorBook = new SelectList(db.AUTHORs, "C_id", "nameAuthor");
             return PartialView();
         }
         [isLoginController]
@@ -68,7 +69,7 @@ namespace Web.ASP.Controllers
         [isAdmin]
         [HttpGet]
         public ActionResult ValidateBook( string nameBook, string contentBook,string categoryBook_ID,
-                                    string publishingHouseBook_ID, string countBook, string priceBook)
+                                    string publishingHouseBook_ID, string authorBook_ID, string countBook, string priceBook, string size, string numberOfPage)
         {
             if (String.IsNullOrEmpty(nameBook))
             {
@@ -115,6 +116,15 @@ namespace Web.ASP.Controllers
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+            if (String.IsNullOrEmpty(authorBook_ID))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn tác giả"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
             if (String.IsNullOrEmpty(countBook))
             {
                 var result = new
@@ -130,6 +140,24 @@ namespace Web.ASP.Controllers
                 {
                     status = false,
                     message = "Vui lòng nhập giá sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(size))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập kích thước sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(numberOfPage))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng số trang sách"
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -151,18 +179,27 @@ namespace Web.ASP.Controllers
             else
             {
                 try {
+                    var _id = "MS" + System.Guid.NewGuid().ToString();
                     var addbook = new BOOK()
                     {
-                        C_id = "MS12" +"",
+                        C_id = _id,
                         nameBook = nameBook,
                         priceBook = Int32.Parse(priceBook),
                         contentBook = contentBook,
                         countBook = Int32.Parse(countBook),
                         imgBook_ID = "img01",
                         categoryBook_ID = categoryBook_ID,
-                        publishingHouseBook_ID = publishingHouseBook_ID
+                        publishingHouseBook_ID = publishingHouseBook_ID,
+                        author_id = authorBook_ID
+                        
                     };
-                     db.BOOKs.Add(addbook);//???
+                    var import_date = new IMPORT_BOOK()
+                    {
+                        book_ID = _id,
+                        import_date = DateTime.Now
+                    };
+                    db.IMPORT_BOOK.Add(import_date);
+                     db.BOOKs.Add(addbook);
                      db.SaveChanges();
                 }
                 catch
@@ -191,6 +228,23 @@ namespace Web.ASP.Controllers
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+        }
+        [isLoginController]
+        [isAdmin]
+
+        public ActionResult BillManagement()
+        {
+            var cart= db.CARTs.OrderBy(t => t.information_id).ToList();
+            var bill = db.BILLs.ToList();
+            ViewBag.cartsCount = cart.Count;
+            ViewBag.carts = cart;
+            ViewBag.bills = bill;
+            ViewBag.billsCount = bill.Count;
+            return View();
+        }
+        public ActionResult loadBills()
+        {
+            return PartialView(db.BILLs.ToList());
         }
     }
 }

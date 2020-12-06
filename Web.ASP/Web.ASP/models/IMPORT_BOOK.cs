@@ -15,7 +15,7 @@ namespace Web.ASP.models
     public partial class IMPORT_BOOK
     {
         public string book_ID { get; set; }
-        public Nullable<System.DateTime> import_date { get; set; }
+        public System.DateTime import_date { get; set; }
     
         public virtual BOOK BOOK { get; set; }
     }

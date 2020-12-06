@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\o0oKenZyo0o\Desktop\KenZy\DoAnWEB_Nhom2_2020\Web.ASP\Web.ASP\models\dbBook.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Quỳnh\HK1(2020-2021)\Lap trinh Web\DACK\DoAnWEB_Nhom2_2020\Web.ASP\Web.ASP\models\dbBook.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

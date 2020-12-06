@@ -14,6 +14,7 @@ const ajaxLoadData = (url, element, objData) => {
         url: url,
         data: objData,
         success: function (response) {
+            console.log(response)
            $(element).html(response)
         },
         type: "GET",

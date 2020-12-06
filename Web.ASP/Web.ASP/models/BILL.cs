@@ -18,6 +18,7 @@ namespace Web.ASP.models
         public string information_id { get; set; }
         public string book_id { get; set; }
         public Nullable<double> total { get; set; }
+        public System.DateTime order_date { get; set; }
     
         public virtual BOOK BOOK { get; set; }
         public virtual INFORMATION INFORMATION { get; set; }

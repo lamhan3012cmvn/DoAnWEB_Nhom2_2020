@@ -179,7 +179,7 @@ namespace Web.ASP.Controllers
             try
             {
                 var idInfo = Session["user"].ToString();
-                var order_id = "OD" + System.Guid.NewGuid().ToString().Substring(0, 20);
+                var order_id = "OD" + System.Guid.NewGuid().ToString();
                 var cartOfInfo = db.INFORMATION.Find(idInfo).CARTs.ToList();
                 cartOfInfo.ForEach(cart =>
                 {
@@ -188,6 +188,7 @@ namespace Web.ASP.Controllers
                     bill.information_id = idInfo;
                     bill.book_id = cart.book_id;
                     bill.total = cart.count;
+                    bill.order_date = DateTime.Now;
                     cart.BOOK.countBook -= (int)cart.count;
                     db.BILLs.Add(bill);
                     db.CARTs.Remove(cart);
