@@ -83,26 +83,28 @@
             data: objData,
             dataType: "JSON",
             success: function (respone) {
-                if (respone.status == false)
-                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
-                else {
-                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                    if (respone.isInfor == false)
-                    {
-                        ajax('/' + respone.link.controllerName + '/' + respone.link.actionName + '', "#loadAddInfor");
-                    }
-                    else
-                    {
-                        const check = document.getElementById("f-option2").checked;
-                        if (check && typeof (Storage) !== "undefined") {
-                            localStorage.setItem("username", userName);
-                            localStorage.setItem("password", pass);
+                setTimeout(function () {
+                    loading(false)
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    else {
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                        if (respone.isInfor == false) {
+                            ajax('/' + respone.link.controllerName + '/' + respone.link.actionName + '', "#loadAddInfor");
                         }
-                        setTimeout(function () {
-                            window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                        }, 3300);
+                        else {
+                            const check = document.getElementById("f-option2").checked;
+                            if (check && typeof (Storage) !== "undefined") {
+                                localStorage.setItem("username", userName);
+                                localStorage.setItem("password", pass);
+                            }
+                            setTimeout(function () {
+                                window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                            }, 2000);
+                        }
                     }
-                }
+                },1500)
+               
             }
         })
     }
@@ -119,10 +121,12 @@
         $('input').keypress(function (event) {
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if (keycode == '13') {
+                loading(true)
                 ajaxLogin()
             }
         });
         $("#submit").click(function (e) {
+            loading(true)
             ajaxLogin()
         })
 

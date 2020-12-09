@@ -417,6 +417,9 @@
     <Compile Include="models\REVIEW.cs">
       <DependentUpon>dbBook.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\sysdiagram.cs">
+      <DependentUpon>dbBook.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

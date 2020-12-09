@@ -231,11 +231,32 @@ namespace Web.ASP.Controllers
         }
         [isLoginController]
         [isAdmin]
-
         public ActionResult BillManagement()
         {
             var cart= db.CARTs.OrderBy(t => t.information_id).ToList();
             var bill = db.BILLs.ToList();
+            var time_now = DateTime.Now;
+            bill.ForEach(b =>
+            {
+                if(b.status_bill != "Đã giao")
+                {
+                    var time = time_now - b.order_date;
+                    if (time < TimeSpan.FromSeconds(600))
+                    {
+                        b.status_bill = "Chờ lấy hàng";
+
+                    }
+                    else if (time < TimeSpan.FromSeconds(1200))
+                    {
+                        b.status_bill = "Đang giao";
+                    }
+                    else
+                    {
+                        b.status_bill = "Đã giao";
+                    }
+                }                         
+            });
+            db.SaveChanges();
             ViewBag.cartsCount = cart.Count;
             ViewBag.carts = cart;
             ViewBag.bills = bill;

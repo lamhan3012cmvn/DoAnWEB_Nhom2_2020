@@ -18,7 +18,7 @@ const notify = (title, mess, icon, type) => {
         offset: 20,
         spacing: 10,
         z_index: 1031,
-        delay: 3300,
+        delay: 2000,
         timer: 100,
         url_target: "_blank",
         mouse_over: null,

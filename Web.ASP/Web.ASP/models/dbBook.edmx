@@ -31,6 +31,7 @@
           <Property Name="book_id" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="total" Type="float" />
           <Property Name="order_date" Type="datetime" Nullable="false" />
+          <Property Name="status_bill" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BOOK">
           <Key>
@@ -121,6 +122,16 @@
           <Property Name="review" Type="nvarchar(max)" Nullable="false" />
           <Property Name="star" Type="int" Nullable="false" />
           <Property Name="DateOfReview" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_BILL_BOOK">
           <End Role="BOOK" Type="Self.BOOK" Multiplicity="1" />
@@ -291,6 +302,7 @@
           <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PUBLISHING_HOUSE" EntityType="Self.PUBLISHING_HOUSE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="REVIEWS" EntityType="Self.REVIEWS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BILL_BOOK" Association="Self.FK_BILL_BOOK">
             <End Role="BOOK" EntitySet="BOOK" />
             <End Role="BILL" EntitySet="BILL" />
@@ -361,6 +373,7 @@
           <EntitySet Name="INFORMATION" EntityType="Manager_BookModel.INFORMATION" />
           <EntitySet Name="PUBLISHING_HOUSE" EntityType="Manager_BookModel.PUBLISHING_HOUSE" />
           <EntitySet Name="REVIEWS" EntityType="Manager_BookModel.REVIEW" />
+          <EntitySet Name="sysdiagrams" EntityType="Manager_BookModel.sysdiagram" />
           <AssociationSet Name="FK_INFORMATION_AUTH" Association="Manager_BookModel.FK_INFORMATION_AUTH">
             <End Role="AUTH" EntitySet="AUTHs" />
             <End Role="INFORMATION" EntitySet="INFORMATION" />
@@ -442,6 +455,7 @@
           <Property Name="book_id" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="total" Type="Double" />
           <Property Name="order_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BILL" ToRole="BOOK" />
           <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="BILL" ToRole="INFORMATION" />
         </EntityType>
@@ -556,6 +570,16 @@
           <Property Name="DateOfReview" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_REVIEWS_BOOK" FromRole="REVIEW" ToRole="BOOK" />
           <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_REVIEWS_INFORMATION" FromRole="REVIEW" ToRole="INFORMATION" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_INFORMATION_AUTH">
           <End Type="Manager_BookModel.AUTH" Role="AUTH" Multiplicity="1" />
@@ -739,6 +763,7 @@
           <EntitySetMapping Name="BILLs">
             <EntityTypeMapping TypeName="Manager_BookModel.BILL">
               <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="status_bill" ColumnName="status_bill" />
                 <ScalarProperty Name="order_date" ColumnName="order_date" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="book_id" ColumnName="book_id" />
@@ -839,6 +864,17 @@
                 <ScalarProperty Name="review1" ColumnName="review" />
                 <ScalarProperty Name="information_id" ColumnName="information_id" />
                 <ScalarProperty Name="book_id" ColumnName="book_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Manager_BookModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

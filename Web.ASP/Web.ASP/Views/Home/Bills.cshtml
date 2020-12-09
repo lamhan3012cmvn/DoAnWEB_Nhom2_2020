@@ -107,63 +107,60 @@
                 </div>
             </div>
         </div>
-        <div class="order_details_table">
+        @foreach (var bill in ViewBag.bills)
+        {
+            <div class="order_details_table">
 
-            <h2>Bill All Details</h2>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-left ml-2">OrderID</th>
-                            <th scope="col" class="text-left ml-2">Product</th>
-                            <th scope="col" class="text-left ml-2">Quantity</th>
-                            <th scope="col" class="text-left ml-2">Price</th>
-                            <th scope="col" class="text-left ml-2">Total</th>
+                <h2 data-id="@bill[0].order_id" class="dataID">Mã Đơn Hàng : @bill[0].order_id</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var bill in ViewBag.bills)
-                        {
-                        <tr>
-                            <td>
-                                <p>@bill.order_id</p>
-                            </td>
-                            <td>
-                                <p>@bill.BOOK.nameBook</p>
-                            </td>
-                            <td>
-                                <h5>x @bill.total</h5>
-                            </td>
-                            <td>
-                                <p>@bill.BOOK.priceBook VND</p>
-                            </td>
-                            <td>
-                                <p class="price">@(bill.total*@bill.BOOK.priceBook) VND</p>
-                            </td>
-                        </tr>
-                        }
+                                <th style="font-weight: bold" scope="col" class="text-left ml-2">Sản phẩm</th>
+                                <th style="font-weight: bold" scope="col" class="text-left ml-2">Số lượng</th>
+                                <th style="font-weight: bold" scope="col" class="text-left ml-2">Giá</th>
+                                <th style="font-weight: bold" scope="col" class="text-left ml-2">Thành tiền</th>
 
-                    <tr>
-                        <td>
-                            <h4>Subtotal</h4>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <p id="totalPrice"></p>
-                        </td>
-                    </tr>
-                        @*<tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var group_bill in bill)
+                            {
+                                <tr>
+                                    <td style="width: 45%;">
+                                        <p>@group_bill.BOOK.nameBook</p>
+                                    </td>
+                                    <td>
+                                        <h5>x @group_bill.total</h5>
+                                    </td>
+                                    <td>
+                                        <p>@group_bill.BOOK.priceBook VND</p>
+                                    </td>
+                                    <td>
+                                        <p class="price @group_bill.order_id">@(group_bill.total * group_bill.BOOK.priceBook) VND</p>
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr>
                                 <td>
-                                    <h4>Shipping</h4>
+                                    <h4>Tạm tính</h4>
+                                </td>
+
+                                <td>
+                                    <h5></h5>
+                                </td>
+                                <td>
+                                    <h5></h5>
+                                </td>
+                                <td>
+                                    <p id="totalPrice @bill[0].order_id"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4>Tổng tiền</h4>
                                 </td>
                                 <td>
                                     <h5></h5>
@@ -172,31 +169,16 @@
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <p>Flat rate: $50.00</p>
+                                    <p id="total @bill[0].order_id"></p>
                                 </td>
-                            </tr>*@
-                    <tr>
-                        <td>
-                            <h4>Total</h4>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <h5></h5>
-                        </td>
-                        <td>
-                            <p id="total"></p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
+        }
         </div>
-    </div>
 </section>
 <!--================End Order Details Area =================-->
 <!--================ Subscription Area ================-->
@@ -206,6 +188,16 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
-    document.getElementById("totalPrice").innerHTML = totalPrice();
-    document.getElementById("total").innerHTML = totalPrice();
+    $(document).ready(function () {
+        const prices = $(".dataID")
+        for (let i = 0; i < prices.length; i++) {
+            let dataID = prices[i].dataset.id;
+            let total_Price = "totalPrice " + dataID;
+            let total = "total " + dataID;
+            let price_id = "price " + dataID;
+            document.getElementById(total_Price).innerHTML = totalPrice(price_id);
+            document.getElementById(total).innerHTML = totalPrice(price_id);
+        }
+    })
+  
 </script>

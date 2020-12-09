@@ -394,7 +394,8 @@ namespace Web.ASP.Controllers
         public ActionResult Bills()
         {
             var idInfo = Session["user"].ToString();
-            ViewBag.bills = db.BILLs.Where(b => b.information_id == idInfo).ToList();
+            var result = db.BILLs.Where(b => b.information_id == idInfo).GroupBy(b => b.order_id).Select(grp => grp.ToList() ).ToList();
+            ViewBag.bills = result;
             return View();
         }
     }

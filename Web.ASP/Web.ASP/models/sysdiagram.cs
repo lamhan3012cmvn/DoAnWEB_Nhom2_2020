@@ -12,16 +12,12 @@ namespace Web.ASP.models
     using System;
     using System.Collections.Generic;
     
-    public partial class BILL
+    public partial class sysdiagram
     {
-        public string order_id { get; set; }
-        public string information_id { get; set; }
-        public string book_id { get; set; }
-        public Nullable<double> total { get; set; }
-        public System.DateTime order_date { get; set; }
-        public string status_bill { get; set; }
-    
-        public virtual BOOK BOOK { get; set; }
-        public virtual INFORMATION INFORMATION { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

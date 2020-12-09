@@ -32,12 +32,20 @@ const selectChange = (element, url, elementchange) => {
 const price = (a, b) => {
     return (a * b) + " VND";
 }
-const totalPrice = () => {
-    const products = $(".price");
+const totalPrice = (price_id) => {
+    const products = document.getElementsByClassName(price_id);
     const arr = [];
     for (let i = 0; i < products.length; i++) {
         arr.push(products[i].innerText.split(" ")[0])
     }
     const total = arr.reduce((a, b) => parseInt(a) + parseInt(b), 0);
     return total + " VND";
+}
+const loading = (isShow) => {
+    const loading = document.getElementById("loading");
+    if (isShow) {
+        loading.style = "display: flex";
+        return;
+    }
+    loading.style = "display: none"; 
 }

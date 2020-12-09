@@ -37,5 +37,6 @@ namespace Web.ASP.models
         public virtual DbSet<INFORMATION> INFORMATION { get; set; }
         public virtual DbSet<PUBLISHING_HOUSE> PUBLISHING_HOUSE { get; set; }
         public virtual DbSet<REVIEW> REVIEWS { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
