@@ -389,7 +389,7 @@
                 count: result.value
             }
             $.ajax({
-                url: "/Category/createCart",
+                url: "/User/createCart",
                 data: obj,
                 success: function (respone) {
                     if (respone.status == false)
@@ -444,7 +444,7 @@
                 star : star
             }
             $.ajax({
-                url: "/Category/addReview",
+                url: "/User/addReview",
                 data: objData,
                 success: function (respone) {
                     if (respone.status == false)

@@ -235,37 +235,51 @@ namespace Web.ASP.Controllers
         {
             var cart= db.CARTs.OrderBy(t => t.information_id).ToList();
             var bill = db.BILLs.ToList();
-            var time_now = DateTime.Now;
-            bill.ForEach(b =>
-            {
-                if(b.status_bill != "Đã giao")
-                {
-                    var time = time_now - b.order_date;
-                    if (time < TimeSpan.FromSeconds(600))
-                    {
-                        b.status_bill = "Chờ lấy hàng";
-
-                    }
-                    else if (time < TimeSpan.FromSeconds(1200))
-                    {
-                        b.status_bill = "Đang giao";
-                    }
-                    else
-                    {
-                        b.status_bill = "Đã giao";
-                    }
-                }                         
-            });
-            db.SaveChanges();
+            var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).ToList();
             ViewBag.cartsCount = cart.Count;
             ViewBag.carts = cart;
             ViewBag.bills = bill;
             ViewBag.billsCount = bill.Count;
+            ViewBag.bill_WaitConfirms = bill_WaitConfirm;
+            ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
             return View();
         }
         public ActionResult loadBills()
         {
             return PartialView(db.BILLs.ToList());
+        }
+        [HttpGet]
+        public ActionResult ChangeStatus(string order_id, string information_id, string book_id, string status)
+        {
+            try
+            {
+                var bill = db.BILLs.Where(t => t.order_id == order_id && t.information_id == information_id && t.book_id == book_id).SingleOrDefault();
+                if (!(bill is null))
+                {
+                    bill.status_bill = status;
+                    db.SaveChanges();
+                    
+                }
+                return RedirectToAction(actionName: "LoadWaitingProduct", controllerName: "Admin");
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Xác nhận không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
+
+        public ActionResult LoadWaitingProduct()
+        {
+            var bill = db.BILLs.Where(t=>t.status_bill.Contains("Chờ lấy hàng")).ToList();
+            ViewBag.bills = bill;
+            ViewBag.billsCount = bill.Count;
+            return PartialView();
         }
     }
 }

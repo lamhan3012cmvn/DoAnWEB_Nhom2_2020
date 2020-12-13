@@ -84,7 +84,7 @@
             dataType: "JSON",
             success: function (respone) {
                 setTimeout(function () {
-                    loading(false)
+                    
                     if (respone.status == false)
                         notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
                     else {
@@ -100,9 +100,11 @@
                             }
                             setTimeout(function () {
                                 window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                                loading(false)
                             }, 2000);
                         }
                     }
+                    loading(false)
                 },1500)
                
             }

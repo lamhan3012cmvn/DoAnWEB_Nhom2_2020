@@ -361,6 +361,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -430,13 +431,13 @@
     <Content Include="Views\web.config" />
     <Content Include="Views\Shared\_HeaderComponent.cshtml" />
     <Content Include="Views\Shared\_FooterComponent.cshtml" />
-    <Content Include="Views\Category\Cart.cshtml" />
+    <Content Include="Views\User\Cart.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Category\Checkout.cshtml" />
-    <Content Include="Views\Category\Confirmation.cshtml" />
+    <Content Include="Views\User\Checkout.cshtml" />
+    <Content Include="Views\User\Confirmation.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Category\SingleBook.cshtml" />
-    <Content Include="Views\Category\Tracking.cshtml" />
+    <Content Include="Views\User\Tracking.cshtml" />
     <Content Include="Views\Shared\_SubscriptionComponent.cshtml" />
     <Content Include="Views\Shared\_ImgLoginRegisterComponent.cshtml" />
     <Content Include="Views\Components\BookItemComponent.cshtml" />
@@ -454,6 +455,8 @@
     <Content Include="Views\Home\Bills.cshtml" />
     <Content Include="Views\Admin\BillManagement.cshtml" />
     <Content Include="Views\Admin\loadBills.cshtml" />
+    <Content Include="Views\User\UserBillManagement.cshtml" />
+    <Content Include="Views\Admin\LoadWaitingProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
