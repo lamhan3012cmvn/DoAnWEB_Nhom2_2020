@@ -235,13 +235,19 @@ namespace Web.ASP.Controllers
         {
             var cart= db.CARTs.OrderBy(t => t.information_id).ToList();
             var bill = db.BILLs.ToList();
-            var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).ToList();
+            var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_OnDelivery = bill_OnDelivery;
+            ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
             ViewBag.cartsCount = cart.Count;
             ViewBag.carts = cart;
             ViewBag.bills = bill;
             ViewBag.billsCount = bill.Count;
             ViewBag.bill_WaitConfirms = bill_WaitConfirm;
             ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
+            ViewBag.bill_WaitingFordelivery = bill_WaitingFordelivery;
+            ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
             return View();
         }
         public ActionResult loadBills()
@@ -249,18 +255,18 @@ namespace Web.ASP.Controllers
             return PartialView(db.BILLs.ToList());
         }
         [HttpGet]
-        public ActionResult ChangeStatus(string order_id, string information_id, string book_id, string status)
+        public ActionResult ChangeStatus(string order_id, string information_id, string status,string action)
         {
             try
             {
-                var bill = db.BILLs.Where(t => t.order_id == order_id && t.information_id == information_id && t.book_id == book_id).SingleOrDefault();
-                if (!(bill is null))
+                var bill = db.BILLs.Where(t => t.order_id == order_id && t.information_id == information_id).ToList();
+                bill.ForEach(b =>
                 {
-                    bill.status_bill = status;
-                    db.SaveChanges();
-                    
-                }
-                return RedirectToAction(actionName: "LoadWaitingProduct", controllerName: "Admin");
+                    b.status_bill = status;
+                });
+                db.SaveChanges();
+                
+                return RedirectToAction(actionName: action, controllerName: "Admin");
             }
             catch
             {
@@ -276,9 +282,16 @@ namespace Web.ASP.Controllers
 
         public ActionResult LoadWaitingProduct()
         {
-            var bill = db.BILLs.Where(t=>t.status_bill.Contains("Chờ lấy hàng")).ToList();
-            ViewBag.bills = bill;
-            ViewBag.billsCount = bill.Count;
+            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_WaitingFordelivery = bill_WaitingFordelivery;
+            ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
+            return PartialView();
+        }
+        public ActionResult LoadOnDelivery()
+        { 
+            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_OnDelivery = bill_OnDelivery;
+            ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
             return PartialView();
         }
     }

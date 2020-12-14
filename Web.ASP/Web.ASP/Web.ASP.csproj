@@ -457,6 +457,7 @@
     <Content Include="Views\Admin\loadBills.cshtml" />
     <Content Include="Views\User\UserBillManagement.cshtml" />
     <Content Include="Views\Admin\LoadWaitingProduct.cshtml" />
+    <Content Include="Views\Admin\LoadOnDelivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
