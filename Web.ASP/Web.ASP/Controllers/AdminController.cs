@@ -238,6 +238,7 @@ namespace Web.ASP.Controllers
             var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_OnDelivery = bill_OnDelivery;
             ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
             ViewBag.cartsCount = cart.Count;
@@ -248,6 +249,8 @@ namespace Web.ASP.Controllers
             ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
             ViewBag.bill_WaitingFordelivery = bill_WaitingFordelivery;
             ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
+            ViewBag.bill_isDone = bill_isDone;
+            ViewBag.bill_isDone_count = bill_isDone.Count;
             return View();
         }
         public ActionResult loadBills()

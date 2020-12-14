@@ -174,6 +174,8 @@ namespace Web.ASP.Controllers
             var bill = info.BILLs.GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             var bill_WaitConfirm = info.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             var bill_Shipping = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).ToList();
+            var bill_Shipping_set = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_isDone = info.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             var currentTime = DateTime.Now;
             bill_Shipping.ForEach(b =>
             {
@@ -183,9 +185,8 @@ namespace Web.ASP.Controllers
                     b.status_bill = "Chờ lấy hàng";
                 };
             });
-            db.SaveChanges();
-            var bill_Shipping_set = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_isDone = info.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+           db.SaveChanges();
+            
             ViewBag.bills = bill;
             ViewBag.billsCount = bill.Count;
             ViewBag.bill_WaitConfirms = bill_WaitConfirm;
