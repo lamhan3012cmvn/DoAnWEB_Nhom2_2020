@@ -68,9 +68,7 @@
                             <span class="col-4">Sản phẩm</span>
                             <span class="col-2">Tổng đơn hàng</span>
                             <span class="col-2">Trạng thái <br> Đếm ngược</span>
-                            <select class="col-2" style="background-color: transparent; border: none; outline: none;">
-                                <option>Vận chuyển</option>
-                            </select>
+                            <span class="col-2">Vận chuyển</span>
                             <span class="col-2">Thao tác</span>
                         </div>
                         <div class="wrap-cart row">
@@ -552,49 +550,21 @@
                     order_id,
                     information_id,
                     status,
-                    action
+                    actionChange: action
                 }
                 $.ajax({
                     url: "/Admin/ChangeStatus",
                     type: "GET",
                     data: objData,
                     success: function (res) {
-                        console.log(res)
                         $(elementChange).html(res)
                     }
                 })
             }
         })
     }
-
-    
     $(document).ready(function () {
         ChangeStatus(".confirm_product", "#loadWaitingProduct", "Chờ lấy hàng", "LoadWaitingProduct")
-        $(".WaitingForDelivery_product").click(function (e) {
-            const current = e.currentTarget
-            if (!current.disabled) {
-                current.disabled = true
-                current.classList.add("disabled")
-                const order_id = current.parentNode.parentElement.children[0].children[1].innerHTML
-                const information_id = current.parentNode.parentElement.children[0].children[0].innerHTML
-
-                const objData = {
-                    order_id,
-                    information_id,
-                    status: "Đang giao",
-                    action: "LoadOnDelivery"
-                }
-                $.ajax({
-                    url: "/Admin/ChangeStatus",
-                    type: "GET",
-                    data: objData,
-                    success: function (res) {
-                        console.log(res)
-                        //$("#OnDelivery_product").html(res)
-                    }
-                })
-            }
-        })
-        //ChangeStatus("", , "Đang giao","LoadOnDelivery")
+        ChangeStatus(".WaitingForDelivery_product","#OnDelivery_product" , "Đang giao","LoadOnDelivery")
     })
 </script>

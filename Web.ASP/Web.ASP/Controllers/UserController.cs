@@ -171,28 +171,47 @@ namespace Web.ASP.Controllers
         {
             var id_user = Session["user"].ToString();
             var info = db.INFORMATION.Find(id_user);
+            //Tất Cả
             var bill = info.BILLs.GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_WaitConfirm = info.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_Shipping = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).ToList();
-            var bill_Shipping_set = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_isDone = info.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var currentTime = DateTime.Now;
-            bill_Shipping.ForEach(b =>
-            {
-                var time = currentTime - b.order_date;
-                if(time>TimeSpan.FromSeconds(1800))
-                {
-                    b.status_bill = "Chờ lấy hàng";
-                };
-            });
-           db.SaveChanges();
-            
             ViewBag.bills = bill;
             ViewBag.billsCount = bill.Count;
+
+            //Chờ Xác Nhận
+            var bill_WaitConfirm = info.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_WaitConfirms = bill_WaitConfirm;
             ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
+
+            //Xử Lý
+            var bill_Shipping = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).ToList();
+            DateTime currentTime = DateTime.Now;
+            bill_Shipping.ForEach(b =>
+            {
+                var t = currentTime - b.order_date;
+                if (t > TimeSpan.FromSeconds(432000))
+                {
+                    b.status_bill = "Đã hủy";
+                }
+                else if (t > TimeSpan.FromSeconds(1800)) b.status_bill = "Chờ nhận hàng";
+            });
+            db.SaveChanges();
+
+            //Chờ Giao Hàng
+            var bill_Shipping_set = info.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_Shippings = bill_Shipping_set;
             ViewBag.bill_Shippings_Count = bill_Shipping_set.Count;
+
+            //Chờ nhận hàng
+            var bill_WaitingForDelivery = info.BILLs.Where(t => t.status_bill.Contains("Chờ nhận hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_WaitingForDelivery = bill_WaitingForDelivery;
+            ViewBag.bill_WaitingForDelivery_Count = bill_WaitingForDelivery.Count;
+
+            //Đã Hủy or Giao Không thành công
+            var bill_Cancel= info.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_Cancel = bill_Cancel;
+            ViewBag.bill_Cancel_Count = bill_Cancel.Count;
+
+            //Đã Giao
+            var bill_isDone = info.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_isDone = bill_isDone;
             ViewBag.bill_isDone_Count = bill_isDone.Count;
             return View();

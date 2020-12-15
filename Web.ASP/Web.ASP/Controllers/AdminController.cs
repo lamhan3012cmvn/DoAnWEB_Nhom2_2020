@@ -258,7 +258,7 @@ namespace Web.ASP.Controllers
             return PartialView(db.BILLs.ToList());
         }
         [HttpGet]
-        public ActionResult ChangeStatus(string order_id, string information_id, string status,string action)
+        public ActionResult ChangeStatus(string order_id, string information_id, string status,string actionChange)
         {
             try
             {
@@ -269,7 +269,7 @@ namespace Web.ASP.Controllers
                 });
                 db.SaveChanges();
                 
-                return RedirectToAction(actionName: action, controllerName: "Admin");
+                return RedirectToAction(actionName: actionChange, controllerName: "Admin");
             }
             catch
             {
