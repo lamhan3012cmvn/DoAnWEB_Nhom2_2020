@@ -1,4 +1,4 @@
-﻿using PagedList;
+﻿    using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,7 @@ namespace Web.ASP.Controllers
         }
         // Single Book
 
-        //[isLoginController]
+        [isLoginController]
         public ActionResult SingleBook(String _id)
         {
             var idInfor = Session["user"];

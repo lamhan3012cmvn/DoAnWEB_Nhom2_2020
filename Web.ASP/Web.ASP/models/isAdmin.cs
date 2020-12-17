@@ -14,6 +14,7 @@ namespace Web.ASP.models
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userID = HttpContext.Current.Session["user"];
+            var returnUrl = filterContext.HttpContext.Request.RawUrl;
             var isAdmin = db.AUTHs.Find(userID).powers;
             if(!(isAdmin=="1"))
                 filterContext.Result = new RedirectResult("~/Home/Index");

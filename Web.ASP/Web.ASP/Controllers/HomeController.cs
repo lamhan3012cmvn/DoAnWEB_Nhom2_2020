@@ -56,17 +56,18 @@ namespace Web.ASP.Controllers
             return View(db.BOOKs.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
         }
         // Login
-        public ActionResult Login()
+        public ActionResult Login(string ReturnUrl)
         {
             var isLogin = Session["isLogin"];
             if(!(isLogin is null)) 
             {
+                //return View(ReturnUrl);
                 return RedirectToAction(actionName: "Index", controllerName: "Home");
             }
             return View();
         }
         [HttpPost]
-        public ActionResult Validate(string C_email_ID, string password)
+        public ActionResult Validate(string C_email_ID, string password, string returnUrl)
         {
             if (String.IsNullOrEmpty(C_email_ID))
             {
@@ -118,8 +119,7 @@ namespace Web.ASP.Controllers
                         isInfor = false,
                         link = new
                         {
-                            actionName = "Information",
-                            controllerName = "Home"
+                            returnUrlChange= "/Home/Information"
                         },
                         message = "Đăng nhập thành công"
                     };
@@ -132,8 +132,7 @@ namespace Web.ASP.Controllers
                         status = true,
                         link = new
                         {
-                            actionName="Index",
-                            controllerName= "Admin"
+                            returnUrlChange = returnUrl
                         },
                         message = "Đăng nhập thành công"
                     };
@@ -147,8 +146,7 @@ namespace Web.ASP.Controllers
                         status = true,
                         link = new
                         {
-                            actionName = "Index",
-                            controllerName = "Home"
+                            returnUrlChange = returnUrl
                         },
                         message = "Đăng nhập thành công"
                     };

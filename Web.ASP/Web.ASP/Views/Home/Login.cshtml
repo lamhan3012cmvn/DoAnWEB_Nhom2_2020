@@ -73,9 +73,11 @@
     const ajaxLogin = () => {
         const userName = $("#name").val()
         const pass = $("#pass").val()
+        const url = window.location.search.substring(11)
         const objData = {
             C_email_ID: userName,
-            password: pass
+            password: pass,
+            returnUrl:url
         }
         $.ajax({
             url: "/Home/Validate",
@@ -99,7 +101,7 @@
                                 localStorage.setItem("password", pass);
                             }
                             setTimeout(function () {
-                                window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
+                                window.location.href = respone.link.returnUrlChange;
                                 loading(false)
                             }, 2000);
                         }

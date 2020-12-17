@@ -233,24 +233,44 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult BillManagement()
         {
-            var cart= db.CARTs.OrderBy(t => t.information_id).ToList();
-            var bill = db.BILLs.ToList();
-            var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
-            ViewBag.bill_OnDelivery = bill_OnDelivery;
-            ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
-            ViewBag.cartsCount = cart.Count;
-            ViewBag.carts = cart;
+            //Tất cả
+            //var cart= db.CARTs.OrderByDescending(t => t.order_date).GroupBy(b => b.).Select(grp => grp.ToList()).ToList();
+            var bill = db.BILLs.OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            //ViewBag.carts = cart;
+            //ViewBag.cartsCount = cart.Count;
             ViewBag.bills = bill;
             ViewBag.billsCount = bill.Count;
+
+            //Chờ xác nhận
+            var bill_WaitConfirm = db.BILLs.Where(t => t.status_bill.Contains("Chờ xác nhận")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_WaitConfirms = bill_WaitConfirm;
             ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
+
+            //Chờ lấy hàng
+            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_WaitingFordelivery = bill_WaitingFordelivery;
             ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
+
+            //Đang giao
+            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_OnDelivery = bill_OnDelivery;
+            ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
+
+            //Chờ nhận hàng
+            var bill_WaitingForDelivery_k = db.BILLs.Where(t => t.status_bill.Contains("Chờ nhận hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_WaitingForDelivery_k = bill_WaitingForDelivery_k;
+            ViewBag.bill_WaitingForDelivery_k_Count = bill_WaitingForDelivery_k.Count;
+
+            //Đã Hủy or Giao Không thành công
+            var bill_Cancel = db.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_Cancel = bill_Cancel;
+            ViewBag.bill_Cancel_Count = bill_Cancel.Count;
+
+            //Đã giao
+            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_isDone = bill_isDone;
             ViewBag.bill_isDone_count = bill_isDone.Count;
+
             return View();
         }
         public ActionResult loadBills()
@@ -258,7 +278,7 @@ namespace Web.ASP.Controllers
             return PartialView(db.BILLs.ToList());
         }
         [HttpGet]
-        public ActionResult ChangeStatus(string order_id, string information_id, string status,string action)
+        public ActionResult ChangeStatus(string order_id, string information_id, string status,string actionChange)
         {
             try
             {
@@ -269,7 +289,7 @@ namespace Web.ASP.Controllers
                 });
                 db.SaveChanges();
                 
-                return RedirectToAction(actionName: action, controllerName: "Admin");
+                return RedirectToAction(actionName: actionChange, controllerName: "Admin");
             }
             catch
             {

@@ -7,7 +7,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="index.html">
+                <a class="navbar-brand logo_h" href="/Home/Index">
                     <img src="~/Content/img/logo.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -30,24 +30,12 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="/Category/Index">Sản phẩm</a>
                                         </li>
-                                        @if (!(Session["user"] is null))
-                                        {
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/User/Checkout">Product Checkout</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/User/Cart">Giỏ hàng</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/Home/Bills">Đơn hàng của bạn</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/User/UserBillManagement">Quản lý hóa đơn</a>
-                                            </li>
-                                        }
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/User/Checkout">Product Checkout</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item submenu dropdown">
+                                <!--<li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <ul class="dropdown-menu">
                                         @{if (!(Session["user"] is null))
@@ -57,7 +45,15 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="loginsuccess" href="">@u</a>
                                                 </li>
-
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/User/Cart">Giỏ hàng</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/Home/Bills">Đơn hàng của bạn</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/User/UserBillManagement">Quản lý hóa đơn</a>
+                                                </li>
                                             }
                                             else
                                             {
@@ -65,15 +61,15 @@
                                                     <a class="nav-link" id="loginsuccess" href="/Home/Login">Đăng nhập</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link"  href="/Home/Registration">Đăng ký</a>
+                                                    <a class="nav-link" href="/Home/Registration">Đăng ký</a>
                                                 </li>
                                             }
-                                        }
+                                        }-->
                                         @*<li class="nav-item">
             <a class="nav-link" href="/Tracking/Index">Theo dõi đơn hàng</a>
         </li>*@
-                                    </ul>
-                                </li>
+                                    <!--</ul>
+                                </li>-->
                                 <li class="nav-item">
                                     <a class="nav-link" href="/Contact/Index">Liên hệ</a>
                                 </li>
@@ -98,21 +94,27 @@
 
                                     @if (!(Session["isLogin"] is null))
                                     {
+                                        var u = Session["user"];
                                         <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="loginsuccess" href="">@u</a>
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="">Thông tin của bạn</a>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/Category/Cart">Giỏ hàng</a>
+                                                <a class="nav-link" href="/User/Cart">Giỏ hàng</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/Home/Bills">Đơn hàng của bạn</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/User/UserBillManagement">Quản lý hóa đơn</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="logout">Đăng xuất</a>
                                             </li>
-
-
                                         </ul>
                                     }
-
-
                                 </li>
 
                                 <hr>

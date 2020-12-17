@@ -11,7 +11,7 @@
             <input type="radio" name="tab-manager" id="tab-dangGiao" hidden>
             <input type="radio" name="tab-manager" id="tab-daGiao" hidden>
             <input type="radio" name="tab-manager" id="tab-daHuy" hidden>
-            <input type="radio" name="tab-manager" id="tab-traHang" hidden>
+            <input type="radio" name="tab-manager" id="tab-choNhanHang" hidden>
             <div class="wrap-status">
                 <h1 class="status font-weight-normal tatCa">
                     Tất cả đơn hàng
@@ -31,7 +31,7 @@
                 <h1 class="status font-weight-normal daHuy">
                     Đã Hủy
                 </h1>
-                <h1 class="status font-weight-normal traHang">
+                <h1 class="status font-weight-normal choNhanHang">
                     Trả hàng/Hoàn tiền
                 </h1>
             </div>
@@ -41,9 +41,9 @@
                     <label for="tab-choXacNhan">Chờ xác nhận</label>
                     <label for="tab-choLayHang">Chờ lấy hàng</label>
                     <label for="tab-dangGiao">Đang giao</label>
+                    <label for="tab-choNhanHang">Chờ nhận hàng</label>
                     <label for="tab-daGiao">Đã giao</label>
                     <label for="tab-daHuy">Đã hủy</label>
-                    <label for="tab-traHang">Trả hàng/Hoàn tiền</label>
                 </div>
                 <div class="wrap-filter row mt-5">
                     <div class="wrap-search">
@@ -61,93 +61,96 @@
                 <div class="content-tab  mt-5">
                     <div class="tab-item tabTatCa">
                         <div class="row d-flex justify-content-between">
-                            <h3 class="soLuong font-weight-bold">@(ViewBag.cartsCount + ViewBag.billsCount) Đơn hàng</h3>
+                            <h3 class="soLuong font-weight-bold">@( ViewBag.billsCount) Đơn hàng</h3>
                             <span onclick="window.print()" class="btnChonNgay">Chọn ngày/In phiếu hàng loạt</span>
                         </div>
                         <div class="row title-colum-tab d-flex align-items-center my-3">
                             <span class="col-4">Sản phẩm</span>
                             <span class="col-2">Tổng đơn hàng</span>
                             <span class="col-2">Trạng thái <br> Đếm ngược</span>
-                            <select class="col-2" style="background-color: transparent; border: none; outline: none;">
-                                <option>Vận chuyển</option>
-                            </select>
+                            <span class="col-2">Vận chuyển</span>
                             <span class="col-2">Thao tác</span>
                         </div>
-                        <div class="wrap-cart row">
-
-                            @foreach (var cart in ViewBag.carts)
-                            {
-                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
-                                    <div class="card-header col-12">
-                                        <div class="row d-flex justify-content-between align-items-center">
-                                            <p class="m-0">@cart.information_id</p>
-                                            <p class="m-0">@cart.book_id</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-body row">
-                                        <div class="col-4 d-flex justify-content-between">
-                                            <div>
-                                                <img src="@cart.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px" />
-                                                <span>@cart.BOOK.nameBook</span>
-                                            </div>
-                                            <span>x1</span>
-                                        </div>
-                                        <div class="col-2">
-                                            <span>@cart.BOOK.priceBook</span>
-                                            <p>Thanh toán khi nhận hàng</p>
-                                        </div>
-                                        <div class="col-2">
-                                            <strong>Chờ xác nhận</strong>
-                                            <p>@cart.INFORMATION.addressInformation</p>
-                                        </div>
-                                        <div class="col-2">
-                                            <Strong>J&T Express</Strong>
-                                        </div>
-                                        <div class="col-2">
-                                            <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            @foreach (var bill in ViewBag.bills)
-                            {
-                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
-                                    <div class="card-header col-12">
-                                        <div class="row d-flex justify-content-between align-items-center">
-                                            <p class="m-0">@bill.information_id</p>
-                                            <p class="m-0">@bill.book_id</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-body row">
-                                        <div class="col-4 d-flex justify-content-between">
-                                            <div>
-                                                <img src="@bill.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px">
-                                                <span>@bill.BOOK.nameBook</span>
-                                            </div>
-                                            <span>x @bill.total</span>
-                                        </div>
-                                        <div class="col-2">
-                                            <span>@(bill.total*bill.BOOK.priceBook)</span>
-                                            <p>Thanh toán khi nhận hàng</p>
-                                        </div>
-                                        <div class="col-2">
-                                            <strong>@bill.status_bill</strong>
-                                            <p>@bill.INFORMATION.addressInformation</p>
-                                        </div>
-                                        <div class="col-2">
-                                            <Strong>J&T Express</Strong>
-                                        </div>
-                                        <div class="col-2">
-                                            <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
-
+                        @*@foreach (var cart in ViewBag.carts)
+            {
+                <div class="wrap-cart row">
+                    <div class="card mb-3 col-12 px-0" style="width: 100%;">
+                        <div class="card-header col-12">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <p class="m-0">@cart[0].information_id</p>
+                                <p class="m-0">@cart[0].book_id</p>
+                            </div>
                         </div>
-                    </div>
+                        @foreach (var b in cart)
+                        {
+                            <div class="card-body row">
+                                <div class="col-4 d-flex justify-content-between">
+                                    <div>
+                                        <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px" />
+                                        <span>@b.BOOK.nameBook</span>
+                                    </div>
+                                    <span>x @b.total</span>
+                                </div>
+                                <div class="col-2">
+                                    <span>@(b.total * b.BOOK.priceBook)</span>
+                                    <p>Thanh toán khi nhận hàng</p>
+                                </div>
+                                <div class="col-2">
+                                    <strong>@b.status_bill</strong>
+                                    <p>@b.INFORMATION.addressInformation</p>
+                                </div>
+                                <div class="col-2">
+                                    <Strong>J&T Express</Strong>
+                                </div>
+                                <div class="col-2">
+                                    <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
+                                </div>
+                            </div>
+                         }
+                        </div>
+                </div>
+            }*@
+                        @foreach (var bill in ViewBag.bills)
+                        {
+                            <div class="wrap-cart row">
+                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
+                                    <div class="card-header col-12">
+                                        <div class="row d-flex justify-content-between align-items-center">
+                                            <p class="m-0">@bill[0].information_id</p>
+                                            <p class="m-0">@bill[0].book_id</p>
+                                        </div>
+                                    </div>
+                                    @foreach (var b in bill)
+                                    {
+                                        <div class="card-body row">
+                                            <div class="col-4 d-flex justify-content-between">
+                                                <div>
+                                                    <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px">
+                                                    <span>@b.BOOK.nameBook</span>
+                                                </div>
+                                                <span>x @b.total</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <span>@(b.total * b.BOOK.priceBook)</span>
+                                                <p>Thanh toán khi nhận hàng</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <strong>@b.status_bill</strong>
+                                                <p>@b.INFORMATION.addressInformation</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <Strong>J&T Express</Strong>
+                                            </div>
+                                            <div class="col-2">
+                                                <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
 
+                    </div>
                     <div class="tab-item tabChoXacNhan">
                         <div class="row d-flex justify-content-between">
                             <h3 class="soLuong font-weight-bold">@ViewBag.bill_WaitConfirms_Count Đơn hàng</h3>
@@ -388,15 +391,175 @@
                         </div>
                     </div>
 
-
+                    <div class="tab-item tabChoNhanHang">
+                        <div class="row d-flex justify-content-between">
+                            <h3 class="soLuong font-weight-bold">@ViewBag.bill_WaitingForDelivery_k_Count Đơn hàng</h3>
+                            <span class="btnChonNgay">Chọn ngày/In phiếu hàng loạt</span>
+                        </div>
+                        <div class="row title-colum-tab d-flex align-items-center my-3">
+                            <span class="col-4">Sản phẩm</span>
+                            <span class="col-2">Tổng đơn hàng</span>
+                            <span class="col-2">Trạng thái <br> Đếm ngược</span>
+                            <span class="col-2">Vận chuyển</span>
+                            <span class="col-2">Thao tác</span>
+                        </div>
+                        @foreach (var bill in ViewBag.bill_WaitingForDelivery_k)
+                        {
+                            <div class="wrap-cart row">
+                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
+                                    <div class="card-header col-12">
+                                        <div class="row d-flex justify-content-between align-items-center">
+                                            <div class="mr-3">
+                                                User ID: <span class="m-0 mr-3" id="id_info">@bill[0].order_id</span>
+                                                Order ID:<span class="m-0 " id="id_book">@bill[0].order_date</span>
+                                            </div>
+                                            <div class="mr-3">
+                                                <span class="btn btn-primary confirm_product" style="cursor: pointer;">Nhận hàng</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @foreach (var b in bill)
+                                    {
+                                        <div class="card-body row">
+                                            <div class="col-4 d-flex justify-content-between">
+                                                <div>
+                                                    <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px">
+                                                    <span>@b.BOOK.nameBook</span>
+                                                </div>
+                                                <span>x @b.total</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <span>@(b.total * b.BOOK.priceBook)</span>
+                                                <p>Thanh toán khi nhận hàng</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <strong>@b.status_bill</strong>
+                                                <p>@b.INFORMATION.addressInformation</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <Strong>J&T Express</Strong>
+                                            </div>
+                                            <div class="col-2">
+                                                <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
 
                     <div class="tab-item tabDaHuy">
+                        <div class="row d-flex justify-content-between">
+                            <h3 class="soLuong font-weight-bold">@ViewBag.bill_Cancel_Count Đơn hàng</h3>
+                            <span class="btnChonNgay">Chọn ngày/In phiếu hàng loạt</span>
+                        </div>
+                        <div class="row title-colum-tab d-flex align-items-center my-3">
+                            <span class="col-4">Sản phẩm</span>
+                            <span class="col-2">Tổng đơn hàng</span>
+                            <span class="col-2">Trạng thái <br> Đếm ngược</span>
+                            <span class="col-2">Vận chuyển</span>
+                            <span class="col-2">Thao tác</span>
+                        </div>
+                        <div class="wrap-cart row">
+                            @foreach (var bill in ViewBag.bill_Cancel)
+                            {
+                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
+                                    <div class="card-header col-12">
+                                        <div class="row d-flex justify-content-between align-items-center">
+                                            <p class="m-0 ml-3">@bill[0].order_id</p>
+                                            <p class="m-0 mr-3">@bill[0].order_date</p>
+                                        </div>
+                                    </div>
+                                    @foreach (var b in bill)
+                                    {
+                                        <div class="card-body row">
+                                            <div class="col-4 d-flex justify-content-between">
+                                                <div>
+                                                    <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px">
+                                                    <span>@b.BOOK.nameBook</span>
+                                                </div>
+                                                <span>x @b.total</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <span>@(b.total * b.BOOK.priceBook)</span>
+                                                <p>Thanh toán khi nhận hàng</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <strong>Đã hủy</strong>
+                                                <p>@b.INFORMATION.addressInformation</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <Strong>J&T Express</Strong>
+                                            </div>
+                                            <div class="col-2">
+                                                <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
 
+                            }
+
+                        </div>
                     </div>
 
-                    <div class="tab-item tabTraHang">
-
+                    <div class="tab-item tabchoNhanHang">
+                        <div class="row d-flex justify-content-between">
+                            <h3 class="soLuong font-weight-bold">@ViewBag.bill_WaitingForDelivery_k_Count Đơn hàng</h3>
+                            <span class="btnChonNgay">Chọn ngày/In phiếu hàng loạt</span>
+                        </div>
+                        <div class="row title-colum-tab d-flex align-items-center my-3">
+                            <span class="col-4">Sản phẩm</span>
+                            <span class="col-2">Tổng đơn hàng</span>
+                            <span class="col-2">Trạng thái <br> Đếm ngược</span>
+                            <span class="col-2">Vận chuyển</span>
+                            <span class="col-2">Thao tác</span>
+                        </div>
+                        @foreach (var bill in ViewBag.bill_WaitingForDelivery_k)
+                        {
+                            <div class="wrap-cart row">
+                                <div class="card mb-3 col-12 px-0" style="width: 100%;">
+                                    <div class="card-header col-12">
+                                        <div class="row d-flex justify-content-between align-items-center">
+                                
+                                                User ID: <span class="m-0 mr-3" id="id_info">@bill[0].order_id</span>
+                                                Order ID:<span class="m-0 " id="id_book">@bill[0].order_date</span>
+                                        </div>
+                                    </div>
+                                    @foreach (var b in bill)
+                                    {
+                                        <div class="card-body row">
+                                            <div class="col-4 d-flex justify-content-between">
+                                                <div>
+                                                    <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px">
+                                                    <span>@b.BOOK.nameBook</span>
+                                                </div>
+                                                <span>x @b.total</span>
+                                            </div>
+                                            <div class="col-2">
+                                                <span>@(b.total * b.BOOK.priceBook)</span>
+                                                <p>Thanh toán khi nhận hàng</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <strong>@b.status_bill</strong>
+                                                <p>@b.INFORMATION.addressInformation</p>
+                                            </div>
+                                            <div class="col-2">
+                                                <Strong>J&T Express</Strong>
+                                            </div>
+                                            <div class="col-2">
+                                                <span class="text-primary" style="cursor: pointer;">Đánh giá</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
+                </div>
+
+                    
                 </div>
             </div>
         </div>
@@ -425,7 +588,7 @@
     input[id="tab-dangGiao"]:checked ~ div.wrap-status h1.status.dangGiao,
     input[id="tab-daGiao"]:checked ~ div.wrap-status h1.status.daGiao,
     input[id="tab-daHuy"]:checked ~ div.wrap-status h1.status.daHuy,
-    input[id="tab-traHang"]:checked ~ div.wrap-status h1.status.traHang,
+    input[id="tab-choNhanHang"]:checked ~ div.wrap-status h1.status.choNhanHang,
     input[id="tab-tatCa"]:checked ~ div.wrap-status h1.status.tatCa {
         display: block;
     }
@@ -471,7 +634,7 @@
     input[id="tab-dangGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-dangGiao"],
     input[id="tab-daGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daGiao"],
     input[id="tab-daHuy"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daHuy"],
-    input[id="tab-traHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-traHang"] {
+    input[id="tab-choNhanHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-choNhanHang"] {
         color: var(--orange);
         border-bottom: 4px solid var(--orange);
         transition: all .3s;
@@ -501,7 +664,7 @@
     input[id="tab-dangGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDangGiao,
     input[id="tab-daGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaGiao,
     input[id="tab-daHuy"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaHuy,
-    input[id="tab-traHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabTraHang {
+    input[id="tab-choNhanHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabchoNhanHang {
         display: block;
     }
 
@@ -552,49 +715,21 @@
                     order_id,
                     information_id,
                     status,
-                    action
+                    actionChange: action
                 }
                 $.ajax({
                     url: "/Admin/ChangeStatus",
                     type: "GET",
                     data: objData,
                     success: function (res) {
-                        console.log(res)
                         $(elementChange).html(res)
                     }
                 })
             }
         })
     }
-
-
     $(document).ready(function () {
         ChangeStatus(".confirm_product", "#loadWaitingProduct", "Chờ lấy hàng", "LoadWaitingProduct")
-        $(".WaitingForDelivery_product").click(function (e) {
-            const current = e.currentTarget
-            if (!current.disabled) {
-                current.disabled = true
-                current.classList.add("disabled")
-                const order_id = current.parentNode.parentElement.children[0].children[1].innerHTML
-                const information_id = current.parentNode.parentElement.children[0].children[0].innerHTML
-
-                const objData = {
-                    order_id,
-                    information_id,
-                    status: "Đang giao",
-                    action: "LoadOnDelivery"
-                }
-                $.ajax({
-                    url: "/Admin/ChangeStatus",
-                    type: "GET",
-                    data: objData,
-                    success: function (res) {
-                        console.log(res)
-                        //$("#OnDelivery_product").html(res)
-                    }
-                })
-            }
-        })
-        //ChangeStatus("", , "Đang giao","LoadOnDelivery")
+        ChangeStatus(".WaitingForDelivery_product","#OnDelivery_product" , "Đang giao","LoadOnDelivery")
     })
 </script>
