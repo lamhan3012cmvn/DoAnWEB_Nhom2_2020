@@ -4,7 +4,7 @@
         <tr>
             <th>TÊN SÁCH</th>
             <th>GIÁ SÁCH</th>
-            <th>MÔ TẢ</th>
+            @*<th>MÔ TẢ</th>*@
             <th>SỐ LƯỢNG</th>
             <th>THỂ LOẠI</th>
             <th>NHÀ XUẤT BẢN</th>
@@ -13,10 +13,10 @@
         {
             foreach (var book in Model)
             {
-                <tr>
+                <tr class="singleBook" data-idBook="@book.C_id">
                     <td style="text-align:left">@book.nameBook</td>
                     <td>@book.priceBook</td>
-                    <td>@book.contentBook</td>
+                    @*<td>@book.contentBook</td>*@
                     <td>@book.countBook</td>
                     <td>@book.CATEGORY.nameCategory</td>
                     <td>@book.PUBLISHING_HOUSE.namePublishingHouse</td>
@@ -26,3 +26,13 @@
         }
     </table>
 </div>
+<script>
+    $(document).ready(function () {
+        $(".singleBook").click(function (e) {
+            const objData = {
+                id:e.currentTarget.dataset.id
+            }
+            ajaxLoadData("/Admin/LoadSingleBook", "#load_form", objData)
+        })
+    })
+</script>

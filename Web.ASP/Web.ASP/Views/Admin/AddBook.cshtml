@@ -1,91 +1,95 @@
-﻿<form class="cart_form_inner w-75 "
+﻿<form class="cart_form_inner w-100 row d-flex justify-content-center" 
       action="/Admin/AddBook"
       method="post"
       style="box-shadow:none">
 
-    <h3 class="m-3">Thêm Sách</h3>
-    <div class="col-md-10 form-group mx-auto">
-        <input id="name" class="col-md-12 form-control"
-               name="nameBook"
-               placeholder="Nhập tên sách"
-               type="text" />
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <div class="left_dorp">
-            <select id="formAddCategory"
-                    class="sorting w-100 size "
-                    name="categoryBook_ID">
-                <option value="#">Thể Loại</option>
-                @foreach (var element in ViewBag.categoryBook.Items)
-                {
-                    <option value="@element.C_id">@element.nameCategory</option>
-                }
-                <option value="">Thêm Thể Loại...</option>
-            </select>
+    <h3 class="col-12 md-3">Thêm Sách</h3>
+    <div class="row form-group col-11">
+        <div class="col-md-5 form-group mx-auto">
+            <input id="name" class="col-md-12 form-control"
+                   name="nameBook"
+                   placeholder="Nhập tên sách"
+                   type="text" />
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <div class="left_dorp">
+                <select id="formAddCategory"
+                        class="sorting w-100 size "
+                        name="categoryBook_ID">
+                    <option value="#">Thể Loại</option>
+                    @foreach (var element in ViewBag.categoryBook.Items)
+                    {
+                        <option value="@element.C_id">@element.nameCategory</option>
+                    }
+                    <option value="">Thêm Thể Loại...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <div class="left_dorp">
+                <select id="formAddPublishingHouse"
+                        class="sorting w-100"
+                        name="publishingHouseBook_ID">
+                    <option value="#">Nhà Xuất Bản</option>
+
+                    @foreach (var element in ViewBag.publishingHouseBook.Items)
+                    {
+                        <option value="@element.C_id">@element.namePublishingHouse</option>
+                    }
+
+                    <option value="">Thêm Nhà Xuất Bản...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <div class="left_dorp">
+                <select id="formAuthor"
+                        class="sorting w-100 size "
+                        name="formAuthor">
+                    <option value="#">Tác Giả</option>
+                    @foreach (var element in ViewBag.authorBook.Items)
+                    {
+                        <option value="@element.C_id">@element.nameAuthor</option>
+                    }
+                    <option value="">Thêm Tác Giả...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-5 form-group mx-auto">
+            <input id="count" class="col-md-12 form-control"
+                   name="countBook"
+                   placeholder="Số Lượng Sách"
+                   type="number" />
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <input id="price" class="col-md-12 form-control"
+                   name="priceBook"
+                   placeholder="Giá Sách"
+                   type="number" />
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <input id="sizeBook" class="col-md-12 form-control"
+                   name="size"
+                   placeholder="Kích thước"
+                   type="text" />
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <input id="numberOfPage" class="col-md-12 form-control"
+                   name="numberOfPage"
+                   placeholder="Số trang"
+                   type="number" />
+        </div>
+        <div class="col-md-5 form-group mx-auto">
+            <textarea id="content" class="col-md-12 form-control"
+                      name="contentBook"
+                      placeholder="Nhập nội dung sách"
+                      type="text"></textarea>
         </div>
     </div>
-    <div class="col-md-10 form-group mx-auto">
-        <div class="left_dorp">
-            <select id="formAddPublishingHouse"
-                    class="sorting w-100"
-                    name="publishingHouseBook_ID">
-                <option value="#">Nhà Xuất Bản</option>
+    
 
-                @foreach (var element in ViewBag.publishingHouseBook.Items)
-                {
-                    <option value="@element.C_id">@element.namePublishingHouse</option>
-                }
-
-                <option value="">Thêm Nhà Xuất Bản...</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <div class="left_dorp">
-            <select id="formAuthor"
-                    class="sorting w-100 size "
-                    name="formAuthor">
-                <option value="#">Thể Loại</option>
-                @foreach (var element in ViewBag.authorBook.Items)
-                {
-                    <option value="@element.C_id">@element.nameAuthor</option>
-                }
-                <option value="">Thêm Tác Giả...</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <textarea id="content" class="col-md-12 form-control"
-                  name="contentBook"
-                  placeholder="Nhập nội dung sách"
-                  type="text"></textarea>
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <input id="count" class="col-md-12 form-control"
-               name="countBook"
-               placeholder="Số Lượng Sách"
-               type="number" />
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <input id="price" class="col-md-12 form-control"
-               name="priceBook"
-               placeholder="Giá Sách"
-               type="number" />
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <input id="sizeBook" class="col-md-12 form-control"
-               name="size"
-               placeholder="Kích thước"
-               type="text" />
-    </div>
-    <div class="col-md-10 form-group mx-auto">
-        <input id="numberOfPage" class="col-md-12 form-control"
-               name="numberOfPage"
-               placeholder="Số trang"
-               type="number" />
-    </div>
-
-    <div class="col-md-10 form-group mx-auto">
+    <div class="form-group mx-auto">
         <div id="submit" class="btn submit_btn">Thêm Sách</div>
     </div>
 </form>

@@ -2,6 +2,7 @@
     $.ajax({
         url: url,
         success: function (response) {
+           
             $(element).slideUp("2000", function () {
                 $(element).html(response).slideDown("2000")
             })
@@ -14,7 +15,6 @@ const ajaxLoadData = (url, element, objData) => {
         url: url,
         data: objData,
         success: function (response) {
-            console.log(response)
            $(element).html(response)
         },
         type: "GET",

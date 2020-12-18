@@ -123,7 +123,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\azzara.min.css" />
     <Content Include="Content\css\Cus.css" />
+    <Content Include="Content\css\demo.css" />
+    <Content Include="Content\img\admin.jpg" />
     <Content Include="Content\img\b-1.jfif" />
     <Content Include="Content\img\b-c-7.jpg" />
     <Content Include="Content\img\b-c-8.jpg" />
@@ -264,12 +267,18 @@
     <Content Include="Content\vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\vendors\bootstrap-datepicker\bootstrap-select.css" />
     <Content Include="Content\vendors\bootstrap-datepicker\bootstrap-select.js" />
+    <Content Include="Content\vendors\bootstrap-toggle\bootstrap-toggle.min.js" />
+    <Content Include="Content\vendors\chart-circle\circles.min.js" />
+    <Content Include="Content\vendors\chart.js\chart.min.js" />
     <Content Include="Content\vendors\counter-up\jquery.counterup.js" />
     <Content Include="Content\vendors\counter-up\jquery.waypoints.min.js" />
     <Content Include="Content\vendors\isotope\imagesloaded.pkgd.min.js" />
     <Content Include="Content\vendors\isotope\isotope-min.js" />
+    <Content Include="Content\vendors\jquery-scrollbar\jquery.scrollbar.min.js" />
+    <Content Include="Content\vendors\jquery-ui-touch-punch\jquery.ui.touch-punch.min.js" />
     <Content Include="Content\vendors\jquery-ui\jquery-ui.css" />
     <Content Include="Content\vendors\jquery-ui\jquery-ui.js" />
+    <Content Include="Content\vendors\jquery.sparkline\jquery.sparkline.min.js" />
     <Content Include="Content\vendors\lightbox\simpleLightbox.css" />
     <Content Include="Content\vendors\lightbox\simpleLightbox.min.js" />
     <Content Include="Content\vendors\linericon\fonts\Linearicons-Free.svg" />
@@ -344,6 +353,8 @@
     <Content Include="Scripts\mail-script.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\ready.js" />
+    <Content Include="Scripts\setting-demo.js" />
     <Content Include="Scripts\stellar.js" />
     <Content Include="Scripts\theme.js" />
     <Content Include="Web.config" />
@@ -458,6 +469,8 @@
     <Content Include="Views\User\UserBillManagement.cshtml" />
     <Content Include="Views\Admin\LoadWaitingProduct.cshtml" />
     <Content Include="Views\Admin\LoadOnDelivery.cshtml" />
+    <Content Include="Views\Admin\LoadChartJs.cshtml" />
+    <Content Include="Views\Admin\LoadSingleBook.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

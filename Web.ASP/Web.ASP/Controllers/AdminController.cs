@@ -273,10 +273,14 @@ namespace Web.ASP.Controllers
 
             return View();
         }
+        [isLoginController]
+        [isAdmin]
         public ActionResult loadBills()
         {
             return PartialView(db.BILLs.ToList());
         }
+        [isLoginController]
+        [isAdmin]
         [HttpGet]
         public ActionResult ChangeStatus(string order_id, string information_id, string status,string actionChange)
         {
@@ -302,7 +306,8 @@ namespace Web.ASP.Controllers
             }
             
         }
-
+        [isLoginController]
+        [isAdmin]
         public ActionResult LoadWaitingProduct()
         {
             var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
@@ -310,11 +315,26 @@ namespace Web.ASP.Controllers
             ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
             return PartialView();
         }
+        [isLoginController]
+        [isAdmin]
         public ActionResult LoadOnDelivery()
         { 
             var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_OnDelivery = bill_OnDelivery;
             ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
+            return PartialView();
+        }
+
+        [isLoginController]
+        [isAdmin]
+        public ActionResult LoadChartJs()
+        {
+            return PartialView();
+        }
+        [isLoginController]
+        [isAdmin]
+        public ActionResult LoadSingleBook(string id)
+        {
             return PartialView();
         }
     }
