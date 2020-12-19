@@ -101,16 +101,77 @@
             <input class="col-md-12 form-control" name="nameCategory" placeholder="Nhập thể loại sách" type="text" />
         </div>
         <div class="col-md-10 form-group d-flex mx-auto" style="padding-bottom:40px">
-            <a id="prePage" class="btn submit_btn">Trở về</a>
-            <button class="btn submit_btn">Thêm Thể Loại Sách</button>
+            <button id="prePageCate" class="btn submit_btn">Trở về</button>
+            <button class="btn submit_btn">Thêm</button>
         </div>
     </form>
+    <script>
+        $("#prePageCate").click(function (e) {
+            e.preventDefault();
+            $("#modalCreate").hide()
+        })
+
+    </script>
+</div>
+<div id="modalCreatePH" style="box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.14); display:none">
+    <form class="cart_form_inner" style="height: auto;width: 500px;
+        box-shadow: none" method="post">
+        <h3>Thêm nhà xuất bản</h3>
+        <div class="col-md-10 form-group mx-auto">
+            <input class="col-md-12 form-control" name="namePublishingHouse" placeholder="Nhập nhà xuất bản" type="text" />
+        </div>
+        <div class="col-md-10 form-group d-flex mx-auto" style="padding-bottom:40px">
+            <button id="prePagePH" class="btn submit_btn">Trở về</button>
+            <button class="btn submit_btn">Thêm</button>
+        </div>
+    </form>
+    <script>
+        $("#prePagePH").click(function (e) {
+            e.preventDefault();
+            $("#modalCreatePH").hide()
+        })
+    </script>
+</div>
+<div id="modalCreateAuthor" style="box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.14); display:none">
+    <form class="cart_form_inner" style="height: auto;width: 500px;
+        box-shadow: none" method="post">
+        <h3>Thêm tác giả</h3>
+        <div class="col-md-10 form-group mx-auto">
+            <input class="col-md-12 form-control" name="nameAuthor" placeholder="Thêm tác giả" type="text" />
+        </div>
+        <div class="col-md-10 form-group d-flex mx-auto" style="padding-bottom:40px">
+            <button id="prePageAuthor" class="btn submit_btn">Trở về</button>
+            <button class="btn submit_btn">Thêm</button>
+        </div>
+    </form>
+    <script>
+        $("#prePageAuthor").click(function (e) {
+            e.preventDefault();
+            $("#modalCreateAuthor").hide()
+        })
+    </script>
 </div>
 <script>
     $('select').niceSelect();
     $(document).ready(function () {
-        selectChange("#formAddCategory", "/Admin/AddCategoryItem", "#loadForm")
-        selectChange("#formAddPublishingHouse", "/Admin/AddPublishingHouse", "#loadForm")
+        $("#formAddCategory").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreate").show()
+            }
+        })
+        $("#formAddPublishingHouse").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreatePH").show()
+            }
+        })
+        $("#formAuthor").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreateAuthor").show()
+            }
+        })
         $("#submit").click(function () {
             const nameB = $("#name").val()
             const contentB = $("#content").val()

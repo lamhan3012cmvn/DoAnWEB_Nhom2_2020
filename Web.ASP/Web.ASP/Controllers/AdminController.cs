@@ -51,20 +51,7 @@ namespace Web.ASP.Controllers
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE.Take(10), "C_id", "namePublishingHouse");
             return View();
         }
-        [isLoginController]
-        [isAdmin]
-        [HttpGet]
-        public ActionResult AddCategoryItem()
-        {
-            return PartialView();
-        }
-        [isLoginController]
-        [isAdmin]
-        [HttpGet]
-        public ActionResult AddPublishingHouse()
-        {
-            return PartialView();
-        }
+       
         [isLoginController]
         [isAdmin]
         [HttpGet]
