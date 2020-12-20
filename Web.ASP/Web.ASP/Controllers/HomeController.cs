@@ -61,7 +61,6 @@ namespace Web.ASP.Controllers
             var isLogin = Session["isLogin"];
             if(!(isLogin is null)) 
             {
-                //return View(ReturnUrl);
                 return RedirectToAction(actionName: "Index", controllerName: "Home");
             }
             return View();

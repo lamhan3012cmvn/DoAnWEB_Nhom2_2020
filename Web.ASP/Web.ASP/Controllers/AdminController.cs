@@ -40,21 +40,11 @@ namespace Web.ASP.Controllers
             ViewBag.authorBook = new SelectList(db.AUTHORs, "C_id", "nameAuthor");
             return PartialView();
         }
-        [isLoginController]
-        [isAdmin]
-        [HttpPost]
-        public ActionResult AddBook(BOOK model)
-        {
-
-            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
-            //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
-            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE.Take(10), "C_id", "namePublishingHouse");
-            return View();
-        }
+        
        
         [isLoginController]
         [isAdmin]
-        [HttpGet]
+        [HttpPost]
         public ActionResult ValidateBook( string nameBook, string contentBook,string categoryBook_ID,
                                     string publishingHouseBook_ID, string authorBook_ID, string countBook, string priceBook, string size, string numberOfPage)
         {

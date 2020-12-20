@@ -36,6 +36,7 @@ namespace Web.ASP.Controllers
             else if(sortc == 3) return PartialView(result.OrderByDescending(x => x.priceBook).ToPagedList(pageNumber, pageSize));
             return PartialView(result.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
         }
+
         // Single Book
         [isLoginController]
         public ActionResult SingleBook(String _id)

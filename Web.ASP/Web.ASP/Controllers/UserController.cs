@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web.ASP.models;
+using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace Web.ASP.Controllers
 {
@@ -14,8 +16,6 @@ namespace Web.ASP.Controllers
         [isLoginController]
         public ActionResult addReview(String book_id, String information_id, String review, String star)
         {
-            //var id = Session["user"];
-
             try
             {
                 var user = db.INFORMATION.Find(information_id);
@@ -119,7 +119,8 @@ namespace Web.ASP.Controllers
             }    
             try
             {
-                var isCart = db.INFORMATION.Find(id).CARTs.Where(t => t.book_id == book_id).SingleOrDefault();
+                Object[] key = { id, book_id };
+                var isCart = db.CARTs.Find(key);
                 if (!(isCart is null))
                 {
                     isCart.count += count;
@@ -132,12 +133,10 @@ namespace Web.ASP.Controllers
                         book_id = book_id,
                         count = count,
                         order_date = DateTime.Now,
-                        information_id = id.ToString(),
-
+                        information_id = id.ToString()
                     };
                     db.CARTs.Add(cart);
                     db.SaveChanges();
-
                 }
                 var result = new
                 {
@@ -157,8 +156,6 @@ namespace Web.ASP.Controllers
 
             }
         }
-
-
         // Confirmation
         [isLoginController]
         public ActionResult Confirmation()
@@ -257,5 +254,47 @@ namespace Web.ASP.Controllers
             ViewBag.bill_isDone_Count = bill_isDone.Count;
             return View();
         }
+
+        [HttpPost]
+        [isLoginController]
+        public ActionResult deleteCart(string id)
+        {
+            var idUser = Session["user"].ToString();
+            Object[] key = { idUser,id };
+            var cartDelete = db.CARTs.Find(key);
+            if(cartDelete is null)
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Không tìm được cart để xóa"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }    
+            else
+            {
+                try
+                {
+                    db.CARTs.Remove(cartDelete);
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                   
+                }
+                catch
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "Xóa không thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
     }
 }
