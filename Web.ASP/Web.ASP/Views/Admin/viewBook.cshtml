@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Web.ASP.models.BOOK>
-<div class="form-data">
+<div class="form-data"  style="margin: 0 auto;">
     <table style="width: 100%; border-collapse: collapse">
         <tr>
             <th>TÊN SÁCH</th>
@@ -30,8 +30,9 @@
     $(document).ready(function () {
         $(".singleBook").click(function (e) {
             const objData = {
-                id:e.currentTarget.dataset.id
+                id: e.currentTarget.dataset.idbook
             }
+          
             ajaxLoadData("/Admin/LoadSingleBook", "#load_form", objData)
         })
     })

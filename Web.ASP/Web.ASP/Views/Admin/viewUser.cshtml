@@ -1,0 +1,41 @@
+﻿
+@model IEnumerable<Web.ASP.models.INFORMATION>
+<div class="form-data" style="margin: 0 auto;">
+    <table style="width: 100%; border-collapse: collapse">
+        <tr>
+            <th>User Name</th>
+            <th>Name</th>
+            <th>Male or FeMale</th>
+            <th>Phone</th>
+            <th>Birthday</th>
+        </tr>
+        @if (!(Model is null))
+        {
+            foreach (var u in Model)
+            {
+    <tr data-idBook="@u.C_id">
+        <td >@u.C_id</td>
+        <td style="text-align:left">@u.nameInformation</td>
+        <td>@u.maleInformation</td>
+        @*<td>@book.contentBook</td>*@
+        <td>@u.phoneInformation</td>
+        <td>@u.birthday</td>
+    </tr>
+            }
+        }
+        else {
+            <tr>abc</tr>
+        }
+
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".singleBook").click(function (e) {
+            const objData = {
+                id:e.currentTarget.dataset.id
+            }
+            ajaxLoadData("/Admin/LoadSingleBook", "#load_form", objData)
+        })
+    })
+</script>

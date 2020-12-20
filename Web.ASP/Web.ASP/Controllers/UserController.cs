@@ -11,6 +11,7 @@ namespace Web.ASP.Controllers
     {
         private Manager_BookEntities db = new Manager_BookEntities();
         [HttpPost]
+        [isLoginController]
         public ActionResult addReview(String book_id, String information_id, String review, String star)
         {
             //var id = Session["user"];
@@ -74,10 +75,48 @@ namespace Web.ASP.Controllers
         }
 
         [HttpPost]
+        [isLoginController]
+        public ActionResult updateCart(string book_id, int count, string order_date)
+        {
+            var id = Session["user"];
+            try
+            {
+                var isCart = db.INFORMATION.Find(id).CARTs.Where(t => t.book_id == book_id).SingleOrDefault();
+                if (!(isCart is null))
+                {
+                    isCart.count = count;
+                    db.SaveChanges();
+                }
+                var result = new
+                {
+                    status = true
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Thêm Vào giỏ không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        [isLoginController]
         public ActionResult createCart(string book_id, int count, string order_date)
         {
             var id = Session["user"];
-
+            if(id is null)
+            {
+                var result = new
+                {
+                    isLogin = false,
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }    
             try
             {
                 var isCart = db.INFORMATION.Find(id).CARTs.Where(t => t.book_id == book_id).SingleOrDefault();
@@ -118,6 +157,8 @@ namespace Web.ASP.Controllers
 
             }
         }
+
+
         // Confirmation
         [isLoginController]
         public ActionResult Confirmation()

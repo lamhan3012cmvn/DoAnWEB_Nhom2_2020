@@ -37,7 +37,6 @@ namespace Web.ASP.Controllers
             return PartialView(result.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
         }
         // Single Book
-
         [isLoginController]
         public ActionResult SingleBook(String _id)
         {

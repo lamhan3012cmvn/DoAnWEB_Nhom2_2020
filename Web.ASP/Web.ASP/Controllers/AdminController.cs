@@ -322,7 +322,16 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult LoadSingleBook(string id)
         {
+            var result = db.BOOKs.Find(id);
+            ViewBag.book = result;
             return PartialView();
+        }
+        [isLoginController]
+        [isAdmin]
+        public ActionResult viewUser()
+        {
+            var result = db.INFORMATION.ToList();
+            return PartialView(result);
         }
     }
 }

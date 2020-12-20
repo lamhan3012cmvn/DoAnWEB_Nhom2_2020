@@ -32,11 +32,12 @@
                             <th scope="col">Giá</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     @if (!(Model is null))
                     {
-                        <tbody>
+                        <tbody id="setPrice">
                             @foreach (var cart in Model)
                             {
                             <tr>
@@ -67,74 +68,43 @@
                                 <td>
                                     <h5 data-id="@cart.book_id" class="@cart.book_id price"> @(cart.count * cart.BOOK.priceBook) VND</h5>
                                 </td>
+                                <td style="text-align:center">
+                                    <button class="btn btn-primary delete">Xóa</button>
+                                </td>
                             </tr>
                             }
-                            
-                                @*<tr class="bottom_button">
-                                <td>
-                                    <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <div class="cupon_text">
-                                        <input type="text" placeholder="Mã giảm giá">
-                                        <a class="main_btn" href="#">Xác nhận</a>
-
-                                    </div>
-                                </td>
-                            </tr>*@
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <h5>Tổng cộng</h5>
-                                </td>
-                                <td>
-                                    <h5 id="totalPrice">123</h5>
-                                </td>
-                            </tr>
-                           @*<tr class="shipping_area">
+                        <tr>
                             <td>
                             </td>
                             <td>
                             </td>
                             <td>
-                                <h5>Vận chuyển</h5>
                             </td>
                             <td>
-                                <div class="shipping_box">
-                                    <ul class="list">
+                                <h5>Tổng cộng</h5>
+                            </td>
+                            <td>
+                                <h5 id="totalPrice">123</h5>
+                            </td>
 
-                                        <li>
-                                            <a href="#">Vận chuyển miễn phí</a>
-                                        </li>
-                                        <li class="active">
-                                            <a href="#">Phí giao hàng: $2.00</a>
-                                        </li>
-                                    </ul>
-
+                        </tr>
+                           
+                        <tr class="out_button_area">
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <div class="checkout_btn_inner">
+                                    <a class="gray_btn" href="/Category/Index">Tiếp tục mua sắm</a>
+                                    <a class="main_btn" href="/User/Confirmation">Tiến hành thanh toán</a>
                                 </div>
                             </td>
-                        </tr>*@
-                            <tr class="out_button_area">
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                    <div class="checkout_btn_inner">
-                                        <a class="gray_btn" href="/Category/Index">Tiếp tục mua sắm</a>
-                                        <a class="main_btn" href="/User/Confirmation">Tiến hành thanh toán</a>
-                                    </div>
-                                </td>
-                            </tr>
+                        </tr>
                         </tbody>
                     }
                 </table>
@@ -150,9 +120,20 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
-    
+    const totalPrice_set = (price_id) => {
+        const products = document.getElementById(price_id).children;
+        if (products) {
+            const arr = [];
+            for (let i = 0; i < products.length - 2; i++) {
+                arr.push(products[i].children[3].children[0].innerText.split(" ")[0])
+            }
+            const total = arr.reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            return total + " VND";
+        }
+        return "0 VND"
+    }
     $(document).ready(function () {
-        $("#totalPrice")[0].innerHTML = totalPrice();
+        $("#totalPrice")[0].innerHTML = totalPrice_set("setPrice");
         $(".increase").click(function (e) {
             let current = (e.currentTarget);
             let parent = current.parentElement.children[0];
@@ -162,7 +143,21 @@
             const max =parseInt(result[1].dataset.max)
             if (!isNaN(sst) && sst < max) result[1].value++;
             result[2].innerHTML = price(parseInt(result[0].dataset.price), result[1].value);
-            $("#totalPrice")[0].innerHTML = totalPrice();
+            $("#totalPrice")[0].innerHTML = totalPrice_set("setPrice");
+            const obj = {
+                book_id: id,
+                count: result[1].value
+            }
+            $.ajax({
+                url: "/User/updateCart",
+                data: obj,
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                },
+                type: "POST",
+                dataType: "JSON"
+            })
             return false;
         })
         $(".reduced").click(function (e) {
@@ -173,8 +168,29 @@
             var sst = result[1].value;
             if (!isNaN(sst) && sst > 1) result[1].value--;
             result[2].innerHTML = price(parseInt(result[0].dataset.price), result[1].value);
-            $("#totalPrice")[0].innerHTML = totalPrice();
+            $("#totalPrice")[0].innerHTML = totalPrice_set("setPrice");
+            const obj = {
+                book_id: id,
+                count: result[1].value
+            }
+            $.ajax({
+                url: "/User/updateCart",
+                data: obj,
+                success: function (respone) {
+                    if (respone.status == false)
+                        notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                },
+                type: "POST",
+                dataType: "JSON"
+            })
             return false;
+        })
+        $(".delete").click(function (e) {
+            e.preventDefault()
+            const currentElement = e.currentTarget
+            var id = currentElement.parentElement.parentElement.children[1].children[0].dataset.id
+
+            console.log(id)
         })
     })
 </script>

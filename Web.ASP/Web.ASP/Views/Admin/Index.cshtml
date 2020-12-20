@@ -293,7 +293,11 @@
                         </a>
                         <div class="collapse" id="user">
                             <ul class="nav nav-collapse">
-                               
+                                <li>
+                                    <a href="#" id="viewUser">
+                                        <span class="sub-item">View User</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -338,6 +342,9 @@
         })
         $("#statisticalBook").click(() => {
             ajax("/Admin/LoadChartJs", load)
+        })
+        $("#viewUser").click(function () {
+            ajaxLoadData("/Admin/viewUser", load, {})
         })
         $("#exit").click(function () {
             $.ajax({
