@@ -17,7 +17,6 @@ const middleware = (res, element) => {
         const arr = document.getElementById('setPrice')
         if (arr.children.length > 3) {
             arr.removeChild(element)
-            console.log(arr)
             $("#totalPrice")[0].innerHTML = totalPrice_set("setPrice");
         } else {
             arr.innerHTML = ''

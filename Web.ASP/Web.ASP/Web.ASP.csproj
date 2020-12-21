@@ -477,6 +477,7 @@
     <Content Include="Views\Admin\LoadChartJs.cshtml" />
     <Content Include="Views\Admin\LoadSingleBook.cshtml" />
     <Content Include="Views\Admin\viewUser.cshtml" />
+    <Content Include="Views\Admin\LoadChartJsOfUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

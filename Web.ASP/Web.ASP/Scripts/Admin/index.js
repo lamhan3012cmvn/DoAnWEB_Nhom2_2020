@@ -10,6 +10,9 @@
     $("#chartJs").click(function () {
         ajax("/Admin/LoadChartJs", load)
     })
+    $("#statisticalUser").click(function () {
+        ajax("/Admin/LoadChartJsOfUser", load)
+    })
     $("#statisticalBook").click(() => {
         ajax("/Admin/LoadChartJs", load)
     })

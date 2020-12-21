@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -306,6 +307,83 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult LoadChartJs()
         {
+            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.order_date.Year == DateTime.Now.Year).ToList();
+            //Doanh thu theo từng tháng trên 1 năm
+            var revenueMonth=bill.GroupBy(t=>t.order_date.Month).Select(grp =>new { month=grp.Key, data= grp.ToList() }).ToList();
+
+            List<int> revenueMonthArr = new List<int>();
+            for(int i=1;i<=12;i++)
+            {
+                int revenue = 0;
+                for (int j=0;j<revenueMonth.Count;j++)
+                {
+                    if (i == revenueMonth[j].month)
+                    {
+                        
+                        revenueMonth[j].data.ForEach(b =>
+                        {
+                            revenue += (int)b.total * (int)b.BOOK.priceBook;
+                        });
+                        
+                    }
+                }
+                revenueMonthArr.Add(revenue);
+
+            }    
+            ViewBag.revenueMonthArr = revenueMonthArr;
+
+            //Top 10 loại sách bán chạy nhất trong năm
+            List<string> lableRankBookInMonth = new List<string>();
+            List<int> valueRankBookInMonth = new List<int>();
+            var rankBookInMonth= bill.GroupBy(t=>t.book_id).Select(grp => new { bookID = grp.Key, data = grp.ToList() }).ToList();
+            int count = rankBookInMonth.Count > 10 ? 10 : rankBookInMonth.Count;
+            for(int i=0;i<count;i++)
+            {
+                lableRankBookInMonth.Add(rankBookInMonth[i].data[0].BOOK.nameBook);
+                int total = 0;
+                rankBookInMonth[i].data.ForEach(r =>
+                {
+                    total += (int)r.total;
+                });
+                valueRankBookInMonth.Add(total);
+            }
+            var rankBook = new
+            {
+                lbl = lableRankBookInMonth,
+                val = valueRankBookInMonth
+            };
+            ViewBag.rankBook=JsonConvert.SerializeObject(rankBook);
+            return PartialView();
+        }
+
+        [isLoginController]
+        [isAdmin]
+        public ActionResult LoadChartJsOfUser()
+        {
+            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.order_date.Year == DateTime.Now.Year).ToList();
+            
+            
+            //Top 10 loại sách bán chạy nhất trong năm
+            List<string> lableRankUserInYear = new List<string>();
+            List<int> valueRankUserInYear = new List<int>();
+            var rankUserBuy = bill.GroupBy(t => t.information_id).Select(grp => new { user = grp.Key, data = grp.ToList() }).ToList();
+            int count = rankUserBuy.Count > 10 ? 10 : rankUserBuy.Count;
+            for (int i = 0; i < count; i++)
+            {
+                lableRankUserInYear.Add(rankUserBuy[i].data[0].information_id);
+                int total = 0;
+                rankUserBuy[i].data.ForEach(r =>
+                {
+                    total += (int)r.total;
+                });
+                valueRankUserInYear.Add(total);
+            }
+            var rankUser = new
+            {
+                lbl = lableRankUserInYear,
+                val = valueRankUserInYear
+            };
+            ViewBag.rankUser = JsonConvert.SerializeObject(rankUser);
             return PartialView();
         }
         [isLoginController]
