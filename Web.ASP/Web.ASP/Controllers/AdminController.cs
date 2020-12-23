@@ -5,6 +5,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Web.ASP.models;
+using OfficeOpenXml;
+using System.Data.OleDb;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.IO;
 
 namespace Web.ASP.Controllers
 {
@@ -400,6 +406,152 @@ namespace Web.ASP.Controllers
         {
             var result = db.INFORMATION.ToList();
             return PartialView(result);
+        }
+        public void ExportExcel()
+        {
+            var bookList = db.IMPORT_BOOK.ToList();
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+            // If you use EPPlus in a noncommercial context
+            // according to the Polyform Noncommercial license:
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            //ExcelPackage ep = new ExcelPackage();
+            using (var ep = new ExcelPackage())
+            {
+                ExcelWorksheet Sheet = ep.Workbook.Worksheets.Add("BOOK");
+
+                Sheet.Cells["A1"].Value = "BookID";
+                Sheet.Cells["B1"].Value = "NameOfBook";
+                Sheet.Cells["C1"].Value = "PriceOfBook";
+                Sheet.Cells["D1"].Value = "CountOfBook";
+                Sheet.Cells["E1"].Value = "Author";
+                Sheet.Cells["F1"].Value = "Category";
+                Sheet.Cells["G1"].Value = "Pubishing";
+                Sheet.Cells["H1"].Value = "ImportDate";
+                int row = 2;
+                foreach (var item in bookList)
+                {
+                    Sheet.Cells[string.Format("A{0}", row)].Value = item.BOOK.C_id;
+                    Sheet.Cells[string.Format("B{0}", row)].Value = item.BOOK.nameBook;
+                    Sheet.Cells[string.Format("C{0}", row)].Value = item.BOOK.priceBook;
+                    Sheet.Cells[string.Format("D{0}", row)].Value = item.BOOK.countBook;
+                    Sheet.Cells[string.Format("E{0}", row)].Value = item.BOOK.AUTHOR.nameAuthor;
+                    Sheet.Cells[string.Format("F{0}", row)].Value = item.BOOK.CATEGORY.nameCategory;
+                    Sheet.Cells[string.Format("G{0}", row)].Value = item.BOOK.PUBLISHING_HOUSE.namePublishingHouse;
+                    var date = item.import_date.ToString();
+                    Sheet.Cells[string.Format("H{0}", row)].Value = date;
+
+                    row++;
+                }
+                Sheet.Cells["A:Az"].AutoFitColumns();
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment: filename=" + "ReportOfBook.xlsx");
+                Response.BinaryWrite(ep.GetAsByteArray());
+                Response.End();
+            }
+        }
+
+        public FileResult DownloadExcel()
+        {
+            string path = "~/Content/TemplateOfBook/MauNhapSach.xlsx";
+            return File(path, "application/vnd.ms-excel", "MauNhapSach.xlsx");
+        }
+        [HttpPost]
+        public ActionResult ImportBook(HttpPostedFileBase postedFile)
+        {
+            try
+            {
+                string filePath = string.Empty;
+                if (postedFile != null)
+                {
+                    string path = Server.MapPath("~/excel/");
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+                    string conString = "data source=.;initial catalog=Manager_Book;user id=sa;password=quýnhql2017;MultipleActiveResultSets=True;App=EntityFramework&quot;";
+                    SqlConnection con = new SqlConnection(conString);
+                    con.Open();
+                    switch (extension)
+                    {
+                        case ".xls": //Excel 97-03.
+                            conString = ConfigurationManager.ConnectionStrings["Manager_BookEntities"].ConnectionString;
+                            break;
+                        case ".xlsx": //Excel 07 and above.
+                            conString = ConfigurationManager.ConnectionStrings["Manager_BookEntities"].ConnectionString;
+                            break;
+                    }
+                    string excelConnectionString = @"Provider='Microsoft.ACE.OLEDB.12.0';Data Source='" + filePath + "';Extended Properties='Excel 12.0 Xml;IMEX=1'";
+                    OleDbConnection excelConnection = new OleDbConnection(excelConnectionString);
+
+                    excelConnection.Open();
+                    string tableName = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[1]["TABLE_NAME"].ToString();
+
+
+                    OleDbCommand cmd = new OleDbCommand("Select * from [" + tableName + "]", excelConnection);
+
+                    DataSet excel = new DataSet();
+
+
+                    using (OleDbDataAdapter oda = new OleDbDataAdapter())
+                    {
+                        oda.SelectCommand = cmd;
+
+                        oda.Fill(excel);
+                    }
+                    excelConnection.Close();
+                    var n = excel.Tables[0].Rows.Count;
+
+                    for (int i = 0; i < n; i++)
+                    {
+                        var newBook = new BOOK()
+                        {
+                            C_id = "MS" + System.Guid.NewGuid().ToString(),
+                            nameBook = excel.Tables[0].Rows[i]["nameBook"].ToString(),
+                            priceBook = Double.Parse(excel.Tables[0].Rows[i]["priceBook"].ToString()),
+                            contentBook = excel.Tables[0].Rows[i]["contentBook"].ToString(),
+                            countBook = Int32.Parse(excel.Tables[0].Rows[i]["priceBook"].ToString()),
+                            imgBook_ID = "img01",
+                            categoryBook_ID = excel.Tables[0].Rows[i]["categoryBook_ID"].ToString(),
+                            publishingHouseBook_ID = excel.Tables[0].Rows[i]["publishingHouseBook_ID"].ToString(),
+                            author_id = excel.Tables[0].Rows[i]["author_id"].ToString(),
+                            size = excel.Tables[0].Rows[i]["size"].ToString(),
+                            numberOfPages = Int32.Parse(excel.Tables[0].Rows[i]["numberOfPages"].ToString())
+
+
+                        };
+                        db.BOOKs.Add(newBook);
+                    }
+                    db.SaveChanges();
+
+                    var result = new
+                    {
+                        status = true,
+                        message = "Cập nhật thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                var resultfalse = new
+                {
+                    status = false,
+                    message = "Cập nhật không thành công"
+                };
+                return Json(resultfalse, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Cập nhật không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Web.ASP.models.BOOK>
-<div class="form-data"  style="margin: 0 auto;">
+<div class="form-data" style="margin: 0 auto;">
     <table style="width: 100%; border-collapse: collapse">
         <tr>
             <th>TÊN SÁCH</th>
@@ -25,6 +25,19 @@
             }
         }
     </table>
+    <div class="form-group mx-auto">
+
+        <a href="@Url.Action("ExportExcel","Admin")" class="btn submit_btn">Download Excel</a>
+    </div>
+    <div class="form-group mx-auto">
+
+        <a href="@Url.Action("DownloadExcel","Admin")" class="btn submit_btn">Download Excel Template</a>
+    </div>
+    
+    <form action="/Admin/ImportBook" method="post" enctype="multipart/form-data">
+        <input type="file" name="postedFile" />
+        <input id="import" type="submit" value="Import" />
+    </form>
 </div>
 <script>
     $(document).ready(function () {
