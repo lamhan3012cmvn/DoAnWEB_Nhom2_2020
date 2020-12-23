@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Net.Mail;
 using System.Net;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace Web.ASP.Controllers
 {
@@ -65,6 +66,23 @@ namespace Web.ASP.Controllers
             }
             return View();
         }
+        public string GetMD5(string str)
+        {
+            str = str + "md5";
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+
+            byte[] bHash = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+
+            StringBuilder sbHash = new StringBuilder();
+
+            foreach (byte b in bHash)
+            {
+
+                sbHash.Append(String.Format("{0:x2}", b));
+
+            }
+            return sbHash.ToString();
+        }
         [HttpPost]
         public ActionResult Validate(string C_email_ID, string password, string returnUrl)
         {
@@ -96,7 +114,7 @@ namespace Web.ASP.Controllers
                 };
                 return Json(result,JsonRequestBehavior.AllowGet);
             }
-            else if (user.password.Trim() != password)
+            else if (user.password.Trim() != GetMD5(password))
             {
                 var result = new
                 {
@@ -210,7 +228,7 @@ namespace Web.ASP.Controllers
             { 
                 var acc = new AUTH();
                 acc.C_email_ID = email;
-                acc.password = password;
+                acc.password = GetMD5(password);
                 acc.powers = "0";
                 db.AUTHs.Add(acc);
                 db.SaveChanges();
