@@ -231,27 +231,27 @@ namespace Web.ASP.Controllers
             ViewBag.bill_WaitConfirms_Count = bill_WaitConfirm.Count;
 
             //Chờ lấy hàng
-            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_WaitingFordelivery = db.BILLs.Where(t => t.status_bill.Contains("Chờ lấy hàng")).OrderByDescending(t => t.confirm_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_WaitingFordelivery = bill_WaitingFordelivery;
             ViewBag.bill_WaitingFordelivery_Count = bill_WaitingFordelivery.Count;
 
             //Đang giao
-            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.gettingBook_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_OnDelivery = bill_OnDelivery;
             ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
 
             //Chờ nhận hàng
-            var bill_WaitingForDelivery_k = db.BILLs.Where(t => t.status_bill.Contains("Chờ nhận hàng")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_WaitingForDelivery_k = db.BILLs.Where(t => t.status_bill.Contains("Chờ nhận hàng")).OrderByDescending(t => t.onDelivery_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_WaitingForDelivery_k = bill_WaitingForDelivery_k;
             ViewBag.bill_WaitingForDelivery_k_Count = bill_WaitingForDelivery_k.Count;
 
             //Đã Hủy or Giao Không thành công
-            var bill_Cancel = db.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_Cancel = db.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.cancel_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_Cancel = bill_Cancel;
             ViewBag.bill_Cancel_Count = bill_Cancel.Count;
 
             //Đã giao
-            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.receivedBook_date).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_isDone = bill_isDone;
             ViewBag.bill_isDone_count = bill_isDone.Count;
 
@@ -274,6 +274,21 @@ namespace Web.ASP.Controllers
                 bill.ForEach(b =>
                 {
                     b.status_bill = status;
+                     if (b.status_bill == "Chờ lấy hàng")
+                    {
+                        b.confirm_date = DateTime.Now;
+                       
+                    }    
+                    else if (b.status_bill == "Đang giao")
+                    {
+                        b.gettingBook_date = DateTime.Now;
+                        b.onDelivery_date = DateTime.Now;
+                    }   
+                    else if (b.status_bill == "Đã giao")
+                    {
+                        b.receivedBook_date = DateTime.Now;
+                    }    
+                       
                 });
                 db.SaveChanges();
                 

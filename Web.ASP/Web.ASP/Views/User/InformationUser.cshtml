@@ -1,0 +1,183 @@
+﻿@model IEnumerable<Web.ASP.models.INFORMATION>
+<!--================Header Menu Area =================-->
+@Html.Partial("_HeaderComponent")
+<!--================Header Menu Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Thông Tin Tài Khoản</h2>
+                <div class="page_link">
+                    <a href="/Home/Index">Trang chủ</a>
+                    <a href="/Use/InformationUser">Thông Tin Tài Khoản</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="infor_user p_120">
+    <div class="container">
+        <div class="row">
+            @*<div class="col-lg-6 infor_user_boximg">
+                    <div class="infor_user_box_img">
+                        <img class="img-fluid" src="~/Content/img/login8.jpeg" alt="" />
+                        <div class="hover">
+                            <h4>Liêu Liêu</h4>
+                            <p>Xin lỗi về sự bất tiện này</p>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="col-lg infor_user_box">
+                <div class="infor_user_form_inner">
+                    <h3>Thông Tin Của Bạn</h3>
+                    <form class="row infor_user">
+                        <span style="width: auto;">Họ và tên</span> :
+                        <div class="col-md-12 form-group">
+
+                            <input id="nameInformation" type="text"
+                                   class="form-control creat_infor"
+                                   name="nameInformation"
+                                   placeholder="Họ và tên"
+                                   value="@ViewBag.nameUser" />
+                        </div>
+                        <span style="width: auto;">Giới tính</span> :
+                        <div class="col-md-12 form-group">
+                            <select id="maleInformation"
+                                    class="form-control creat_infor"
+                                    name="maleInformation">
+                                <option value="#">@ViewBag.genderuser</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="#">Khác</option>
+                            </select>
+                        </div>
+                        <span style="width: auto;">Số điện thoại</span> :
+                        <div class="col-md-12 form-group">
+                            <input id="phoneInformation" type="text"
+                                   class="form-control creat_infor"
+                                   name="phoneInformation"
+                                   placeholder="Số điện thoại"
+                                   value="@ViewBag.phoneUser" />
+                        </div>
+                        <span style="width: auto;">Địa chỉ</span> :
+                        <div class="col-md-12 form-group">
+                            <input id="addressInformation" type="text"
+                                   class="form-control creat_infor"
+                                   name="addressInformation"
+                                   placeholder="Địa chỉ"
+                                   value="@ViewBag.addressUser" />
+                        </div>
+                        <span style="width: auto;">Ngày sinh</span> :
+                        <div class="col-md-12 form-group">
+                            <input id="birthday" type="date"
+                                   class="form-control creat_infor"
+                                   name="birthday"
+                                   placeholder="Ngày sinh"
+                                   value="@ViewBag.birthdayUser.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <span style="width: auto;">Số đơn hàng đã đặt</span> : @ViewBag.countBill Đơn hàng
+                        
+                        <div class="col-md-12 form-group">
+                            <div id="submitInfoUser" class="main_btn">
+                                Cập nhật thông tin
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+
+    .infor_user .infor_user_box_img {
+        margin-right: -30px;
+        position: relative;
+    }
+
+        .infor_user .infor_user_box_img .hover {
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            text-align: center;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+            .infor_user .infor_user_box_img .hover h4 {
+                font-size: 24px;
+                color: #fff;
+                margin-bottom: 15px;
+            }
+
+            .infor_user .infor_user_box_img .hover p {
+                max-width: 380px;
+                margin: 0px auto 25px;
+                color: #fff;
+            }
+
+
+    .infor_user_form_inner {
+        box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.07);
+        height: 100%;
+        text-align: center;
+        padding-top: 70px;
+    }
+
+        .infor_user_form_inner h3 {
+            color: #222222;
+            text-transform: uppercase;
+            font-size: 18px;
+            margin-bottom: 50px;
+        }
+
+        .infor_user_form_inner .infor_user {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .infor_user_form_inner .login_form {
+            max-width: 385px;
+            margin: auto;
+        }
+
+        .infor_user_form_inner.reg_form {
+            padding-top: 60px;
+        }
+
+            .infor_user_form_inner.reg_form h3 {
+                margin-bottom: 70px;
+            }
+
+    .infor_user .form-group input {
+        height: 54px;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        border-radius: 0px;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .infor_user .form-group div.creat_infor {
+        width: 100%;
+        height: 54px;
+        border: none;
+        border-bottom: 1px solid #cccccc;
+        border-radius: 0px;
+        outline: none;
+        box-shadow: none;
+    }
+
+        .infor_user .form-group div.creat_infor .list {
+            width: 100%;
+        }
+
+    .infor_user .form-group .submit_btn {
+        margin-top: 20px;
+        display: block;
+        border-radius: 0px;
+        width: 100%;
+        text-transform: uppercase;
+    }
+</style>
+<script src="~/Scripts/User/InformationUser.js"></script>

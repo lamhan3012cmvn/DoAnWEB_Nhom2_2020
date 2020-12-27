@@ -20,6 +20,11 @@ namespace Web.ASP.models
         public Nullable<double> total { get; set; }
         public System.DateTime order_date { get; set; }
         public string status_bill { get; set; }
+        public Nullable<System.DateTime> confirm_date { get; set; }
+        public Nullable<System.DateTime> gettingBook_date { get; set; }
+        public Nullable<System.DateTime> onDelivery_date { get; set; }
+        public Nullable<System.DateTime> receivedBook_date { get; set; }
+        public Nullable<System.DateTime> cancel_date { get; set; }
     
         public virtual BOOK BOOK { get; set; }
         public virtual INFORMATION INFORMATION { get; set; }

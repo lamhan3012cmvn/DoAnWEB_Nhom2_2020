@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1e6f8b8c04784957b7e7ab250db7493c" Name="Diagram1">
-        <EntityTypeShape EntityType="Manager_BookModel.AUTH" Width="1.5" PointX="0.75" PointY="17" />
-        <EntityTypeShape EntityType="Manager_BookModel.AUTHOR" Width="1.5" PointX="0.75" PointY="2.375" />
-        <EntityTypeShape EntityType="Manager_BookModel.BILL" Width="1.5" PointX="8.25" PointY="5.625" />
-        <EntityTypeShape EntityType="Manager_BookModel.BOOK" Width="1.5" PointX="3" PointY="4.375" />
-        <EntityTypeShape EntityType="Manager_BookModel.CART" Width="1.5" PointX="5.25" PointY="5.75" />
-        <EntityTypeShape EntityType="Manager_BookModel.CATEGORY" Width="1.5" PointX="0.75" PointY="11.375" />
-        <EntityTypeShape EntityType="Manager_BookModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="5.875" />
-        <EntityTypeShape EntityType="Manager_BookModel.IMAGE_BOOK" Width="1.5" PointX="0.75" PointY="13.75" />
-        <EntityTypeShape EntityType="Manager_BookModel.IMPORT_BOOK" Width="1.5" PointX="5.25" PointY="9" />
-        <EntityTypeShape EntityType="Manager_BookModel.INFORMATION" Width="1.5" PointX="3" PointY="16.375" />
-        <EntityTypeShape EntityType="Manager_BookModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="8.625" />
-        <EntityTypeShape EntityType="Manager_BookModel.REVIEW" Width="1.5" PointX="5.25" PointY="2.625" />
-        <EntityTypeShape EntityType="Manager_BookModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Manager_BookModel.AUTH" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="Manager_BookModel.AUTHOR" Width="1.5" PointX="0.75" PointY="4.5" />
+        <EntityTypeShape EntityType="Manager_BookModel.BILL" Width="1.5" PointX="8.25" PointY="7.5" />
+        <EntityTypeShape EntityType="Manager_BookModel.BOOK" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="Manager_BookModel.CART" Width="1.5" PointX="5.25" PointY="5.125" />
+        <EntityTypeShape EntityType="Manager_BookModel.CATEGORY" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="Manager_BookModel.DISCOUNT_BOOK" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="Manager_BookModel.IMAGE_BOOK" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="Manager_BookModel.IMPORT_BOOK" Width="1.5" PointX="5.25" PointY="18.75" />
+        <EntityTypeShape EntityType="Manager_BookModel.INFORMATION" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="Manager_BookModel.PUBLISHING_HOUSE" Width="1.5" PointX="0.75" PointY="13.625" />
+        <EntityTypeShape EntityType="Manager_BookModel.REVIEW" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="Manager_BookModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2.625" />
         <AssociationConnector Association="Manager_BookModel.FK_INFORMATION_AUTH" />
         <AssociationConnector Association="Manager_BookModel.FK_BOOK_AUTHOR" />
         <AssociationConnector Association="Manager_BookModel.FK_BILL_BOOK" />

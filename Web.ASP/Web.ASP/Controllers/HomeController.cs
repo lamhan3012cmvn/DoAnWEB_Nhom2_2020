@@ -136,7 +136,8 @@ namespace Web.ASP.Controllers
                         isInfor = false,
                         link = new
                         {
-                            returnUrlChange= "/Home/Information"
+                            actionName = "Information",
+                            controllerName = "Home"
                         },
                         message = "Đăng nhập thành công"
                     };

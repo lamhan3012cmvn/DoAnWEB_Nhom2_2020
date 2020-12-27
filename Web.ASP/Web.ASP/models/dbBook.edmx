@@ -32,6 +32,11 @@
           <Property Name="total" Type="float" />
           <Property Name="order_date" Type="datetime" Nullable="false" />
           <Property Name="status_bill" Type="nvarchar" MaxLength="50" />
+          <Property Name="confirm_date" Type="datetime" />
+          <Property Name="gettingBook_date" Type="datetime" />
+          <Property Name="onDelivery_date" Type="datetime" />
+          <Property Name="receivedBook_date" Type="datetime" />
+          <Property Name="cancel_date" Type="datetime" />
         </EntityType>
         <EntityType Name="BOOK">
           <Key>
@@ -456,6 +461,11 @@
           <Property Name="total" Type="Double" />
           <Property Name="order_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="status_bill" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="confirm_date" Type="DateTime" Precision="3" />
+          <Property Name="gettingBook_date" Type="DateTime" Precision="3" />
+          <Property Name="onDelivery_date" Type="DateTime" Precision="3" />
+          <Property Name="receivedBook_date" Type="DateTime" Precision="3" />
+          <Property Name="cancel_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BOOK" Relationship="Manager_BookModel.FK_BILL_BOOK" FromRole="BILL" ToRole="BOOK" />
           <NavigationProperty Name="INFORMATION" Relationship="Manager_BookModel.FK_BILL_INFORMATION" FromRole="BILL" ToRole="INFORMATION" />
         </EntityType>
@@ -763,6 +773,11 @@
           <EntitySetMapping Name="BILLs">
             <EntityTypeMapping TypeName="Manager_BookModel.BILL">
               <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="cancel_date" ColumnName="cancel_date" />
+                <ScalarProperty Name="receivedBook_date" ColumnName="receivedBook_date" />
+                <ScalarProperty Name="onDelivery_date" ColumnName="onDelivery_date" />
+                <ScalarProperty Name="gettingBook_date" ColumnName="gettingBook_date" />
+                <ScalarProperty Name="confirm_date" ColumnName="confirm_date" />
                 <ScalarProperty Name="status_bill" ColumnName="status_bill" />
                 <ScalarProperty Name="order_date" ColumnName="order_date" />
                 <ScalarProperty Name="total" ColumnName="total" />

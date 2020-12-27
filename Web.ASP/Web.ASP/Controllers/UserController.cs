@@ -156,6 +156,15 @@ namespace Web.ASP.Controllers
 
             }
         }
+        public ActionResult BillDetail(string order_id)
+        {
+            var idInfo = Session["user"].ToString();
+            ViewBag.bills = db.BILLs.Where(b => b.information_id == idInfo && b.order_id == order_id).ToList();
+
+             
+            return View();
+
+        }
         // Confirmation
         [isLoginController]
         public ActionResult Confirmation()
@@ -224,12 +233,17 @@ namespace Web.ASP.Controllers
             DateTime currentTime = DateTime.Now;
             bill_Shipping.ForEach(b =>
             {
-                var t = currentTime - b.order_date;
+                var t = currentTime - b.onDelivery_date;
                 if (t > TimeSpan.FromSeconds(432000))
                 {
-                    b.status_bill = "Đã hủy";
+                    b.status_bill = "Đã hủy";                    
+                    b.cancel_date = Convert.ToDateTime(b.order_date + TimeSpan.FromSeconds(432000));
                 }
-                else if (t > TimeSpan.FromSeconds(1800)) b.status_bill = "Chờ nhận hàng";
+                else if (t > TimeSpan.FromSeconds(180))
+                {
+                    b.status_bill = "Chờ nhận hàng";
+                               
+                }
             });
             db.SaveChanges();
 
@@ -295,6 +309,101 @@ namespace Web.ASP.Controllers
                 }
             }
         }
-
+        [isLoginController]
+        public ActionResult InformationUser()
+        {
+            var idInfor = Session["user"];
+            var user = db.INFORMATION.Find(idInfor.ToString());
+            ViewBag.nameUser = user.nameInformation;
+            ViewBag.genderuser = user.maleInformation;
+            ViewBag.phoneUser = user.phoneInformation;
+            ViewBag.addressUser = user.addressInformation;
+            ViewBag.birthdayUser = user.birthday;
+            ViewBag.countBill = user.BILLs.Count();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ValidateInfor(string nameInformation, string maleInformation, string phoneInformation, string addressInformation, DateTime birthday)
+        {
+            if (String.IsNullOrEmpty(nameInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập họ và tên"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(maleInformation) || maleInformation == "#")
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn giới tính"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(phoneInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập số điện thoại"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(addressInformation))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập địa chỉ"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if ((birthday) > DateTime.Now)
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Ngày sinh không hợp lệ"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var id_user = Session["user"].ToString();
+                var infor = db.INFORMATION.Find(id_user);
+                try
+                {
+                    infor.C_id = Session["user"].ToString();
+                    infor.nameInformation = nameInformation;
+                    infor.maleInformation = maleInformation;
+                    infor.phoneInformation = phoneInformation;
+                    infor.birthday = birthday;
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                        message = "Sửa thông tin thành công",
+                        link = new
+                        {
+                            actionName = "InformationUser",
+                            controllerName = "User"
+                        },
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "Sửa thông tin không thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
     }
 }
