@@ -2,6 +2,19 @@
 <!--================Header Menu Area =================-->
 @Html.Partial("_HeaderComponent")
 <!--================Header Menu Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Quản lý đơn hàng</h2>
+                <div class="page_link">
+                    <a href="/Home/Index">Trang Chủ</a>
+                    <a href="/User/UserBillManagement">Quản lý đơn hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div>
     <div class="app">
         <div class="container py-5">
@@ -11,30 +24,6 @@
             <input type="radio" name="tab-manager" id="tab-dangGiao" hidden>
             <input type="radio" name="tab-manager" id="tab-daGiao" hidden>
             <input type="radio" name="tab-manager" id="tab-daHuy" hidden>
-            <input type="radio" name="tab-manager" id="tab-traHang" hidden>
-            <div class="wrap-status">
-                <h1 class="status font-weight-normal tatCa">
-                    Tất cả đơn hàng
-                </h1>
-                <h1 class="status font-weight-normal choXacNhan">
-                    Chờ xác nhận (đơn hàng mới)
-                </h1>
-                <h1 class="status font-weight-normal ChoNhanHang">
-                    Đã Xác nhận chờ lấy hàng
-                </h1>
-                <h1 class="status font-weight-normal dangGiao">
-                    Đang giao
-                </h1>
-                <h1 class="status font-weight-normal daGiao">
-                    Đã giao hàng
-                </h1>
-                <h1 class="status font-weight-normal daHuy">
-                    Đã Hủy
-                </h1>
-                <h1 class="status font-weight-normal traHang">
-                    Trả hàng/Hoàn tiền
-                </h1>
-            </div>
             <div class="wrap-content mt-5">
                 <div class="wrap-name-column">
                     <label for="tab-tatCa">Tất cả</label>
@@ -43,7 +32,6 @@
                     <label for="tab-ChoNhanHang">Chờ nhận hàng</label>
                     <label for="tab-daGiao">Đã giao</label>
                     <label for="tab-daHuy">Đã hủy</label>
-                    <label for="tab-traHang">Trả hàng/Hoàn tiền</label>
                 </div>
                 <div class="wrap-filter row mt-5">
                     <div class="wrap-search">
@@ -396,68 +384,86 @@
 
                             }
 
-                        </div>
-                    </div>
 
-                    <div class="tab-item tabTraHang">
+                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--================ start footer Area  =================-->
-@Html.Partial("_FooterComponent")
-<!--================ End footer Area  =================-->
-<style>
-    :root {
-        --grey: #d7d7d7;
-        --grey2: #726b6b;
-        --orange: #fa4a06;
-        --white: #ffffff;
-    }
+    <!--================ start footer Area  =================-->
+    @Html.Partial("_FooterComponent")
+    <!--================ End footer Area  =================-->
+    <style>
+        :root {
+            --grey: #d7d7d7;
+            --grey2: #726b6b;
+            --orange: #fa4a06;
+            --white: #ffffff;
+        }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    input[id="tab-choXacNhan"]:checked ~ div.wrap-status h1.status.choXacNhan,
-    input[id="tab-ChoNhanHang"]:checked ~ div.wrap-status h1.status.ChoNhanHang,
-    input[id="tab-dangGiao"]:checked ~ div.wrap-status h1.status.dangGiao,
-    input[id="tab-daGiao"]:checked ~ div.wrap-status h1.status.daGiao,
-    input[id="tab-daHuy"]:checked ~ div.wrap-status h1.status.daHuy,
-    input[id="tab-traHang"]:checked ~ div.wrap-status h1.status.traHang,
-    input[id="tab-tatCa"]:checked ~ div.wrap-status h1.status.tatCa {
-        display: block;
-    }
+        input[id="tab-choXacNhan"]:checked ~ div.wrap-status h1.status.choXacNhan,
+        input[id="tab-ChoNhanHang"]:checked ~ div.wrap-status h1.status.ChoNhanHang,
+        input[id="tab-dangGiao"]:checked ~ div.wrap-status h1.status.dangGiao,
+        input[id="tab-daGiao"]:checked ~ div.wrap-status h1.status.daGiao,
+        input[id="tab-daHuy"]:checked ~ div.wrap-status h1.status.daHuy,
+        input[id="tab-traHang"]:checked ~ div.wrap-status h1.status.traHang,
+        input[id="tab-tatCa"]:checked ~ div.wrap-status h1.status.tatCa {
+            display: block;
+        }
 
-    .wrap-status .status {
-        display: none;
-    }
+        .wrap-status .status {
+            display: none;
+        }
 
-    .wrap-content .wrap-name-column {
-        height: 70px;
-        display: flex;
-        align-items: center;
-        border-top: 1px solid var(--grey);
-        border-bottom: 1px solid var(--grey);
-    }
-
-        .wrap-content .wrap-name-column label {
-            cursor: pointer;
+        .wrap-content .wrap-name-column {
+            height: 70px;
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            height: 100%;
-            margin: 0;
-            font-weight: 500;
-            color: var(--grey2);
-            margin-top: 2px;
-            border-bottom: 4px solid transparent;
+            border-top: 1px solid var(--grey);
+            border-bottom: 1px solid var(--grey);
+        }
+
+            .wrap-content .wrap-name-column label {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                padding: 0 40px;
+                margin-right: 43px;
+                height: 100%;
+                font-weight: 500;
+                color: var(--grey2);
+                margin-top: 2px;
+                border-bottom: 4px solid transparent;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+                -moz-transition: all .3s;
+                -ms-transition: all .3s;
+                -o-transition: all .3s;
+            }
+
+                .wrap-content .wrap-name-column label:hover {
+                    color: var(--orange);
+                }
+
+        /* ACTIVE TAB */
+        input[id="tab-tatCa"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-tatCa"],
+        input[id="tab-choXacNhan"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-choXacNhan"],
+        input[id="tab-ChoNhanHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-ChoNhanHang"],
+        input[id="tab-dangGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-dangGiao"],
+        input[id="tab-daGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daGiao"],
+        input[id="tab-daHuy"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daHuy"],
+        input[id="tab-traHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-traHang"] {
+            color: var(--orange);
+            border-bottom: 4px solid var(--orange);
             transition: all .3s;
             -webkit-transition: all .3s;
             -moz-transition: all .3s;
@@ -465,116 +471,95 @@
             -o-transition: all .3s;
         }
 
-            .wrap-content .wrap-name-column label:hover {
-                color: var(--orange);
-            }
-
-    /* ACTIVE TAB */
-    input[id="tab-tatCa"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-tatCa"],
-    input[id="tab-choXacNhan"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-choXacNhan"],
-    input[id="tab-ChoNhanHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-ChoNhanHang"],
-    input[id="tab-dangGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-dangGiao"],
-    input[id="tab-daGiao"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daGiao"],
-    input[id="tab-daHuy"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-daHuy"],
-    input[id="tab-traHang"]:checked ~ div.wrap-content .wrap-name-column label[for="tab-traHang"] {
-        color: var(--orange);
-        border-bottom: 4px solid var(--orange);
-        transition: all .3s;
-        -webkit-transition: all .3s;
-        -moz-transition: all .3s;
-        -ms-transition: all .3s;
-        -o-transition: all .3s;
-    }
-
-    .wrap-content .wrap-filter {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .wrap-content .content-tab {
-        position: relative !important;
-    }
-
-        .wrap-content .content-tab .tab-item {
-            display: none;
+        .wrap-content .wrap-filter {
+            display: flex;
+            justify-content: space-between;
         }
 
-    /* ACTIVE TAB */
-    input[id="tab-tatCa"]:checked ~ div.wrap-content .content-tab .tab-item.tabTatCa,
-    input[id="tab-choXacNhan"]:checked ~ div.wrap-content .content-tab .tab-item.tabChoXacNhan,
-    input[id="tab-ChoNhanHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabChoNhanHang,
-    input[id="tab-dangGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDangGiao,
-    input[id="tab-daGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaGiao,
-    input[id="tab-daHuy"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaHuy,
-    input[id="tab-traHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabTraHang {
-        display: block;
-    }
-
-    .wrap-content .content-tab .tab-item .btnChonNgay {
-        background-color: var(--orange);
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 20px;
-        color: var(--white);
-        cursor: pointer;
-    }
-
-    .wrap-content .content-tab .tab-item .title-colum-tab {
-        background-color: var(--grey);
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
-        padding: 10px 0;
-    }
-
-        .wrap-content .content-tab .tab-item .title-colum-tab,
-        .wrap-content .content-tab .tab-item .title-colum-tab select {
-            font-size: 15px;
-            color: var(--grey2);
-            font-weight: 500;
+        .wrap-content .content-tab {
+            position: relative !important;
         }
-</style>
 
-@*<script>
-    $(document).ready(function () {
-        $(".confirm_product").click(function (e) {
-            const current = e.currentTarget
-            if (current.disabled && current.disabled === true) {
-
+            .wrap-content .content-tab .tab-item {
+                display: none;
             }
-            else {
-                current.disabled = true
-                current.classList.add("disabled")
-                const order_id = document.getElementById("id_order").dataset.order_id
-                const information_id = document.getElementById("id_info").innerHTML
-                const book_id = document.getElementById("id_book").innerHTML
-                const objData = {
-                    order_id,
-                    information_id,
-                    book_id,
-                    status : "Chờ lấy hàng"
-                }
-                $.ajax({
-                    url: "/Admin/ChangeStatus",
-                    type: "GET",
-                    data: objData,
-                    datatype: "JSON",
-                    success: function (res) {
-                        if (!(res.status)) {
-                            notify("Thông báo", res.message, "fas fa-exclamation", "warning")
-                        }
+
+        /* ACTIVE TAB */
+        input[id="tab-tatCa"]:checked ~ div.wrap-content .content-tab .tab-item.tabTatCa,
+        input[id="tab-choXacNhan"]:checked ~ div.wrap-content .content-tab .tab-item.tabChoXacNhan,
+        input[id="tab-ChoNhanHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabChoNhanHang,
+        input[id="tab-dangGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDangGiao,
+        input[id="tab-daGiao"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaGiao,
+        input[id="tab-daHuy"]:checked ~ div.wrap-content .content-tab .tab-item.tabDaHuy,
+        input[id="tab-traHang"]:checked ~ div.wrap-content .content-tab .tab-item.tabTraHang {
+            display: block;
+        }
+
+        .wrap-content .content-tab .tab-item .btnChonNgay {
+            background-color: var(--orange);
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .wrap-content .content-tab .tab-item .title-colum-tab {
+            background-color: var(--grey);
+            border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            padding: 10px 0;
+        }
+
+            .wrap-content .content-tab .tab-item .title-colum-tab,
+            .wrap-content .content-tab .tab-item .title-colum-tab select {
+                font-size: 15px;
+                color: var(--grey2);
+                font-weight: 500;
+            }
+    </style>
+
+    @*<script>
+            $(document).ready(function () {
+                $(".confirm_product").click(function (e) {
+                    const current = e.currentTarget
+                    if (current.disabled && current.disabled === true) {
+
                     }
-                })
-            }
+                    else {
+                        current.disabled = true
+                        current.classList.add("disabled")
+                        const order_id = document.getElementById("id_order").dataset.order_id
+                        const information_id = document.getElementById("id_info").innerHTML
+                        const book_id = document.getElementById("id_book").innerHTML
+                        const objData = {
+                            order_id,
+                            information_id,
+                            book_id,
+                            status : "Chờ lấy hàng"
+                        }
+                        $.ajax({
+                            url: "/Admin/ChangeStatus",
+                            type: "GET",
+                            data: objData,
+                            datatype: "JSON",
+                            success: function (res) {
+                                if (!(res.status)) {
+                                    notify("Thông báo", res.message, "fas fa-exclamation", "warning")
+                                }
+                            }
+                        })
+                    }
 
-        })
-    })
-</script>*@
+                })
+            })
+        </script>*@
