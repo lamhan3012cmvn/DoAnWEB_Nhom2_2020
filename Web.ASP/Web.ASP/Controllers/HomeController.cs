@@ -36,9 +36,9 @@ namespace Web.ASP.Controllers
             var mail = new MailMessage();
 
             smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("lamhan3012@gmail.com", "lamhoangan3012cmvn");
+            smtp.Credentials = new NetworkCredential("AQbookVietNam@gmail.com", "aqbook123");
 
-            mail.From = new MailAddress("lamhan3012@gmail.com", "Bạn Nụ Cute");
+            mail.From = new MailAddress("AQbookVietNam@gmail.com", "Bạn Nụ Cute");
             mail.BodyEncoding = mail.SubjectEncoding = Encoding.UTF8;
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;

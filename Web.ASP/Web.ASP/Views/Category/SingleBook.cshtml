@@ -11,7 +11,7 @@
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content text-center">
-                <h2>Single Product Page</h2>
+                <h2>Chi tiết sản phẩm</h2>
                 <div class="page_link">
                     <a href="/Home/Index">Trang chủ</a>
                     <a href="/Category/Index">Sản phẩm</a>
@@ -28,7 +28,7 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class=" d-flex s_product_img" style="height: 500px; justify-content: center; align-items: center;">
-                    <img class=" h-100" src="@ViewBag.book.IMAGE_BOOK.link"/>
+                    <img class=" h-100" src="@ViewBag.book.IMAGE_BOOK.link" />
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
@@ -56,8 +56,8 @@
                     <div class="product_count">
                         <label for="qty">Số lượng:</label>
                         <input onkeypress="var result = document.getElementById('sst'); var sst = result.value; if (isNaN(sst) || sst > @ViewBag.book.countBook ) {
-                            result.value =@ViewBag.book.countBook; return false;} " type="number" 
-                            name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                            result.value =@ViewBag.book.countBook; return false;} " type="number"
+                               name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < @ViewBag.book.countBook ) result.value++;return false;"
                                 class="increase items-count" type="button">
                             <i class="lnr lnr-chevron-up"></i>
@@ -98,9 +98,11 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <p>
-                    @ViewBag.book.contentBook
-                </p>
+                @*<p>
+                    Nhân vật chính thứ nhất tên là Gấu.<br>Nhân vật thứ hai là Tí Hon.<br> Nhân vật thứ ba, tên là…; còn nữa, nhân vật thứ tư, tên là…<br>Để biết tại sao Gấu lại chơi thân với Tí Hon, thì mời bạn hãy mở sách ra.<br>Gấu và Tí Hon thân nhau đến mức có thể chia sẻ từng chuyện vui buồn trong những phút giây mềm yếu, lo lắng và chăm sóc, giúp nhau từ miếng ăn đến “chiến lược” để tồn tại lâu dài.Tình bạn là gì? Bạn gái là gì? Tình yêu là gì?
+                    Bọn mèo chuột kể với chúng ta nhiều câu chuyện nhỏ, gửi thông điệp rằng, tình yêu có sức mạnh tuyệt diệu, có thể làm nên mọi điều phi thường trong cuộc sống muôn loài.<br>Cuốn truyện có độ dầy vừa phải, 67 hình vẽ của họa sĩ Đỗ Hoàng Tường sinh động đến từng nét nũng nịu hay kiêu căng của nàng mèo người yêu mèo Gấu, câu chuyện thì hấp dẫn duyên dáng điểm những bài thơ tình lãng mạn nao lòng song đọc to lên thì khiến cười hinh hích…<br>Bạn hãy đọc nhé, để thấy, Nguyễn Nhật Ánh đã viết truyện mèo chuột theo cái cách của riêng mình độc đáo như thế nào.
+                </p>*@
+                @ViewBag.book.contentBook
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -281,7 +283,7 @@
                                                 </a>
                                             }
 
-                                             <h5>@review.DateOfReview.ToString("ddd d MMM  yyyy - HH:mm")</h5>
+                                            <h5>@review.DateOfReview.ToString("ddd d MMM  yyyy - HH:mm")</h5>
 
 
                                         </div>
@@ -370,9 +372,6 @@
     </div>
 </section>
 <!--================End Product Description Area =================-->
-<!--================ Subscription Area ================-->
-@Html.Partial("_SubscriptionComponent");
-<!--================ End Subscription Area ================-->
 <!--================ start footer Area  =================-->
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->

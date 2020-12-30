@@ -38,7 +38,7 @@ namespace Web.ASP.Controllers
         }
 
         // Single Book
-        [isLoginController]
+       
         public ActionResult SingleBook(String _id)
         {
             var idInfor = Session["user"];
