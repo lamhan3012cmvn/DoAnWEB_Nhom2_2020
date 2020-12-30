@@ -568,5 +568,19 @@ namespace Web.ASP.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public ActionResult ProfileUser()
+        {
+            var idInfor = Session["user"].ToString();
+            var infor = db.INFORMATION.Find(idInfor);
+            var str = infor.birthday.ToString("yyyy-MM-dd");
+            if(infor != null)
+            {
+                ViewBag.infor = infor;
+                ViewBag.birth = str;
+            }    
+            return PartialView();
+        }
     }
 }

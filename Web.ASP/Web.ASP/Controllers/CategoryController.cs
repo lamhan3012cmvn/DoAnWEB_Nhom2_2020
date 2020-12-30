@@ -31,6 +31,7 @@ namespace Web.ASP.Controllers
             ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             string publishingHouse = (publishingHouseID ?? "");
             var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse));
+            ViewBag.paginationCount = (result.ToList().Count/pageSize)+1;
             int sortc = (sort ?? 1);
             if (sortc == 2) return PartialView(result.OrderBy(x=>x.priceBook).ToPagedList(pageNumber, pageSize));
             else if(sortc == 3) return PartialView(result.OrderByDescending(x => x.priceBook).ToPagedList(pageNumber, pageSize));

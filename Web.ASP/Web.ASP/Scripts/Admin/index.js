@@ -19,7 +19,10 @@
     $("#viewUser").click(function () {
         ajaxLoadData("/Admin/viewUser", load, {})
     })
-    $("#exit").click(function () {
+    $("#profile").click(function () {
+        ajax("/Admin/ProfileUser",load)
+    })
+    $("#logout").click(function () {
         $.ajax({
             url: "/Home/Logout",
             type: "GET",

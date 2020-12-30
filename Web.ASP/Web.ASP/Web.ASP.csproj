@@ -492,6 +492,7 @@
     <Content Include="Views\Admin\LoadChartJsOfUser.cshtml" />
     <Content Include="Views\User\InformationUser.cshtml" />
     <Content Include="Views\User\BillDetail.cshtml" />
+    <Content Include="Views\Admin\ProfileUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -501,7 +502,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\TemplateOfBook\" />
     <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
