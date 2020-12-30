@@ -1,0 +1,51 @@
+﻿<li class="page-item" data-page="pre">
+    <a class="page-link">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    </a>
+</li>
+@for (int i = 1; i <= ViewBag.count; i++)
+{
+    <li class="page-item" data-page="@i">
+        <a class="page-link">@i</a>
+    </li>
+}
+<li class="page-item" data-page="next">
+    <a class="page-link">
+        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    </a>
+</li>
+<script>
+    page = 1;
+    cate_id = "";
+    publishing_id = "";
+    sort = "";
+    strSearch = "";
+    $(document).ready(function () {
+        $(".cat_page .pagination .page-item").click(function (e) {
+            const dataSetPage = e.currentTarget.dataset.page;
+            const list = $(".cat_page .pagination .page-item ");
+            const max = list[list.length - 2].dataset.page;
+            if (dataSetPage == "pre") {
+                if (page <= 1)
+                    page = 1;
+                else page = parseInt(page) - 1;
+            } else if (dataSetPage == "next") {
+                if (page >= max)
+                    page = max;
+                else page = parseInt(page) + 1;
+            } else {
+                page = dataSetPage;
+            }
+            const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch }
+            $.ajax({
+                url: "/Category/loadData",
+                data: obj,
+                success: function (response) {
+                    $("#loadBook").html(response)
+                },
+                type: "GET",
+            })
+        });
+    })
+    
+</script>

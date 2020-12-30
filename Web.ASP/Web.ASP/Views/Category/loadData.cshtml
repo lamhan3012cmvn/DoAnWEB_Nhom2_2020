@@ -32,8 +32,20 @@
         </div>
     }
 <script>
-    var pagination =@Html.Raw(Json.Encode(ViewBag.paginationCount))
-        console.log(pagination)
+    var pagination =@Html.Raw(Json.Encode(ViewBag.paginationCount));
+    var cate_id =@Html.Raw(Json.Encode(ViewBag.cate_id));
+    var publishing_id =@Html.Raw(Json.Encode(ViewBag.publishing_id));
+    var sort=@Html.Raw(Json.Encode(ViewBag.sort));
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Category/loadPagination",
+                data: { count: pagination, cate_id, publishing_id, sort},
+                success: function (response) {
+                    $("#loadPagination").html(response)
+                },
+                type: "GET",
+            })
+        })
 
 </script>
 }

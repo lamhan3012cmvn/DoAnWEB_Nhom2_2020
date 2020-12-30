@@ -493,6 +493,7 @@
     <Content Include="Views\User\InformationUser.cshtml" />
     <Content Include="Views\User\BillDetail.cshtml" />
     <Content Include="Views\Admin\ProfileUser.cshtml" />
+    <Content Include="Views\Category\loadPagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
