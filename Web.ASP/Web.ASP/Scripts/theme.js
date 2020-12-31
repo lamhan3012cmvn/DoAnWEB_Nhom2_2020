@@ -201,14 +201,25 @@
 	/*----------------------------------------------------*/
     /*  Jquery Ui slider js
     /*----------------------------------------------------*/
-	$("#slider-range").slider({
+    $("#slider-range").slider({
         range: true,
         grid: true,
         min: 0,
         max: 500000,
         values: [0, 100],
         step: 10000,
-        slide: function( event, ui ) {
+        slide: function (event, ui) {
+            start = ui.values[0]
+            end = ui.values[1]
+            const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end}
+            $.ajax({
+                url: "/Category/loadData",
+                data: obj,
+                success: function (response) {
+                    $("#loadBook").html(response)
+                },
+                type: "GET",
+            })
             $("#amount").val(ui.values[0] + "VND" +" - " + ui.values[1] + "VND"  );
         }
 

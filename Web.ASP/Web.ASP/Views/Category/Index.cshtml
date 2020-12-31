@@ -5,6 +5,15 @@
 @{
     ViewBag.Title = "Category";
 }
+<script>
+    let page = 1;
+    let cate_id = "";
+    let publishing_id = "";
+    let sort = "";
+    let strSearch = "";
+    let start = 0;
+    let end = 500000;
+</script>
 <!--================Header Menu Area =================-->
 @Html.Partial("_HeaderComponent")
 <!--================Header Menu Area =================-->

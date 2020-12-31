@@ -1,10 +1,5 @@
 ﻿
 $(document).ready(function () {
-    let page = 1;
-    let cate_id = "";
-    let publishing_id = "";
-    let sort = "";
-    let strSearch = "";
     $("#category .widgets_inner .list li").click(function (e) {
         const notIsActiveCategory = $("#category .widgets_inner .list li");
         cate_id = e.currentTarget.dataset.categoryid;
@@ -12,7 +7,7 @@ $(document).ready(function () {
             notIsActiveCategory[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch }
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         ajaxLoadData("/Category/loadData", "#loadBook",obj)
     });
     $("#publishingHouse .widgets_inner .list li").click(function (e) {
@@ -22,7 +17,7 @@ $(document).ready(function () {
             notIsActivePublishingHouse[i].classList.remove('active')
         }
         e.currentTarget.classList.add('active');
-        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch }
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         ajaxLoadData("/Category/loadData", "#loadBook", obj)
     });
     $(".cat_page .pagination .page-item").click(function (e) {
@@ -40,7 +35,7 @@ $(document).ready(function () {
         } else {
             page = dataSetPage;
         }
-        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch }
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         $.ajax({
             url: "/Category/loadData",
             data: obj,
@@ -52,14 +47,14 @@ $(document).ready(function () {
     });
     $("#sort").change(function (e) {
         sort = $(this).val();
-        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort,str:strSearch }
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         ajaxLoadData("/Category/loadData", "#loadBook", obj)
     })
     $("#searchBook").keyup(function (e) {
         
         strSearch = e.currentTarget.value;
         console.log(strSearch)
-        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch }
+        const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         ajaxLoadData("/Category/loadData", "#loadBook", obj)
     })
     
