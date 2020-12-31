@@ -7,7 +7,7 @@
         <div class="logo-header">
 
             <a href="#" style="color:white; margin-right:10px">
-                Admin
+                AQ BOOKSTORE
             </a>
             <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
@@ -25,13 +25,13 @@
             <div class="sidebar-content">
                 <div class="user">
                     <div class="avatar-sm float-left mr-2">
-                        <img src="~/Content/img/admin.jpg" alt="..." class="avatar-img rounded-circle">
+                        <img src="~/Content/img/admin1.jpg" alt="..." class="avatar-img rounded-circle">
                     </div>
                     <div class="info" style="background:none !important">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
-                                KenZy Lam
-                                <span class="user-level">Administrator</span>
+                                @ViewBag.admin
+                                <span class="user-level">Quản trị viên</span>
                                 <span class="caret"></span>
                             </span>
                         </a>
@@ -41,12 +41,12 @@
                             <ul class="nav">
                                 <li>
                                     <a href="#" id="profile">
-                                        <span class="link-collapse">My Profile</span>
+                                        <span class="link-collapse">Hồ sơ của tôi</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" id="logout">
-                                        <span class="link-collapse">Logout</span>
+                                        <span class="link-collapse">Đăng xuất</span>
                                     </a>
                                 </li>
                             </ul>
@@ -57,7 +57,7 @@
                     <li class="nav-item">
                         <a href="/Home/Index">
                             <i class="fas fa-home"></i>
-                            <p>Home</p>
+                            <p>Trang chủ</p>
                         </a>
                     </li>
                     <li class="nav-section">
@@ -69,25 +69,25 @@
                     <li class="nav-item">
                         <a data-toggle="collapse" href="#base">
                             <i class="fas fa-layer-group"></i>
-                            <p>Book</p>
+                            <p>Sách</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="base">
                             <ul class="nav nav-collapse">
                                 <li>
                                     <a href="#" id="createBook">
-                                        <span class="sub-item">Create Book</span>
+                                        <span class="sub-item">Thêm sách</span>
                                     </a>
                                 </li>
 
                                 <li>
                                     <a href="#" id="viewBook">
-                                        <span class="sub-item">View Book</span>
+                                        <span class="sub-item">Sách</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" id="statisticalBook">
-                                        <span class="sub-item">Statistical Book</span>
+                                        <span class="sub-item">Thống kê</span>
                                     </a>
                                 </li>
                             </ul>
@@ -96,19 +96,19 @@
                     <li class="nav-item">
                         <a data-toggle="collapse" href="#user">
                             <i class="fas fa-user"></i>
-                            <p>User</p>
+                            <p>Người dùng</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="user">
                             <ul class="nav nav-collapse">
                                 <li>
                                     <a href="#" id="viewUser">
-                                        <span class="sub-item">View User</span>
+                                        <span class="sub-item">Người dùng</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#" id="statisticalUser">
-                                        <span class="sub-item">Statistical User</span>
+                                        <span class="sub-item">Thống kê</span>
                                     </a>
                                 </li>
                             </ul>
@@ -117,14 +117,14 @@
                     <li class="nav-item">
                         <a data-toggle="collapse" href="#billmanager">
                             <i class="fas fa-industry"></i>
-                            <p>Bill</p>
+                            <p>Quản lý đơn hàng</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="billmanager">
                             <ul class="nav nav-collapse">
                                 <li class="active">
                                     <a href="/Admin/BillManagement">
-                                        <span class="sub-item">Bill Management</span>
+                                        <span class="sub-item">Quản lý đơn hàng</span>
                                     </a>
                                 </li>
 

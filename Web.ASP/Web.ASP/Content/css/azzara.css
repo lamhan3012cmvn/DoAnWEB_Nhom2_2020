@@ -352,7 +352,7 @@ body {
     .sidebar .user .info .caret {
       position: absolute;
       top: 17px;
-      right: 0px;
+      right: -10px;
       border-top-color: #777; }
   .sidebar .sidebar-wrapper {
     position: relative;
