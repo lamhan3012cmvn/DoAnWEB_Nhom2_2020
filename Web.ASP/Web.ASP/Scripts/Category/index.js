@@ -51,9 +51,7 @@ $(document).ready(function () {
         ajaxLoadData("/Category/loadData", "#loadBook", obj)
     })
     $("#searchBook").keyup(function (e) {
-        
         strSearch = e.currentTarget.value;
-        console.log(strSearch)
         const obj = { categoryID: cate_id, publishingHouseID: publishing_id, page: page, sort: sort, str: strSearch, start, end }
         ajaxLoadData("/Category/loadData", "#loadBook", obj)
     })

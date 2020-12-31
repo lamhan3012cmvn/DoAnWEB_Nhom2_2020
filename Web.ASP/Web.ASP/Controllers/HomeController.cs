@@ -8,10 +8,11 @@ using System.Web.Services.Description;
 using Web.ASP.models;
 using Facebook;
 using System.Configuration;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
 using System.Security.Cryptography;
+using MailKit.Net.Smtp;
+using MimeKit;
+
+using System.Text;
 
 namespace Web.ASP.Controllers
 {
@@ -30,28 +31,34 @@ namespace Web.ASP.Controllers
                 return uriBuilder.Uri;
             }
         }
-        public void sendMail()
+        public void sendMail(string mail)
         {
-            var smtp = new SmtpClient("smtp.gmail.com", 587);
-            var mail = new MailMessage();
-
-            smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("AQbookVietNam@gmail.com", "aqbook123");
-
-            mail.From = new MailAddress("AQbookVietNam@gmail.com", "Bạn Nụ Cute");
-            mail.BodyEncoding = mail.SubjectEncoding = Encoding.UTF8;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-
-            mail.Body = "Nội dung email - có thể có cả thẻ html";
-            mail.Subject = "Xác nhận quên mật khẩu";
-            string mailTo = "laman3012@gmail.com";
-            mail.To.Add(mailTo);
-            smtp.UseDefaultCredentials = true;
-            smtp.Send(mail);
+            var msg = new MimeKit.MimeMessage();
+            msg.From.Add(new MailboxAddress("Bạn Nụ Cute", "aqbookvietnam@gmail.com"));
+            msg.To.Add(new MailboxAddress("abc", mail));
+            msg.Subject = "Pass";
+            msg.Body = new TextPart("plain")
+            {
+                Text = "abc"
+            };
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("aqbookvietnam@gmail.com", "aqbook123");
+                    client.Send(msg);
+                    client.Disconnect(true);
+                }
+            }
+            catch
+            {
+                return;
+            }
         }
         public ActionResult Index(int? page)
         {
+            
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(db.BOOKs.OrderBy(x => x.C_id).ToPagedList(pageNumber, pageSize));
@@ -66,6 +73,17 @@ namespace Web.ASP.Controllers
             }
             return View();
         }
+        //public ActionResult ForgetPassword()
+        //{
+        //    try
+        //    {
+        //        sendMail();
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //}
         public string GetMD5(string str)
         {
             str = str + "md5";

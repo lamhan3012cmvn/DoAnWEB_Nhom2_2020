@@ -470,7 +470,7 @@ namespace Web.ASP.Controllers
 
         public FileResult DownloadExcel()
         {
-            string path = "~/Content/TemplateOfBook/MauNhapSach.xlsx";
+            string path = "~/excel/MauNhapSach.xlsx";
             return File(path, "application/vnd.ms-excel", "MauNhapSach.xlsx");
         }
         [HttpPost]
@@ -582,6 +582,21 @@ namespace Web.ASP.Controllers
                 ViewBag.birth = str;
             }    
             return PartialView();
+        }
+        public ActionResult UpdateBook(string id)
+        {
+            ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
+            //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
+            ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
+            ViewBag.authorBook = new SelectList(db.AUTHORs, "C_id", "nameAuthor");
+            var book= db.BOOKs.Find(id);
+            ViewBag.book = book;
+            ViewBag.author_id = book.author_id;
+            ViewBag.publish_id = book.publishingHouseBook_ID;
+            ViewBag.cate_id = book.categoryBook_ID;
+            ViewBag.content = book.contentBook;
+            return PartialView();
+
         }
     }
 }

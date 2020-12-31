@@ -619,7 +619,7 @@ body {
     overflow: hidden;
     border-top: 1px solid #ebecec; }
 
-    .main-panel #modalCreate, .main-panel #modalCreatePH, .main-panel #modalCreateAuthor {
+    .main-panel #modalCreate, .main-panel #modalCreatePH, .main-panel #modalCreateAuthor, .main-panel #modalimportExcel {
         position: absolute;
         top: 50%;
         left: 50%;

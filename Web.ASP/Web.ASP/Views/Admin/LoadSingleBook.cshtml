@@ -34,8 +34,8 @@
                         abc
                     </div>
                     <div class="card_area">
-                        <button class="main_btn" id="">Quay lại</button>
-                        <button class="main_btn" id="">Chỉnh sửa</button>
+                        <button class="main_btn" id="back">Quay lại</button>
+                        <button class="main_btn" id="update">Chỉnh sửa</button>
                         <button class="main_btn" id="">Xóa</button>
                     </div>
                 </div>
@@ -113,3 +113,24 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        $("#back").click(function (e) {
+            e.preventDefault();
+            ajax("/Admin/viewBook", "#load_form")
+        })
+
+        $("#update").click(function (e) {
+            e.preventDefault();
+            var id=$('#idBook')[0].dataset.id;
+            $.ajax({
+                url: "/Admin/UpdateBook",
+                data: {id},
+                success: function (res) {
+                    $("#load_form").html(res)
+                },
+                type: "GET",
+            })
+        })       
+    })
+</script>

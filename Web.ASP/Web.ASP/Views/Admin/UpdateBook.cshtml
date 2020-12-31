@@ -1,4 +1,5 @@
-﻿<form class="cart_form_inner w-100 row d-flex justify-content-center"
+﻿
+<form class="cart_form_inner w-100 row d-flex justify-content-center"
       action="/Admin/AddBook"
       method="post"
       style="box-shadow:none">
@@ -9,13 +10,16 @@
             <input id="name" class="col-md-12 form-control"
                    name="nameBook"
                    placeholder="Nhập tên sách"
-                   type="text" />
+                   type="text" 
+                   value="@ViewBag.book.nameBook"/>
         </div>
         <div class="col-md-5 form-group mx-auto">
             <div class="left_dorp">
                 <select id="formAddCategory"
                         class="sorting w-100 size "
-                        name="categoryBook_ID">
+                        name="categoryBook_ID"
+                        value="@ViewBag.book.categoryBook_ID"
+                        ">
                     <option value="#">Thể Loại</option>
                     @foreach (var element in ViewBag.categoryBook.Items)
                     {
@@ -23,13 +27,19 @@
                     }
                     <option value="">Thêm Thể Loại...</option>
                 </select>
+                <script>
+                       var value =@Html.Raw(Json.Encode(ViewBag.cate_id))
+
+                           document.getElementById('formAddCategory').value = value
+                </script>
             </div>
         </div>
         <div class="col-md-5 form-group mx-auto">
             <div class="left_dorp">
                 <select id="formAddPublishingHouse"
                         class="sorting w-100"
-                        name="publishingHouseBook_ID">
+                        name="publishingHouseBook_ID"
+                        value="@ViewBag.book.publishingHouseBook_ID">
                     <option value="#">Nhà Xuất Bản</option>
 
                     @foreach (var element in ViewBag.publishingHouseBook.Items)
@@ -39,13 +49,18 @@
 
                     <option value="">Thêm Nhà Xuất Bản...</option>
                 </select>
+                <script>
+                       var value =@Html.Raw(Json.Encode(ViewBag.publish_id))
+                           document.getElementById('formAddPublishingHouse').value = value
+                </script>
             </div>
         </div>
         <div class="col-md-5 form-group mx-auto">
             <div class="left_dorp">
                 <select id="formAuthor"
                         class="sorting w-100 size "
-                        name="formAuthor">
+                        name="formAuthor"
+                        >
                     <option value="#">Tác Giả</option>
                     @foreach (var element in ViewBag.authorBook.Items)
                     {
@@ -53,44 +68,59 @@
                     }
                     <option value="">Thêm Tác Giả...</option>
                 </select>
+                <script>
+                       var value =@Html.Raw(Json.Encode(ViewBag.author_id))
+                           document.getElementById('formAuthor').value = value
+                </script>
             </div>
         </div>
         <div class="col-md-5 form-group mx-auto">
             <input id="count" class="col-md-12 form-control"
                    name="countBook"
                    placeholder="Số Lượng Sách"
-                   type="number" />
+                   type="number" 
+                    value="@ViewBag.book.countBook"
+                   />
         </div>
         <div class="col-md-5 form-group mx-auto">
             <input id="price" class="col-md-12 form-control"
                    name="priceBook"
                    placeholder="Giá Sách"
-                   type="number" />
+                   type="number" 
+                   value="@ViewBag.book.priceBook"/>
         </div>
         <div class="col-md-5 form-group mx-auto">
             <input id="sizeBook" class="col-md-12 form-control"
                    name="size"
                    placeholder="Kích thước"
-                   type="text" />
+                   type="text"
+                    value="@ViewBag.book.size"
+                   />
         </div>
         <div class="col-md-5 form-group mx-auto">
             <input id="numberOfPage" class="col-md-12 form-control"
                    name="numberOfPage"
                    placeholder="Số trang"
-                   type="number" />
+                   type="number"
+                   value="@ViewBag.book.numberOfPages"
+                   />
         </div>
         <div class="col-md-5 form-group mx-auto">
             <textarea id="content" class="col-md-12 form-control"
                       name="contentBook"
                       placeholder="Nhập nội dung sách"
-                      type="text"></textarea>
+                      type="text"
+                      value="@ViewBag.book.contentBook"></textarea>
+            <script>
+                       var value =@Html.Raw(Json.Encode(ViewBag.content))
+                           document.getElementById('content').value = value
+            </script>
         </div>
     </div>
 
 
     <div class="form-group mx-auto d-flex">
-        <div id="importExcel" class="btn submit_btn mr-2">Import Excel</div>
-        <div id="submit" class="btn submit_btn ml-2">Thêm Sách</div>
+        <div id="submit" class="btn submit_btn ml-2">Cập Nhật Sách</div>
     </div>
 </form>
 
@@ -153,45 +183,28 @@
     </script>
 </div>
 
-<div id="modalimportExcel" style="box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.14); display:none">
-
-    <form action="/Admin/ImportBook" method="post" enctype="multipart/form-data" class="cart_form_inner" style="height: auto;width: 500px;
-        box-shadow: none">
-        <h3>ImportExcel</h3>
-        <div class="col-md-10 form-group mx-auto">
-            <a href="@Url.Action("DownloadExcel","Admin")">Download Excel Template</a>
-        </div>
-        <div class="col-md-10 form-group mx-auto">
-            <input type="file" id="file" name="postedFile" hidden />
-            <label for="file" id="file_lbl" style="padding-bottom: 15px; width: 100%; border-bottom: 1px solid black; font-size: 16px !important;">Choose a file</label>
-        </div>
-
-        <div class="col-md-10 form-group d-flex mx-auto flex-wrap" style="padding-bottom:40px">
-            <button class="btn submit_btn">Thêm</button>
-            <button id="prePageImportBook" class="btn submit_btn">Trở về</button>
-        </div>
-    </form>
-    <script>
-        $("#prePageImportBook").click(function (e) {
-            e.preventDefault();
-            $("#modalimportExcel").hide()
-        })
-    </script>
-</div>
-
-
-
-<script src="~/Scripts/Admin/addBook.js"></script>
 <script>
+
+    $('select').niceSelect();
     $(document).ready(function () {
-        $("#file").change(function (e) {
-           
-            document.getElementById('file_lbl').innerHTML = $(this).val().substring(12)
-         
+        $("#formAddCategory").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreate").show()
+            }
         })
-            $("#importExcel").click(function () {
-                $("#modalimportExcel").show();
-            })
+        $("#formAddPublishingHouse").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreatePH").show()
+            }
+        })
+        $("#formAuthor").change(function (e) {
+            const selectedValue = $(this).val();
+            if (selectedValue.toString() === "") {
+                $("#modalCreateAuthor").show()
+            }
+        })
             $("#submit").click(function (e) {
                 e.preventDefault()
                 const nameB = $("#name").val()
@@ -234,4 +247,4 @@
                 //})
             })
         })
-    </script>
+</script>
