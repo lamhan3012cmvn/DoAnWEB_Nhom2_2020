@@ -25,6 +25,8 @@ namespace Web.ASP.Controllers
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
             //viewBag.discountBook_ID = new SelectList(db.DISCOUNT_BOOK, "C_id", "C_id");
             ViewBag.publishingHouseBook = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
+            var admin = Session["user"];
+            ViewBag.admin = db.INFORMATION.Find(admin.ToString()).nameInformation;
             return View();
         }
         [isLoginController]
@@ -420,7 +422,8 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult viewUser()
         {
-            var result = db.INFORMATION.ToList();
+            
+            var result = db.INFORMATION.Where(b => b.AUTH.powers == "0").ToList();
             return PartialView(result);
         }
         public void ExportExcel()

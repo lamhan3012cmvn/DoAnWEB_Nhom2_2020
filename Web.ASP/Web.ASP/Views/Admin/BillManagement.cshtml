@@ -2,6 +2,19 @@
 <!--================Header Menu Area =================-->
 @Html.Partial("_HeaderComponent")
 <!--================Header Menu Area =================-->
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>Quản lý đơn hàng</h2>
+                <div class="page_link">
+                    <a href="/Home/Index">Trang Chủ</a>
+                    <a href="/Admin/BillManagement">Quản lý đơn hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <div>
     <div class="app">
         <div class="container py-5">
@@ -12,29 +25,7 @@
             <input type="radio" name="tab-manager" id="tab-daGiao" hidden>
             <input type="radio" name="tab-manager" id="tab-daHuy" hidden>
             <input type="radio" name="tab-manager" id="tab-choNhanHang" hidden>
-            <div class="wrap-status">
-                <h1 class="status font-weight-normal tatCa">
-                    Tất cả đơn hàng
-                </h1>
-                <h1 class="status font-weight-normal choXacNhan">
-                    Chờ xác nhận (đơn hàng mới)
-                </h1>
-                <h1 class="status font-weight-normal choLayHang">
-                    Đã Xác nhận chờ lấy hàng
-                </h1>
-                <h1 class="status font-weight-normal dangGiao">
-                    Đang giao
-                </h1>
-                <h1 class="status font-weight-normal daGiao">
-                    Đã giao hàng
-                </h1>
-                <h1 class="status font-weight-normal daHuy">
-                    Đã Hủy
-                </h1>
-                <h1 class="status font-weight-normal choNhanHang">
-                    Trả hàng/Hoàn tiền
-                </h1>
-            </div>
+           
             <div class="wrap-content mt-5">
                 <div class="wrap-name-column">
                     <label for="tab-tatCa">Tất cả</label>
