@@ -22,7 +22,7 @@ namespace Web.ASP.Controllers
             return View(db.BOOKs.Where(b=>b.categoryBook_ID.Contains(category)).OrderBy(x=>x.C_id).ToPagedList(pageNumber,pageSize));
           
         }
-        public ActionResult loadData(string? categoryID,string? publishingHouseID, int? page,int? sort,string? str)
+        public ActionResult loadData(string? categoryID,string? publishingHouseID, int? page,int? sort,string? str,int? start,int ?end)
         {
             int pageSize = 8;
             int pageNumber = (page ?? 1);
@@ -30,7 +30,7 @@ namespace Web.ASP.Controllers
             string category = (categoryID ?? "");
             ViewBag.publishingHouse = new SelectList(db.PUBLISHING_HOUSE, "C_id", "namePublishingHouse");
             string publishingHouse = (publishingHouseID ?? "");
-            var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse)&&b.nameBook.Contains(str));
+            var result = db.BOOKs.Where(b => b.categoryBook_ID.Contains(category) && b.publishingHouseBook_ID.Contains(publishingHouse)&&b.nameBook.Contains(str)&&b.priceBook>=start&&b.priceBook<=end);
             ViewBag.paginationCount = (result.ToList().Count/pageSize)+1;
             ViewBag.categoryID = categoryID;
             ViewBag.publishingHouseID = publishingHouseID;
@@ -67,12 +67,10 @@ namespace Web.ASP.Controllers
             ViewBag.emailUser = user.C_id;
             return View();
         }
-        public ActionResult loadPagination(int count,string cate_id,string publishing_id,string sort)
+        public ActionResult loadPagination(int count)
         {
             ViewBag.count = count;
-            ViewBag.cate_id = cate_id;
-            ViewBag.publishing_id = publishing_id;
-            ViewBag.sort = sort; 
+            
             return PartialView();
         }
 
