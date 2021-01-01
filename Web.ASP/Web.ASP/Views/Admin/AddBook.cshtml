@@ -215,23 +215,22 @@
                     size: size,
                     numberOfPage: numberOfPage
                 }
-                console.log(objData)
-                //$.ajax({
-                //    url: "/Admin/ValidateBook",
-                //    type: "POST",
-                //    data: objData,
-                //    dataType: "JSON",
-                //    success: function (respone) {
-                //        if (respone.status == false)
-                //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
-                //        else {
-                //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                //            setTimeout(function () {
-                //                window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                //            }, 3300);
-                //        }
-                //    }
-                //})
+                $.ajax({
+                    url: "/admin/validatebook",
+                    type: "post",
+                    data: objdata,
+                    datatype: "json",
+                    success: function (respone) {
+                        if (respone.status == false)
+                            notify("thông báo", respone.message, "fas fa-exclamation-circle", "warning")
+                        else {
+                            notify("thông báo", respone.message, "fas fa-exclamation-circle", "success")
+                            settimeout(function () {
+                                window.location.href = '/' + respone.link.controllername + '/' + respone.link.actionname + '';
+                            }, 3300);
+                        }
+                    }
+                })
             })
         })
     </script>

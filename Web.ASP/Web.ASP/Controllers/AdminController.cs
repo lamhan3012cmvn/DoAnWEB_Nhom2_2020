@@ -147,7 +147,7 @@ namespace Web.ASP.Controllers
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            var book = db.BOOKs.Where(n => n.nameBook.Equals(nameBook)).SingleOrDefault();//???
+            var book = db.BOOKs.Where(n => n.nameBook.Equals(nameBook)).SingleOrDefault();
             if (!(book is null))
             {
                 var result = new
@@ -586,6 +586,7 @@ namespace Web.ASP.Controllers
             }    
             return PartialView();
         }
+        [HttpGet]
         public ActionResult UpdateBook(string id)
         {
             ViewBag.categoryBook = new SelectList(db.CATEGORies, "C_id", "nameCategory");
@@ -600,6 +601,138 @@ namespace Web.ASP.Controllers
             ViewBag.content = book.contentBook;
             return PartialView();
 
+        }
+        [HttpPost]
+        public ActionResult UpdateBook(string idBook,string nameBook, string contentBook, string categoryBook_ID,
+                                    string publishingHouseBook_ID, string authorBook_ID, string countBook, string priceBook, string size, string numberOfPage)
+        {
+            if (String.IsNullOrEmpty(nameBook))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập tên sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(contentBook))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập mô tả sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(categoryBook_ID))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn thể loại sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(publishingHouseBook_ID))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn nhà xuất bản"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(authorBook_ID))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng chọn tác giả"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(countBook))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập số lượng sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(priceBook))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập giá sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(size))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng nhập kích thước sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            if (String.IsNullOrEmpty(numberOfPage))
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Vui lòng số trang sách"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            try
+            {
+                var bookUpdate = db.BOOKs.Find(idBook);
+                if (bookUpdate is null)
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "Không tìm thấy sách để cập nhật"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    bookUpdate.nameBook = nameBook;
+                    bookUpdate.priceBook = Int32.Parse(priceBook);
+                    bookUpdate.contentBook = contentBook;
+                    bookUpdate.countBook = Int32.Parse(countBook);
+                    bookUpdate.imgBook_ID = "img01";
+                    bookUpdate.categoryBook_ID = categoryBook_ID;
+                    bookUpdate.publishingHouseBook_ID = publishingHouseBook_ID;
+                    bookUpdate.author_id = authorBook_ID;
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                        message = "Cập nhật sách thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                
+            }
+            catch
+            {
+                var error = new
+                {
+                    status = false,
+                    link = new
+                    {
+                        actionName = "AddBook",
+                        controllerName = "Admin"
+                    },
+                    message = "Nhập sách không thành công"
+                };
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -57,6 +57,23 @@ $(document).ready(function () {
             ajaxLogin()
         }
     });
+    $("#resetPass").click(function (e) {
+        e.preventDefault();
+        var id = $("#name").val();
+        console.log(id)
+        $.ajax({
+            url: "/Home/sendMail",
+            data: {mail:id},
+            success: function (response) {
+                if (respone.status == false)
+                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                else {
+                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                }
+            },
+            type: "GET",
+        })
+    })
     $("#submit").click(function (e) {
         loading(true)
         ajaxLogin()

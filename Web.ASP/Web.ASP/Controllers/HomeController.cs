@@ -31,15 +31,25 @@ namespace Web.ASP.Controllers
                 return uriBuilder.Uri;
             }
         }
-        public void sendMail(string mail)
+        public ActionResult sendMail(string mail)
         {
+            var ac=db.AUTHs.Find(mail);
+            if(ac is null)
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "username không tồn tại để được cập nhật lại mật khẩu"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }    
             var msg = new MimeKit.MimeMessage();
             msg.From.Add(new MailboxAddress("Bạn Nụ Cute", "aqbookvietnam@gmail.com"));
             msg.To.Add(new MailboxAddress("abc", mail));
             msg.Subject = "Pass";
             msg.Body = new TextPart("plain")
             {
-                Text = "abc"
+                Text = "https://localhost:44308/Home/forgetPassword?mail_id=" + mail
             };
             try
             {
@@ -50,11 +60,22 @@ namespace Web.ASP.Controllers
                     client.Send(msg);
                     client.Disconnect(true);
                 }
+                var result = new
+                {
+                    status = true,
+                    message = "Gửi mail thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return;
-            }
+                var result = new
+                {
+                    status = false,
+                    message = "Không thể gửi mail được mong bạn check lại username"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }  
         }
         public ActionResult Index(int? page)
         {
@@ -73,17 +94,56 @@ namespace Web.ASP.Controllers
             }
             return View();
         }
-        //public ActionResult ForgetPassword()
-        //{
-        //    try
-        //    {
-        //        sendMail();
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
+        [HttpGet]
+        public ActionResult forgetPassword(string mail_id)
+        {
+            var ac = db.INFORMATION.Find(mail_id);
+            ViewBag.userName = (ac is null) ? "" : ac.C_id;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult forgetPassword(string mail_id,string password)
+        {
+            try
+            {
+                var ac = db.AUTHs.Find(mail_id);
+                if(ac is null)
+                {
+                    var result = new
+                    {
+                        status = false,
+                        message = "Vui lòng kiểm tra lại userName"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    ac.password= GetMD5(password);
+                    db.SaveChanges();
+                    var result = new
+                    {
+                        status = true,
+                        link = new
+                        {
+                            actionName = "Login",
+                            controllerName = "Home"
+                        },
+                        message = "Cập nhật mật khẩu thành công"
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Quá trình cập nhật mật khẩu có vấn đề mong bạn thử lại"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+           
+        }
         public string GetMD5(string str)
         {
             str = str + "md5";

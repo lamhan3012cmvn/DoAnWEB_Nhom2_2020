@@ -1,7 +1,6 @@
 ﻿
 <form class="cart_form_inner w-100 row d-flex justify-content-center"
-      action="/Admin/AddBook"
-      method="post"
+      
       style="box-shadow:none">
 
     <h3 class="col-12 md-3">Thêm Sách</h3>
@@ -11,6 +10,7 @@
                    name="nameBook"
                    placeholder="Nhập tên sách"
                    type="text" 
+                   data-idBook="@ViewBag.book.C_id"
                    value="@ViewBag.book.nameBook"/>
         </div>
         <div class="col-md-5 form-group mx-auto">
@@ -19,7 +19,7 @@
                         class="sorting w-100 size "
                         name="categoryBook_ID"
                         value="@ViewBag.book.categoryBook_ID"
-                        ">
+                        >
                     <option value="#">Thể Loại</option>
                     @foreach (var element in ViewBag.categoryBook.Items)
                     {
@@ -207,6 +207,7 @@
         })
             $("#submit").click(function (e) {
                 e.preventDefault()
+                var idB = $("#name")[0].dataset.idBook;
                 const nameB = $("#name").val()
                 const contentB = $("#content").val()
                 const priceB = $("#price").val()
@@ -218,6 +219,7 @@
                 const numberOfPage = $("#numberOfPage").val()
 
                 const objData = {
+                    idBook: idB,
                     nameBook: nameB,
                     contentBook: contentB,
                     priceBook: priceB,
@@ -228,23 +230,19 @@
                     size: size,
                     numberOfPage: numberOfPage
                 }
-                console.log(objData)
-                //$.ajax({
-                //    url: "/Admin/ValidateBook",
-                //    type: "POST",
-                //    data: objData,
-                //    dataType: "JSON",
-                //    success: function (respone) {
-                //        if (respone.status == false)
-                //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
-                //        else {
-                //            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
-                //            setTimeout(function () {
-                //                window.location.href = '/' + respone.link.controllerName + '/' + respone.link.actionName + '';
-                //            }, 3300);
-                //        }
-                //    }
-                //})
+                $.ajax({
+                    url: "/Admin/UpdateBook",
+                    type: "POST",
+                    data: objData,
+                    dataType: "JSON",
+                    success: function (respone) {
+                        if (respone.status == false)
+                            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+                        else {
+                            notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                        }
+                    }
+                })
             })
         })
 </script>
