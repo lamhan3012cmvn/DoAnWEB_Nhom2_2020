@@ -192,7 +192,8 @@
             $("#importExcel").click(function () {
                 $("#modalimportExcel").show();
             })
-            $("#submit").click(function (e) {
+        $("#submit").click(function (e) {
+            
                 e.preventDefault()
                 const nameB = $("#name").val()
                 const contentB = $("#content").val()
@@ -216,17 +217,17 @@
                     numberOfPage: numberOfPage
                 }
                 $.ajax({
-                    url: "/admin/validatebook",
-                    type: "post",
-                    data: objdata,
-                    datatype: "json",
-                    success: function (respone) {
-                        if (respone.status == false)
-                            notify("thông báo", respone.message, "fas fa-exclamation-circle", "warning")
+                    url: "/Admin/ValidateBook",
+                    type: "POST",
+                    data: objData,
+                    datatype: "JSON",
+                    success: function (res) {
+                        if (res.status == false)
+                            notify("thông báo", res.message, "fas fa-exclamation-circle", "warning")
                         else {
-                            notify("thông báo", respone.message, "fas fa-exclamation-circle", "success")
+                            notify("thông báo", res.message, "fas fa-exclamation-circle", "success")
                             settimeout(function () {
-                                window.location.href = '/' + respone.link.controllername + '/' + respone.link.actionname + '';
+                                window.location.href = '/' + res.link.controllername + '/' + res.link.actionname + '';
                             }, 3300);
                         }
                     }

@@ -207,7 +207,7 @@
         })
             $("#submit").click(function (e) {
                 e.preventDefault()
-                var idB = $("#name")[0].dataset.idBook;
+                var idB = $("#name")[0].dataset.idbook;
                 const nameB = $("#name").val()
                 const contentB = $("#content").val()
                 const priceB = $("#price").val()
@@ -217,7 +217,7 @@
                 const author = $("#formAuthor").val()
                 const size = $("#sizeBook").val()
                 const numberOfPage = $("#numberOfPage").val()
-
+             
                 const objData = {
                     idBook: idB,
                     nameBook: nameB,

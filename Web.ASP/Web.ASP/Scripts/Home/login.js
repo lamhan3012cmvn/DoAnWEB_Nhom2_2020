@@ -64,11 +64,11 @@ $(document).ready(function () {
         $.ajax({
             url: "/Home/sendMail",
             data: {mail:id},
-            success: function (response) {
-                if (respone.status == false)
-                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "warning")
+            success: function (res) {
+                if (res.status == false)
+                    notify("Thông Báo", res.message, "fas fa-exclamation-circle", "warning")
                 else {
-                    notify("Thông Báo", respone.message, "fas fa-exclamation-circle", "success")
+                    notify("Thông Báo", res.message, "fas fa-exclamation-circle", "success")
                 }
             },
             type: "GET",
