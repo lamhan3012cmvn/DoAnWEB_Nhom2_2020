@@ -510,6 +510,7 @@
     <Content Include="Views\Category\loadPagination.cshtml" />
     <Content Include="Views\Admin\UpdateBook.cshtml" />
     <Content Include="Views\Home\forgetPassword.cshtml" />
+    <Content Include="Views\Admin\LoadIsDone.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

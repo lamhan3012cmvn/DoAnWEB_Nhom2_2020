@@ -309,6 +309,37 @@ namespace Web.ASP.Controllers
 
         }
         [isLoginController]
+        [HttpGet]
+        public ActionResult ChangeStatusUserBill(string order_id,string status, string actionChange)
+        {
+            var information_id = Session["user"].ToString();
+            try
+            {
+                var bill = db.BILLs.Where(t => t.order_id == order_id && t.information_id == information_id).ToList();
+                bill.ForEach(b =>
+                {
+                    b.status_bill = status;
+                    if (b.status_bill == "Đã giao")
+                    {
+                        b.receivedBook_date = DateTime.Now;
+                    }
+
+                });
+                db.SaveChanges();
+                return RedirectToAction(actionName: actionChange, controllerName: "Admin");
+            }
+            catch
+            {
+                var result = new
+                {
+                    status = false,
+                    message = "Xác nhận không thành công"
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [isLoginController]
         [isAdmin]
         public ActionResult LoadWaitingProduct()
         {
@@ -324,6 +355,13 @@ namespace Web.ASP.Controllers
             var bill_OnDelivery = db.BILLs.Where(t => t.status_bill.Contains("Đang giao")).OrderByDescending(t => t.order_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_OnDelivery = bill_OnDelivery;
             ViewBag.bill_OnDelivery_Count = bill_OnDelivery.Count;
+            return PartialView();
+        }
+        public ActionResult LoadIsDone()
+        {
+            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.receivedBook_date).Select(grp => grp.ToList()).ToList();
+            ViewBag.bill_isDone = bill_isDone;
+            ViewBag.bill_isDone_count = bill_isDone.Count;
             return PartialView();
         }
 
@@ -385,9 +423,7 @@ namespace Web.ASP.Controllers
         public ActionResult LoadChartJsOfUser()
         {
             var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.order_date.Year == DateTime.Now.Year).ToList();
-
-
-            //Top 10 loại sách bán chạy nhất trong năm
+            //Top 10 use bán chạy nhất trong năm
             List<string> lableRankUserInYear = new List<string>();
             List<int> valueRankUserInYear = new List<int>();
             var rankUserBuy = bill.GroupBy(t => t.information_id).Select(grp => new { user = grp.Key, data = grp.ToList() }).ToList();
@@ -705,7 +741,7 @@ namespace Web.ASP.Controllers
                     bookUpdate.priceBook = Int32.Parse(priceBook);
                     bookUpdate.contentBook = contentBook;
                     bookUpdate.countBook = Int32.Parse(countBook);
-                    bookUpdate.imgBook_ID = "img01";
+                    //bookUpdate.imgBook_ID = "img01";
                     bookUpdate.categoryBook_ID = categoryBook_ID;
                     bookUpdate.publishingHouseBook_ID = publishingHouseBook_ID;
                     bookUpdate.author_id = authorBook_ID;

@@ -51,6 +51,9 @@
                             </a>
                         </li>
                         <li>
+                            <a href="#"><span>Trạng thái đơn hàng</span>: @ViewBag.bills[0].status_bill</a>
+                        </li>
+                        <li>
                             <a href="#">
                                 <span>Hình thức thanh toán</span> : Thanh toán khi nhận hàng
                             </a>
@@ -120,7 +123,7 @@
                             </tr>
 
                         }
-                        <tr>
+                        @*<tr>
                             <td>
                                 <h4>Subtotal</h4>
                             </td>
@@ -133,7 +136,7 @@
                             <td>
                                 <p id="totalPrice"></p>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>
                                 <h4>Total</h4>
@@ -159,6 +162,6 @@
 @Html.Partial("_FooterComponent")
 <!--================ End footer Area  =================-->
 <script>
-    document.getElementById("totalPrice").innerHTML = totalPrice();
-    document.getElementById("total").innerHTML = totalPrice();
+    //document.getElementById("totalPrice").innerHTML = totalPrice("price");
+    document.getElementById("total").innerHTML = totalPrice("price");
 </script>

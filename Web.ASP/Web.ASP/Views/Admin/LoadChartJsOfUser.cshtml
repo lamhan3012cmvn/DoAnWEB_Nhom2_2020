@@ -18,13 +18,12 @@
             </div>
         </div>
     </div>
-
 </div>
 <script src="~/Content/vendors/chart.js/chart.min.js"></script>
 <script>
     var barChart = document.getElementById('barChart').getContext('2d');
     var rankUser = JSON.parse(@Html.Raw(Json.Encode(ViewBag.rankUser)));
-    console.log(rankUser)
+   
     var myBarChart = new Chart(barChart, {
         type: 'bar',
         data: {

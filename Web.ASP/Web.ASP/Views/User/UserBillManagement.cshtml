@@ -192,7 +192,7 @@
                                             <div class="col-4 d-flex justify-content-between">
                                                 <div>
                                                     <img src="@b.BOOK.IMAGE_BOOK.link" alt="avatar" style="width:20px; height:20px" />
-                                                    <span data-order_id="@b.order_id" id="id_order">@b.BOOK.nameBook</span>
+                                                    <span data-order_id="@b.order_id" class="id_order">@b.BOOK.nameBook</span>
                                                 </div>
                                                 <span>x @b.total</span>
                                             </div>
@@ -278,7 +278,7 @@
                         }
                     </div>
                     @*Đã Giao*@
-                    <div class="tab-item tabDaGiao">
+                    <div class="tab-item tabDaGiao" id="isDoneProduct">
                         <div class="row d-flex justify-content-between">
                             <h3 class="soLuong font-weight-bold">@ViewBag.bill_isDone_Count Đơn hàng</h3>
                             <span class="btnChonNgay">Chọn ngày/In phiếu hàng loạt</span>
@@ -528,38 +528,32 @@
             }
     </style>
 
-    @*<script>
-            $(document).ready(function () {
-                $(".confirm_product").click(function (e) {
-                    const current = e.currentTarget
-                    if (current.disabled && current.disabled === true) {
-
+    <script>
+        const ChangeStatusUserBill = (element, elementChange, status, action) => {
+            $(element).click(function (e) {
+                const current = e.currentTarget
+                if (!current.disabled) {
+                    current.disabled = true
+                    current.classList.add("disabled")
+                    const order_id = current.parentNode.parentElement.children[0].children[0].innerHTML
+                    const objData = {
+                        order_id,
+                        status,
+                        actionChange: action
                     }
-                    else {
-                        current.disabled = true
-                        current.classList.add("disabled")
-                        const order_id = document.getElementById("id_order").dataset.order_id
-                        const information_id = document.getElementById("id_info").innerHTML
-                        const book_id = document.getElementById("id_book").innerHTML
-                        const objData = {
-                            order_id,
-                            information_id,
-                            book_id,
-                            status : "Chờ lấy hàng"
+                    console.log(objData)
+                    $.ajax({
+                        url: "/Admin/ChangeStatusUserBill",
+                        type: "GET",
+                        data: objData,
+                        success: function (res) {
+                            $(elementChange).html(res)
                         }
-                        $.ajax({
-                            url: "/Admin/ChangeStatus",
-                            type: "GET",
-                            data: objData,
-                            datatype: "JSON",
-                            success: function (res) {
-                                if (!(res.status)) {
-                                    notify("Thông báo", res.message, "fas fa-exclamation", "warning")
-                                }
-                            }
-                        })
-                    }
-
-                })
+                    })
+                }
             })
-        </script>*@
+        }
+        $(document).ready(function () {
+            ChangeStatusUserBill(".confirm_product", "#isDoneProduct", "Đã giao", "LoadIsDone");
+        })
+    </script>
