@@ -249,12 +249,12 @@ namespace Web.ASP.Controllers
             ViewBag.bill_WaitingForDelivery_k_Count = bill_WaitingForDelivery_k.Count;
 
             //Đã Hủy or Giao Không thành công
-            var bill_Cancel = db.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.cancel_date).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
+            var bill_Cancel = db.BILLs.Where(t => t.status_bill.Contains("Đã hủy")).OrderByDescending(t => t.order_id).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_Cancel = bill_Cancel;
             ViewBag.bill_Cancel_Count = bill_Cancel.Count;
 
             //Đã giao
-            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.receivedBook_date).Select(grp => grp.ToList()).ToList();
+            var bill_isDone = db.BILLs.Where(t => t.status_bill.Contains("Đã giao")).GroupBy(b => b.order_id).Select(grp => grp.ToList()).ToList();
             ViewBag.bill_isDone = bill_isDone;
             ViewBag.bill_isDone_count = bill_isDone.Count;
 
@@ -369,9 +369,9 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult LoadChartJs()
         {
-            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.order_date.Year == DateTime.Now.Year).ToList();
+            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.receivedBook_date.Value.Year == DateTime.Now.Year).ToList();
             //Doanh thu theo từng tháng trên 1 năm
-            var revenueMonth = bill.GroupBy(t => t.order_date.Month).Select(grp => new { month = grp.Key, data = grp.ToList() }).ToList();
+            var revenueMonth = bill.GroupBy(t => t.receivedBook_date.Value.Month).Select(grp => new { month = grp.Key, data = grp.ToList() }).ToList();
 
             List<int> revenueMonthArr = new List<int>();
             for (int i = 1; i <= 12; i++)
@@ -422,7 +422,7 @@ namespace Web.ASP.Controllers
         [isAdmin]
         public ActionResult LoadChartJsOfUser()
         {
-            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.order_date.Year == DateTime.Now.Year).ToList();
+            var bill = db.BILLs.Where(b => b.status_bill.Equals("Đã giao") && b.receivedBook_date.Value.Year == DateTime.Now.Year).ToList();
             //Top 10 use bán chạy nhất trong năm
             List<string> lableRankUserInYear = new List<string>();
             List<int> valueRankUserInYear = new List<int>();
